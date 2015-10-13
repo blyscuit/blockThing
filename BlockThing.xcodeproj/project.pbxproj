@@ -129,6 +129,8 @@
 				68A0659B1BCCA6F40080A28C /* Map.swift */,
 				9A9033FA1BCCE85B00D47C4B /* Hero.swift */,
 				68A0659F1BCCAF260080A28C /* Tile.swift */,
+				68A065AE1BCCE84C0080A28C /* Monster.swift */,
+				68A065B01BCCEB170080A28C /* CircleMonster.swift */,
 				68A0659D1BCCA79B0080A28C /* Array2D.swift */,
 				683AF6E21BCC14E600DBCCBC /* GameViewController.swift */,
 				683AF6E41BCC14E600DBCCBC /* Main.storyboard */,
@@ -305,6 +307,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68A065B11BCCEB170080A28C /* CircleMonster.swift in Sources */,
+				68A065AF1BCCE84C0080A28C /* Monster.swift in Sources */,
 				683AF6E11BCC14E600DBCCBC /* GameScene.swift in Sources */,
 				683AF6E31BCC14E600DBCCBC /* GameViewController.swift in Sources */,
 				68A0659C1BCCA6F40080A28C /* Map.swift in Sources */,

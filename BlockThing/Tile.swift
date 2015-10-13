@@ -24,22 +24,18 @@ class Tile : CustomStringConvertible {
     var description: String {
         return "type:\(tileType) square:(\(column),\(row))"
     }
-    
-    var hashValue: Int {
-        return row*10 + column
-    }
 }
 
 enum TileType: Int, CustomStringConvertible {
-    case Unknown = 0, Button, Ground, Lava, Monster
+    case Unknown = 0,Ground , Lava,Wall, Monster, Button
     
     var spriteName: String {
         let spriteNames = [
-            "button",
             "plain",
             "lava",
             "wall",
-            "monster"]
+            "monster",
+            "button"]
         
         return spriteNames[rawValue - 1]
     }

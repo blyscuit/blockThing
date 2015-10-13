@@ -35,6 +35,12 @@ class GameScene: SKScene {
 //            sprite.runAction(SKAction.repeatActionForever(action))
 //            
 //            self.addChild(sprite)
+            
+            
+            let circleMonster = CircleMonster(imageNamed: "mon", inX: 1, inY: 1)
+                        let location = touch.locationInNode(self)
+                        circleMonster.position = location
+            self.addChild(circleMonster)
         }
     }
    
@@ -47,18 +53,18 @@ class GameScene: SKScene {
     func addTiles() {
         for row in 0..<NumRows {
             for column in 0..<NumColumns {
-//                if let tile = map.tileAtColumn(column, row: row) {
-                    let tileNode = SKSpriteNode(imageNamed: "lava")
+                if let tile = myMap.tileAtColumn(column, row: row) {
+                    let tileNode = SKSpriteNode(imageNamed:tile.tileType.spriteName)
                     tileNode.position = pointForColumn(column, row: row)
                     tileNode.size = CGSize(width: 80, height: 80)
                     tilesLayer.addChild(tileNode)
-//                }
+                }
             }
         }
     }
     
-    let TileWidth: CGFloat = 80.0
-    let TileHeight: CGFloat = 80.0
+    
+    var myMap : Map!
     
     func pointForColumn(column: Int, row: Int) -> CGPoint {
         return CGPoint(
