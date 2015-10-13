@@ -14,6 +14,8 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        var level: Map!
+        
         if let scene = GameScene(fileNamed:"GameScene") {
             // Configure the view.
             let skView = self.view as! SKView
@@ -27,6 +29,10 @@ class GameViewController: UIViewController {
             scene.scaleMode = .AspectFill
             
             skView.presentScene(scene)
+//            
+//            level = Map()
+//            scene.level = level
+//            level = Level(filename: "Level_1")
         }
     }
 

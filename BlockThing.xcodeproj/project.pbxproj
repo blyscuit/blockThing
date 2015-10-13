@@ -16,6 +16,15 @@
 		683AF6EB1BCC14E700DBCCBC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 683AF6E91BCC14E700DBCCBC /* LaunchScreen.storyboard */; };
 		683AF6F61BCC14E700DBCCBC /* BlockThingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AF6F51BCC14E700DBCCBC /* BlockThingTests.swift */; };
 		683AF7011BCC14E700DBCCBC /* BlockThingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AF7001BCC14E700DBCCBC /* BlockThingUITests.swift */; };
+		68A0659C1BCCA6F40080A28C /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A0659B1BCCA6F40080A28C /* Map.swift */; settings = {ASSET_TAGS = (); }; };
+		68A0659E1BCCA79B0080A28C /* Array2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A0659D1BCCA79B0080A28C /* Array2D.swift */; settings = {ASSET_TAGS = (); }; };
+		68A065A01BCCAF260080A28C /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A0659F1BCCAF260080A28C /* Tile.swift */; settings = {ASSET_TAGS = (); }; };
+		68A065A71BCCB57E0080A28C /* Level_0.json in Resources */ = {isa = PBXBuildFile; fileRef = 68A065A21BCCB57E0080A28C /* Level_0.json */; settings = {ASSET_TAGS = (); }; };
+		68A065A81BCCB57E0080A28C /* Level_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 68A065A31BCCB57E0080A28C /* Level_1.json */; settings = {ASSET_TAGS = (); }; };
+		68A065A91BCCB57E0080A28C /* Level_2.json in Resources */ = {isa = PBXBuildFile; fileRef = 68A065A41BCCB57E0080A28C /* Level_2.json */; settings = {ASSET_TAGS = (); }; };
+		68A065AA1BCCB57E0080A28C /* Level_3.json in Resources */ = {isa = PBXBuildFile; fileRef = 68A065A51BCCB57E0080A28C /* Level_3.json */; settings = {ASSET_TAGS = (); }; };
+		68A065AB1BCCB57E0080A28C /* Level_4.json in Resources */ = {isa = PBXBuildFile; fileRef = 68A065A61BCCB57E0080A28C /* Level_4.json */; settings = {ASSET_TAGS = (); }; };
+		68A065AD1BCCB5AA0080A28C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A065AC1BCCB5AA0080A28C /* Extensions.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +60,15 @@
 		683AF6FC1BCC14E700DBCCBC /* BlockThingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlockThingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		683AF7001BCC14E700DBCCBC /* BlockThingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockThingUITests.swift; sourceTree = "<group>"; };
 		683AF7021BCC14E700DBCCBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		68A0659B1BCCA6F40080A28C /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		68A0659D1BCCA79B0080A28C /* Array2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array2D.swift; sourceTree = "<group>"; };
+		68A0659F1BCCAF260080A28C /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
+		68A065A21BCCB57E0080A28C /* Level_0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_0.json; sourceTree = "<group>"; };
+		68A065A31BCCB57E0080A28C /* Level_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_1.json; sourceTree = "<group>"; };
+		68A065A41BCCB57E0080A28C /* Level_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_2.json; sourceTree = "<group>"; };
+		68A065A51BCCB57E0080A28C /* Level_3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_3.json; sourceTree = "<group>"; };
+		68A065A61BCCB57E0080A28C /* Level_4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_4.json; sourceTree = "<group>"; };
+		68A065AC1BCCB5AA0080A28C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +103,7 @@
 				683AF6F41BCC14E700DBCCBC /* BlockThingTests */,
 				683AF6FF1BCC14E700DBCCBC /* BlockThingUITests */,
 				683AF6DA1BCC14E600DBCCBC /* Products */,
+				68A065A11BCCB57E0080A28C /* Levels */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,7 +122,11 @@
 			children = (
 				683AF6DC1BCC14E600DBCCBC /* AppDelegate.swift */,
 				683AF6DE1BCC14E600DBCCBC /* GameScene.sks */,
+				68A065AC1BCCB5AA0080A28C /* Extensions.swift */,
 				683AF6E01BCC14E600DBCCBC /* GameScene.swift */,
+				68A0659B1BCCA6F40080A28C /* Map.swift */,
+				68A0659F1BCCAF260080A28C /* Tile.swift */,
+				68A0659D1BCCA79B0080A28C /* Array2D.swift */,
 				683AF6E21BCC14E600DBCCBC /* GameViewController.swift */,
 				683AF6E41BCC14E600DBCCBC /* Main.storyboard */,
 				683AF6E71BCC14E600DBCCBC /* Assets.xcassets */,
@@ -129,6 +152,18 @@
 				683AF7021BCC14E700DBCCBC /* Info.plist */,
 			);
 			path = BlockThingUITests;
+			sourceTree = "<group>";
+		};
+		68A065A11BCCB57E0080A28C /* Levels */ = {
+			isa = PBXGroup;
+			children = (
+				68A065A21BCCB57E0080A28C /* Level_0.json */,
+				68A065A31BCCB57E0080A28C /* Level_1.json */,
+				68A065A41BCCB57E0080A28C /* Level_2.json */,
+				68A065A51BCCB57E0080A28C /* Level_3.json */,
+				68A065A61BCCB57E0080A28C /* Level_4.json */,
+			);
+			path = Levels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,8 +270,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				683AF6DF1BCC14E600DBCCBC /* GameScene.sks in Resources */,
+				68A065AB1BCCB57E0080A28C /* Level_4.json in Resources */,
+				68A065A91BCCB57E0080A28C /* Level_2.json in Resources */,
+				68A065A71BCCB57E0080A28C /* Level_0.json in Resources */,
 				683AF6EB1BCC14E700DBCCBC /* LaunchScreen.storyboard in Resources */,
 				683AF6E81BCC14E600DBCCBC /* Assets.xcassets in Resources */,
+				68A065A81BCCB57E0080A28C /* Level_1.json in Resources */,
+				68A065AA1BCCB57E0080A28C /* Level_3.json in Resources */,
 				683AF6E61BCC14E600DBCCBC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,7 +304,11 @@
 			files = (
 				683AF6E11BCC14E600DBCCBC /* GameScene.swift in Sources */,
 				683AF6E31BCC14E600DBCCBC /* GameViewController.swift in Sources */,
+				68A0659C1BCCA6F40080A28C /* Map.swift in Sources */,
+				68A065A01BCCAF260080A28C /* Tile.swift in Sources */,
 				683AF6DD1BCC14E600DBCCBC /* AppDelegate.swift in Sources */,
+				68A0659E1BCCA79B0080A28C /* Array2D.swift in Sources */,
+				68A065AD1BCCB5AA0080A28C /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,6 +539,7 @@
 				683AF7071BCC14E700DBCCBC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		683AF7081BCC14E700DBCCBC /* Build configuration list for PBXNativeTarget "BlockThingTests" */ = {
 			isa = XCConfigurationList;
@@ -503,6 +548,7 @@
 				683AF70A1BCC14E700DBCCBC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		683AF70B1BCC14E700DBCCBC /* Build configuration list for PBXNativeTarget "BlockThingUITests" */ = {
 			isa = XCConfigurationList;
@@ -511,6 +557,7 @@
 				683AF70D1BCC14E700DBCCBC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
