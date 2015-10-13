@@ -11,7 +11,7 @@ import SpriteKit
 class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
-        
+        myMap = Map(filename: "Level_1")
         addTiles()
         self.addChild(tilesLayer);
     }
@@ -45,18 +45,20 @@ class GameScene: SKScene {
     func addTiles() {
         for row in 0..<NumRows {
             for column in 0..<NumColumns {
-//                if let tile = map.tileAtColumn(column, row: row) {
-                    let tileNode = SKSpriteNode(imageNamed: "lava")
+                if let tile = myMap.tileAtColumn(column, row: row) {
+                    let tileNode = SKSpriteNode(imageNamed:tile.tileType.spriteName)
                     tileNode.position = pointForColumn(column, row: row)
                     tileNode.size = CGSize(width: 80, height: 80)
                     tilesLayer.addChild(tileNode)
-//                }
+                }
             }
         }
     }
     
     let TileWidth: CGFloat = 80.0
     let TileHeight: CGFloat = 80.0
+    
+    var myMap : Map!
     
     func pointForColumn(column: Int, row: Int) -> CGPoint {
         return CGPoint(
