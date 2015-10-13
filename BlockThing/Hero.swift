@@ -15,6 +15,10 @@ class Hero: SKSpriteNode {
         let square = SKTexture(imageNamed: "Hero")
         super.init(texture: square, color: UIColor.blackColor(), size: CGSize(width: 50, height: 50))
         position = CGPointMake(xd, yd)
+        square.physicsBody = SKPhysicsBody(circleOfRadius:
+            (square.size.width/2))
+        square.physicsBody?.usesPreciseCollisionDetection = true
+        square.physicsBody?.categoryBitMask = ballCategory
     }
 
     required init?(coder aDecoder: NSCoder) {
