@@ -9,11 +9,13 @@
 import SpriteKit
 
 class GameScene: SKScene {
+    
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
-        
         addTiles()
         self.addChild(tilesLayer);
+        let hero = Hero(xd: self.frame.width/2, yd: self.frame.height/2)
+        self.addChild(hero)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -63,4 +65,8 @@ class GameScene: SKScene {
             x: CGFloat(column)*TileWidth + TileWidth/2,
             y: CGFloat(row)*TileHeight + TileHeight/2)
     }
+    
+    
 }
+
+
