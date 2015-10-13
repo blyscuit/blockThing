@@ -17,14 +17,15 @@ class Hero: SKSpriteNode {
     
     init(xd: Int, yd: Int) {
         let square = SKTexture(imageNamed: "Hero")
-        super.init(texture: square, color: UIColor.blackColor(), size: CGSize(width: 50, height: 50))
+        super.init(texture: square, color: UIColor.blackColor(), size:square.size())
         
         var body:SKPhysicsBody = SKPhysicsBody(rectangleOfSize:square.size() )
         body.dynamic = false
         body.affectedByGravity = false
         body.allowsRotation = false
-        body.categoryBitMask = BodyType.hero.rawValue //was toRaw() in Xcode 6
-//        body.contactTestBitMask = BodyType.monster.rawValue // was toRaw() in Xcode 6
+        body.categoryBitMask = BodyType.hero.rawValue
+        body.contactTestBitMask = BodyType.monster.rawValue
+        body.collisionBitMask = 0
         
         self.physicsBody = body
         
@@ -36,5 +37,21 @@ class Hero: SKSpriteNode {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    func goLeft(){
+        x--;
+    }
+    func goRight(){
+        
+        x++;
+    }
+    func goUp(){
+        
+        y++;
+    }
+    func goDown(){
+        
+        y--;
+        
+    }
 }

@@ -13,6 +13,7 @@ enum BodyType:UInt32 {
     case hero = 1
     case ground = 2
     case monster = 4
+    case emptyness = 9
     
 }
 
@@ -20,6 +21,10 @@ let TileWidth: CGFloat = 80.0
 let TileHeight: CGFloat = 80.0
 
 class GameScene: SKScene,SKPhysicsContactDelegate {
+    var hero:Hero!
+    var justMove = false;
+    var fingerPosition:CGPoint?
+    
     override func didMoveToView(view: SKView) {
         
         physicsWorld.contactDelegate = self
@@ -29,18 +34,21 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         addTiles()
         self.addChild(tilesLayer);
         
-        let circleMonster = CircleMonster(imageNamed: "mon", inX: 5, inY: 4)
-        circleMonster.zPosition = 2;
-        circleMonster.position = pointForColumn(circleMonster.x, row: circleMonster.y)
-        self.addChild(circleMonster)
-        var hero = Hero(xd: 4, yd: 4)
-        hero.position = pointForColumn(hero.x, row: hero.y)
-        self.addChild(hero)
+//        let circleMonster = CircleMonster(imageNamed: "mon", inX: 5, inY: 4)
+//        circleMonster.zPosition = 2;
+//        circleMonster.position = pointForColumn(circleMonster.x, row: circleMonster.y)
+//        self.addChild(circleMonster)
+//        hero = Hero(xd: NumColumns/2, yd: NumRows/2)
+//        hero.position = pointForColumn(hero.x, row: hero.y)
+//        self.addChild(hero)
+        
+        tilesLayer.position = CGPointMake(0, 0)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
-        
+        fingerPosition = touches.first?.locationInNode(self)
+        justMove = false;
         for touch in touches {
 //            let location = touch.locationInNode(self)
 //            
@@ -63,12 +71,31 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             self.addChild(circleMonster)
         }
     }
+    
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if(justMove){return;}
+        if(touches.first?.locationInNode(self).x > (fingerPosition?.x)!+10){
+            hero.goRight()
+            tilesLayer.goRight()
+        }else if(touches.first?.locationInNode(self).x < (fingerPosition?.x)!-10){
+            hero.goLeft()
+            tilesLayer.goLeft()
+        }else if(touches.first?.locationInNode(self).y > (fingerPosition?.y)!+10){
+            hero.goUp()
+            tilesLayer.goUp()
+        }else if(touches.first?.locationInNode(self).y < (fingerPosition?.y)!-10){
+            hero.goDown()
+            tilesLayer.goDown()
+        }
+        
+        justMove = true;
+    }
    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
     }
     
-    let tilesLayer = SKNode()
+    let tilesLayer = MoveMap()
     
     func addTiles() {
         for row in 0..<NumRows {
@@ -97,14 +124,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         //this gets called automatically when two objects begin contact with each other
         
-//        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         
         if (contact.bodyA.categoryBitMask == BodyType.hero.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue )  {
             
-            print("bodyA was our Bro class, bodyB was the ground")
+            print("bodyA was our Bro hero, bodyB was the monster")
         } else if (contact.bodyA.categoryBitMask == BodyType.hero.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue )  {
             
-            print("bodyB was our Bro class, bodyA was the ground")
+            print("bodyB was our Bro hero, bodyA was the monster")
         }
         
     }
