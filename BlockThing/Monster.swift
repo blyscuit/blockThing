@@ -21,14 +21,14 @@ class Monster:SKSpriteNode {
         
         super.init(texture: imageTexture, color: UIColor.clearColor(), size: imageTexture.size())
         
-//        var body:SKPhysicsBody = SKPhysicsBody(circleOfRadius: (imageTexture.size().width / 2.6) )
-//        body.dynamic = true
-//        body.affectedByGravity = false
-//        body.allowsRotation = false
-//        body.categoryBitMask = BodyType.monster.rawValue //was toRaw() in Xcode 6
-//        body.contactTestBitMask = BodyType.hero.rawValue // was toRaw() in Xcode 6
-//        
-//        self.physicsBody = body
+        var body:SKPhysicsBody = SKPhysicsBody(circleOfRadius: (imageTexture.size().width / 2.6) )
+        body.dynamic = false
+        body.affectedByGravity = false
+        body.allowsRotation = false
+        body.categoryBitMask = BodyType.monster.rawValue //was toRaw() in Xcode 6
+        body.contactTestBitMask = BodyType.hero.rawValue // was toRaw() in Xcode 6
+        
+        self.physicsBody = body
         
         x=inX
         y=inY

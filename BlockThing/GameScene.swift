@@ -29,11 +29,12 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         addTiles()
         self.addChild(tilesLayer);
         
-        let circleMonster = Monster(imageNamed: "mon", inX: 1, inY: 1)
+        let circleMonster = CircleMonster(imageNamed: "mon", inX: 5, inY: 4)
         circleMonster.zPosition = 2;
         circleMonster.position = pointForColumn(circleMonster.x, row: circleMonster.y)
         self.addChild(circleMonster)
-        let hero = Hero(xd: self.frame.width/2, yd: self.frame.height/2)
+        var hero = Hero(xd: 4, yd: 4)
+        hero.position = pointForColumn(hero.x, row: hero.y)
         self.addChild(hero)
     }
     
@@ -76,6 +77,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     let tileNode = SKSpriteNode(imageNamed:tile.tileType.spriteName)
                     tileNode.position = pointForColumn(column, row: row)
                     tileNode.size = CGSize(width: 80, height: 80)
+                    tileNode.zPosition = -1
                     tilesLayer.addChild(tileNode)
                 }
             }
@@ -95,7 +97,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         //this gets called automatically when two objects begin contact with each other
         
-        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+//        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         
         if (contact.bodyA.categoryBitMask == BodyType.hero.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue )  {
             

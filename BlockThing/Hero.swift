@@ -10,8 +10,12 @@ import SpriteKit
 
 import Foundation
 
+
 class Hero: SKSpriteNode {
-    init(xd: CGFloat, yd: CGFloat) {
+    var x=0
+    var y=0
+    
+    init(xd: Int, yd: Int) {
         let square = SKTexture(imageNamed: "Hero")
         super.init(texture: square, color: UIColor.blackColor(), size: CGSize(width: 50, height: 50))
         position = CGPointMake(xd, yd)
