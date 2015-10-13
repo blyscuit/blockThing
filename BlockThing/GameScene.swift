@@ -8,12 +8,31 @@
 
 import SpriteKit
 
-class GameScene: SKScene {
+enum BodyType:UInt32 {
+    
+    case hero = 1
+    case ground = 2
+    case monster = 4
+    
+}
+
+let TileWidth: CGFloat = 80.0
+let TileHeight: CGFloat = 80.0
+
+class GameScene: SKScene,SKPhysicsContactDelegate {
     override func didMoveToView(view: SKView) {
+        
+        physicsWorld.contactDelegate = self
+        
         /* Setup your scene here */
         myMap = Map(filename: "Level_1")
         addTiles()
         self.addChild(tilesLayer);
+        
+        let circleMonster = Monster(imageNamed: "mon", inX: 1, inY: 1)
+        circleMonster.zPosition = 2;
+        circleMonster.position = pointForColumn(circleMonster.x, row: circleMonster.y)
+        self.addChild(circleMonster)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -33,6 +52,12 @@ class GameScene: SKScene {
 //            sprite.runAction(SKAction.repeatActionForever(action))
 //            
 //            self.addChild(sprite)
+            
+            
+            let circleMonster = CircleMonster(imageNamed: "mon", inX: 1, inY: 1)
+                        let location = touch.locationInNode(self)
+                        circleMonster.position = location
+            self.addChild(circleMonster)
         }
     }
    
@@ -55,8 +80,6 @@ class GameScene: SKScene {
         }
     }
     
-    let TileWidth: CGFloat = 80.0
-    let TileHeight: CGFloat = 80.0
     
     var myMap : Map!
     
@@ -64,5 +87,21 @@ class GameScene: SKScene {
         return CGPoint(
             x: CGFloat(column)*TileWidth + TileWidth/2,
             y: CGFloat(row)*TileHeight + TileHeight/2)
+    }
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        
+        //this gets called automatically when two objects begin contact with each other
+        
+        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        
+        if (contact.bodyA.categoryBitMask == BodyType.hero.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue )  {
+            
+            print("bodyA was our Bro class, bodyB was the ground")
+        } else if (contact.bodyA.categoryBitMask == BodyType.hero.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue )  {
+            
+            print("bodyB was our Bro class, bodyA was the ground")
+        }
+        
     }
 }
