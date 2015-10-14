@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class MoveMap: SKNode {
+class MoveMap: SKSpriteNode {
     func goLeft(){
         
         let action = SKAction.moveBy(CGVectorMake(TileWidth,0), duration: 0.4);

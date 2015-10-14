@@ -27,7 +27,7 @@ class Tile : CustomStringConvertible {
 }
 
 enum TileType: Int, CustomStringConvertible {
-    case Unknown = 0,Ground , Lava,Wall, Monster, Button
+    case Unknown = 0,Ground , Lava,Wall, Monster, Button, Birth, Key, Lock,Door
     
     var spriteName: String {
         let spriteNames = [
@@ -35,7 +35,11 @@ enum TileType: Int, CustomStringConvertible {
             "lava",
             "wall",
             "monster",
-            "button"]
+            "button",
+        "plain",
+        "plain",
+        "lock",
+        "Door"]
         
         return spriteNames[rawValue - 1]
     }

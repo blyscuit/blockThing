@@ -34,15 +34,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         addTiles()
         self.addChild(tilesLayer);
         
-//        let circleMonster = CircleMonster(imageNamed: "mon", inX: 5, inY: 4)
-//        circleMonster.zPosition = 2;
-//        circleMonster.position = pointForColumn(circleMonster.x, row: circleMonster.y)
-//        self.addChild(circleMonster)
-//        hero = Hero(xd: NumColumns/2, yd: NumRows/2)
-//        hero.position = pointForColumn(hero.x, row: hero.y)
-//        self.addChild(hero)
+        let circleMonster = CircleMonster(imageNamed: "mon", inX: 5, inY: 4)
+        circleMonster.zPosition = 2;
+        circleMonster.position = pointForColumn(circleMonster.x, row: circleMonster.y)
+        tilesLayer.addChild(circleMonster)
         
-        tilesLayer.position = CGPointMake(0, 0)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -65,10 +61,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //            self.addChild(sprite)
             
             
-            let circleMonster = CircleMonster(imageNamed: "mon", inX: 1, inY: 1)
-                        let location = touch.locationInNode(self)
-                        circleMonster.position = location
-            self.addChild(circleMonster)
+//            let circleMonster = CircleMonster(imageNamed: "mon", inX: 1, inY: 1)
+//                        let location = touch.locationInNode(self)
+//                        circleMonster.position = location
+//            self.addChild(circleMonster)
         }
     }
     
@@ -77,20 +73,34 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         if(touches.first?.locationInNode(self).x > (fingerPosition?.x)!+10){
             hero.goRight()
             tilesLayer.goRight()
+            checkTile()
         }else if(touches.first?.locationInNode(self).x < (fingerPosition?.x)!-10){
             hero.goLeft()
             tilesLayer.goLeft()
+            checkTile()
         }else if(touches.first?.locationInNode(self).y > (fingerPosition?.y)!+10){
             hero.goUp()
             tilesLayer.goUp()
+            checkTile()
         }else if(touches.first?.locationInNode(self).y < (fingerPosition?.y)!-10){
             hero.goDown()
             tilesLayer.goDown()
+            checkTile()
         }
         
         justMove = true;
     }
    
+    func checkTile(){
+        if let tile = myMap.tileAtColumn(hero.x, row: hero.y) {
+            if(tile.tileType == TileType.Lava){
+                print("Fall in lava")
+            }else if(tile.tileType == TileType.Door){
+                print("Leave")
+            }
+        }
+    }
+    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
     }
@@ -98,19 +108,34 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     let tilesLayer = MoveMap()
     
     func addTiles() {
+        var centerTile:Tile!
         for row in 0..<NumRows {
             for column in 0..<NumColumns {
                 if let tile = myMap.tileAtColumn(column, row: row) {
+                    if(tile.tileType == TileType.Birth){
+                        centerTile = tile
+                    }
                     let tileNode = SKSpriteNode(imageNamed:tile.tileType.spriteName)
                     tileNode.position = pointForColumn(column, row: row)
-                    tileNode.size = CGSize(width: 80, height: 80)
+                    tileNode.size = CGSize(width: TileWidth, height: TileHeight)
                     tileNode.zPosition = -1
                     tilesLayer.addChild(tileNode)
                 }
             }
         }
+        
+        spawnPlayer(centerTile.column, inY: centerTile.row)
+//        tilesLayer.size = CGSizeMake(TileWidth*CGFloat(NumColumns), TileHeight*CGFloat(NumRows))
+//        tilesLayer.anchorPoint = CGPointMake(CGFloat(centerTile.column/NumColumns), CGFloat(centerTile.row/NumRows))
+        tilesLayer.position = CGPointMake(self.size.width/2 - (pointForColumn(centerTile.column, row: centerTile.row)).x, self.size.height/2 - (pointForColumn(centerTile.column, row: centerTile.row)).y)
     }
     
+    func spawnPlayer(inX : Int, inY: Int){
+        hero = Hero(xd: inX, yd: inY)
+        hero.anchorPoint = CGPointMake(0.5, 0.5)
+        hero.position = CGPointMake(self.size.width/2, self.size.height/2)
+        self.addChild(hero)
+    }
     
     var myMap : Map!
     
