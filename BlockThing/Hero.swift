@@ -18,11 +18,27 @@ class Hero: SKSpriteNode {
     init(xd: Int, yd: Int) {
         let square = SKTexture(imageNamed: "Hero")
         super.init(texture: square, color: UIColor.blackColor(), size: CGSize(width: 50, height: 50))
-        position = CGPointMake(xd, yd)
-        square.physicsBody = SKPhysicsBody(circleOfRadius:
-            (square.size.width/2))
-        square.physicsBody?.usesPreciseCollisionDetection = true
-        square.physicsBody?.categoryBitMask = ballCategory
+        physicsBody = SKPhysicsBody(rectangleOfSize: square.size())
+        physicsBody!.categoryBitMask = BodyType.hero.rawValue
+        physicsBody!.contactTestBitMask = BodyType.monster.rawValue
+        physicsBody!.affectedByGravity = false
+        physicsBody!.allowsRotation = false
+        physicsBody!.dynamic = true
+        
+        
+//        let body:SKPhysicsBody = SKPhysicsBody(rectangleOfSize:square.size())
+//        body.dynamic = true
+//        body.affectedByGravity = false
+//        body.allowsRotation = false
+//        body.collisionBitMask = BodyType.monster.rawValue
+//        body.categoryBitMask = BodyType.hero.rawValue //was toRaw() in Xcode 6
+//        body.contactTestBitMask = BodyType.monster.rawValue // was toRaw() in Xcode 6
+
+       // self.physicsBody = body
+        
+        x=xd
+        y=yd
+
     }
 
     required init?(coder aDecoder: NSCoder) {

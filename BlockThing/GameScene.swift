@@ -38,6 +38,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         self.addChild(hero)
     }
     
+    
+    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
         
@@ -66,6 +68,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
+        
+        
+        
+        
+        
     }
     
     let tilesLayer = SKNode()
@@ -97,17 +104,29 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         //this gets called automatically when two objects begin contact with each other
         
-//        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
-        
-        if (contact.bodyA.categoryBitMask == BodyType.hero.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue )  {
-            
-            print("bodyA was our Bro class, bodyB was the ground")
-        } else if (contact.bodyA.categoryBitMask == BodyType.hero.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue )  {
-            
-            print("bodyB was our Bro class, bodyA was the ground")
+        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        switch (contactMask) {
+            case BodyType.monster.rawValue | BodyType.hero.rawValue:
+                print("contact!")
+            case BodyType.monster.rawValue | BodyType.monster.rawValue:
+                print("Monster Contact!")
+            default:
+                return
         }
         
+//        if (contact.bodyA.categoryBitMask == BodyType.hero.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue )  {
+//        
+//            print("bodyA was our Bro class, bodyB was the ground")
+//        } else if (contact.bodyA.categoryBitMask == BodyType.hero.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue )  {
+//            
+//            print("bodyB was our Bro class, bodyA was the ground")
+//        }
+        
     }
+    
+//    func didEndContact(contact: SKPhysicsContact) {
+//        <#code#>
+//    }
     
 }
 
