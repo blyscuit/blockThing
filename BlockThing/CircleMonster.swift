@@ -15,6 +15,21 @@ class CircleMonster: Monster {
         let imageTexture = SKTexture(imageNamed: imageNamed)
         
         super.init(imageNamed: imageNamed, inX: inX, inY: inY)
+        self.texture = nil;
+        
+        var circleHit = SKSpriteNode(imageNamed: imageNamed);
+        circleHit.position = CGPointMake(self.frame.size.width, 0);
+        var body:SKPhysicsBody = SKPhysicsBody(circleOfRadius: (imageTexture.size().width/2) )
+        body.dynamic = true
+        body.affectedByGravity = false
+        body.allowsRotation = false
+        body.categoryBitMask = BodyType.monster.rawValue
+        body.contactTestBitMask = BodyType.hero.rawValue
+        body.collisionBitMask = 0
+        
+        circleHit.physicsBody = body
+        
+        self.addChild(circleHit)
         
         startMoving()
         
@@ -24,9 +39,11 @@ class CircleMonster: Monster {
     }
     
     func startMoving(){
-        anchorPoint = CGPoint(x: -1, y: anchorPoint.y);
+        anchorPoint = CGPoint(x: anchorPoint.x, y: anchorPoint.y);
                 let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
     
-                runAction(SKAction.repeatActionForever(action))
+                        runAction(SKAction.repeatActionForever(action))
+//        self.physicsBody?.angularDamping=0.0;
+//        self.physicsBody?.applyForce(CGVectorMake(100.0, 0.0))
     }
 }

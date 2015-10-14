@@ -18,9 +18,16 @@ class Map {
 
     
     func tileAtColumn(column: Int, row: Int) -> Tile? {
-        assert(column >= 0 && column < NumColumns)
-        assert(row >= 0 && row < NumRows)
+//        assert(column >= 0 && column <= NumColumns)
+//        assert(row >= 0 && row <= NumRows)
         return tiles[column, row]
+    }
+    
+    func canMoveToTile(column: Int, row: Int) -> Bool {
+        if(tileAtColumn(column, row: row)?.tileType == TileType.Wall){
+            return false
+        }
+        return true
     }
     
     init(filename: String) {

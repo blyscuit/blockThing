@@ -44,5 +44,21 @@ class Hero: SKSpriteNode {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    func goLeft(){
+        x--;
+    }
+    func goRight(){
+        
+        x++;
+    }
+    func goUp(){
+        
+        y++;
+    }
+    func goDown(){
+        
+        y--;
+        
+    }
 }

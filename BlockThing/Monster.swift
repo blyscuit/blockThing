@@ -12,9 +12,6 @@ class Monster:SKSpriteNode {
     var x=0;
     var y=0;
     
-    let TileWidth: CGFloat = 80.0
-    let TileHeight: CGFloat = 80.0
-    
     init (imageNamed: String, inX:Int,inY:Int ) {
         
         let imageTexture = SKTexture(imageNamed: imageNamed)
