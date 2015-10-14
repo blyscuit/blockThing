@@ -28,6 +28,7 @@
 		68A065AF1BCCE84C0080A28C /* Monster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A065AE1BCCE84C0080A28C /* Monster.swift */; settings = {ASSET_TAGS = (); }; };
 		68A065B11BCCEB170080A28C /* CircleMonster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A065B01BCCEB170080A28C /* CircleMonster.swift */; settings = {ASSET_TAGS = (); }; };
 		68DB37871BCD045E00A7FB0A /* MoveMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DB37861BCD045E00A7FB0A /* MoveMap.swift */; settings = {ASSET_TAGS = (); }; };
+		68DB37891BCE454900A7FB0A /* Door.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DB37881BCE454900A7FB0A /* Door.swift */; settings = {ASSET_TAGS = (); }; };
 		9A9033FB1BCCE85B00D47C4B /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9033FA1BCCE85B00D47C4B /* Hero.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
@@ -76,6 +77,7 @@
 		68A065AE1BCCE84C0080A28C /* Monster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Monster.swift; sourceTree = "<group>"; };
 		68A065B01BCCEB170080A28C /* CircleMonster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleMonster.swift; sourceTree = "<group>"; };
 		68DB37861BCD045E00A7FB0A /* MoveMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveMap.swift; sourceTree = "<group>"; };
+		68DB37881BCE454900A7FB0A /* Door.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Door.swift; sourceTree = "<group>"; };
 		9A9033FA1BCCE85B00D47C4B /* Hero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -137,6 +139,7 @@
 				9A9033FA1BCCE85B00D47C4B /* Hero.swift */,
 				68A065AE1BCCE84C0080A28C /* Monster.swift */,
 				68A0659F1BCCAF260080A28C /* Tile.swift */,
+				68DB37881BCE454900A7FB0A /* Door.swift */,
 				68A065B01BCCEB170080A28C /* CircleMonster.swift */,
 				68A0659D1BCCA79B0080A28C /* Array2D.swift */,
 				683AF6E21BCC14E600DBCCBC /* GameViewController.swift */,
@@ -315,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68A065B11BCCEB170080A28C /* CircleMonster.swift in Sources */,
+				68DB37891BCE454900A7FB0A /* Door.swift in Sources */,
 				68DB37871BCD045E00A7FB0A /* MoveMap.swift in Sources */,
 				68A065AF1BCCE84C0080A28C /* Monster.swift in Sources */,
 				683AF6E11BCC14E600DBCCBC /* GameScene.swift in Sources */,

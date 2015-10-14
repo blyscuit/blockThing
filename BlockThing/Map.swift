@@ -23,6 +23,13 @@ class Map {
         return tiles[column, row]
     }
     
+    func canMoveToTile(column: Int, row: Int) -> Bool {
+        if(tileAtColumn(column, row: row)?.tileType == TileType.Wall){
+            return false
+        }
+        return true
+    }
+    
     init(filename: String) {
         if let dictionary = Dictionary<String, AnyObject>.loadJSONFromBundle(filename) {
             

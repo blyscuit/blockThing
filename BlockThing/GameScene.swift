@@ -71,21 +71,29 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if(justMove){return;}
         if(touches.first?.locationInNode(self).x > (fingerPosition?.x)!+10){
-            hero.goRight()
-            tilesLayer.goRight()
-            checkTile()
+            if(myMap.canMoveToTile(hero.x+1, row: hero.y)){
+                hero.goRight()
+                tilesLayer.goRight()
+                checkTile()
+            }
         }else if(touches.first?.locationInNode(self).x < (fingerPosition?.x)!-10){
-            hero.goLeft()
-            tilesLayer.goLeft()
-            checkTile()
+            if(myMap.canMoveToTile(hero.x-1, row: hero.y)){
+                hero.goLeft()
+                tilesLayer.goLeft()
+                checkTile()
+            }
         }else if(touches.first?.locationInNode(self).y > (fingerPosition?.y)!+10){
-            hero.goUp()
-            tilesLayer.goUp()
-            checkTile()
+            if(myMap.canMoveToTile(hero.x, row: hero.y+1)){
+                hero.goUp()
+                tilesLayer.goUp()
+                checkTile()
+            }
         }else if(touches.first?.locationInNode(self).y < (fingerPosition?.y)!-10){
-            hero.goDown()
-            tilesLayer.goDown()
-            checkTile()
+            if(myMap.canMoveToTile(hero.x, row: hero.y-1)){
+                hero.goDown()
+                tilesLayer.goDown()
+                checkTile()
+            }
         }
         
         justMove = true;
@@ -160,6 +168,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
         
     }
+    
     
 }
 
