@@ -165,28 +165,17 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         //this gets called automatically when two objects begin contact with each other
         
         let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
-        switch (contactMask) {
-            case BodyType.monster.rawValue | BodyType.hero.rawValue:
-                print("contact!")
-            case BodyType.monster.rawValue | BodyType.monster.rawValue:
-                print("Monster Contact!")
-            default:
-                return
-        }
         
-//        if (contact.bodyA.categoryBitMask == BodyType.hero.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue )  {
-//        
-//            print("bodyA was our Bro class, bodyB was the ground")
-//        } else if (contact.bodyA.categoryBitMask == BodyType.hero.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue )  {
-//            
-//            print("bodyB was our Bro class, bodyA was the ground")
-//        }
+        if (contact.bodyA.categoryBitMask == BodyType.hero.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue )  {
+            
+            print("bodyA was our Bro hero, bodyB was the monster")
+        } else if (contact.bodyA.categoryBitMask == BodyType.hero.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue )  {
+            
+            print("bodyB was our Bro hero, bodyA was the monster")
+        }
         
     }
     
-//    func didEndContact(contact: SKPhysicsContact) {
-//        <#code#>
-//    }
     
 }
 

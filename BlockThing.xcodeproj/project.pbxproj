@@ -30,6 +30,7 @@
 		68DB37871BCD045E00A7FB0A /* MoveMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DB37861BCD045E00A7FB0A /* MoveMap.swift */; settings = {ASSET_TAGS = (); }; };
 		68DB37891BCE454900A7FB0A /* Door.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DB37881BCE454900A7FB0A /* Door.swift */; settings = {ASSET_TAGS = (); }; };
 		9A9033FB1BCCE85B00D47C4B /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9033FA1BCCE85B00D47C4B /* Hero.swift */; settings = {ASSET_TAGS = (); }; };
+		9A9033FD1BCE4D3C00D47C4B /* Level_5.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A9033FC1BCE4D3C00D47C4B /* Level_5.json */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		68DB37861BCD045E00A7FB0A /* MoveMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveMap.swift; sourceTree = "<group>"; };
 		68DB37881BCE454900A7FB0A /* Door.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Door.swift; sourceTree = "<group>"; };
 		9A9033FA1BCCE85B00D47C4B /* Hero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
+		9A9033FC1BCE4D3C00D47C4B /* Level_5.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_5.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 				68A065A41BCCB57E0080A28C /* Level_2.json */,
 				68A065A51BCCB57E0080A28C /* Level_3.json */,
 				68A065A61BCCB57E0080A28C /* Level_4.json */,
+				9A9033FC1BCE4D3C00D47C4B /* Level_5.json */,
 			);
 			path = Levels;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				68A065A71BCCB57E0080A28C /* Level_0.json in Resources */,
 				683AF6EB1BCC14E700DBCCBC /* LaunchScreen.storyboard in Resources */,
 				683AF6E81BCC14E600DBCCBC /* Assets.xcassets in Resources */,
+				9A9033FD1BCE4D3C00D47C4B /* Level_5.json in Resources */,
 				68A065A81BCCB57E0080A28C /* Level_1.json in Resources */,
 				68A065AA1BCCB57E0080A28C /* Level_3.json in Resources */,
 				683AF6E61BCC14E600DBCCBC /* Main.storyboard in Resources */,

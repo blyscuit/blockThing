@@ -17,24 +17,17 @@ class Hero: SKSpriteNode {
     
     init(xd: Int, yd: Int) {
         let square = SKTexture(imageNamed: "Hero")
-        super.init(texture: square, color: UIColor.blackColor(), size: CGSize(width: 50, height: 50))
-        physicsBody = SKPhysicsBody(rectangleOfSize: square.size())
-        physicsBody!.categoryBitMask = BodyType.hero.rawValue
-        physicsBody!.contactTestBitMask = BodyType.monster.rawValue
-        physicsBody!.affectedByGravity = false
-        physicsBody!.allowsRotation = false
-        physicsBody!.dynamic = true
+        super.init(texture: square, color: UIColor.blackColor(), size:square.size())
         
+        var body:SKPhysicsBody = SKPhysicsBody(rectangleOfSize:square.size() )
+        body.dynamic = false
+        body.affectedByGravity = false
+        body.allowsRotation = false
+        body.categoryBitMask = BodyType.hero.rawValue
+        body.contactTestBitMask = BodyType.monster.rawValue
+        body.collisionBitMask = 0
         
-//        let body:SKPhysicsBody = SKPhysicsBody(rectangleOfSize:square.size())
-//        body.dynamic = true
-//        body.affectedByGravity = false
-//        body.allowsRotation = false
-//        body.collisionBitMask = BodyType.monster.rawValue
-//        body.categoryBitMask = BodyType.hero.rawValue //was toRaw() in Xcode 6
-//        body.contactTestBitMask = BodyType.monster.rawValue // was toRaw() in Xcode 6
-
-       // self.physicsBody = body
+        self.physicsBody = body
         
         x=xd
         y=yd
