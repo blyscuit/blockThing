@@ -24,7 +24,8 @@ class Map {
     }
     
     func canMoveToTile(column: Int, row: Int) -> Bool {
-        if(tileAtColumn(column, row: row)?.tileType == TileType.Wall){
+        print(tileAtColumn(column, row: row)?.description)
+        if(tileAtColumn(column, row: row)?.walk == false){
             return false
         }
         return true
@@ -32,6 +33,14 @@ class Map {
     
     init(filename: String) {
         if let dictionary = Dictionary<String, AnyObject>.loadJSONFromBundle(filename) {
+            if let columnN: AnyObject = dictionary["column"]{
+                NumColumns = columnN.integerValue
+            }
+            if let rowN: AnyObject = dictionary["row"]{
+                NumRows = rowN.integerValue
+            }
+            
+            tiles = Array2D<Tile>(columns:NumColumns, rows: NumRows)
             
             // The dictionary contains an array named "tiles". This array contains
             // one element for each row of the level. Each of those row elements in
@@ -50,9 +59,13 @@ class Map {
                     for (column, value) in rowArray.enumerate() {
                         
                         // If the value is 1, create a tile object.
-//                        if value == 1 {
+                        if value == TileType.Door.rawValue {
+                            tiles[column, tileRow] = Door(column: column, row: tileRow)
+                        }else if value == TileType.Wall.rawValue {
+                            tiles[column, tileRow] = Wall(column: column, row: tileRow)
+                        }else{
                             tiles[column, tileRow] = Tile(column: column, row: tileRow, tileType: value)
-//                        }
+                        }
                     }
                 }
             }

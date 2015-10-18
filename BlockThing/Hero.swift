@@ -14,6 +14,7 @@ import Foundation
 class Hero: SKSpriteNode {
     var x=0
     var y=0
+    var key = false;
     
     init(xd: Int, yd: Int) {
         let square = SKTexture(imageNamed: "Hero")

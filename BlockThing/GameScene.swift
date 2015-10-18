@@ -130,11 +130,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     if(tile.tileType == TileType.Birth){
                         centerTile = tile
                     }
-                    let tileNode = SKSpriteNode(imageNamed:tile.tileType.spriteName)
-                    tileNode.position = pointForColumn(column, row: row)
-                    tileNode.size = CGSize(width: TileWidth, height: TileHeight)
-                    tileNode.zPosition = -1
-                    tilesLayer.addChild(tileNode)
+                    tile.texture = SKTexture(imageNamed: tile.tileType.spriteName)
+                    tile.position = pointForColumn(column, row: row)
+                    tile.size = CGSize(width: TileWidth, height: TileHeight)
+                    tile.zPosition = -1
+                    tilesLayer.addChild(tile)
                 }
             }
         }

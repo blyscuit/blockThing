@@ -9,19 +9,26 @@
 import UIKit
 import SpriteKit
 
-class Tile : CustomStringConvertible {
+class Tile : SKSpriteNode {
     var column: Int
     var row: Int
-    let tileType : TileType
-    var sprite: SKSpriteNode?
+    var tileType : TileType
+    
+    var walk : Bool
     
     init(column: Int, row: Int, tileType: Int) {
         self.column = column
         self.row = row
+        self.walk = true
         self.tileType = TileType(rawValue: tileType)!
+        super.init(texture: nil, color: UIColor.clearColor(), size: CGSizeZero)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
-    var description: String {
+    override var description: String {
         return "type:\(tileType) square:(\(column),\(row))"
     }
 }
