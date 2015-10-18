@@ -9,8 +9,8 @@
 import UIKit
 
 
-var NumColumns = 9
-var NumRows = 9
+let NumColumns = 30
+let NumRows = 40
 
 class Map {
     

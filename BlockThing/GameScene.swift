@@ -41,6 +41,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
     }
     
+    
+    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
         fingerPosition = touches.first?.locationInNode(self)
@@ -111,6 +113,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
+        
+        
+        
+        
+        
     }
     
     let tilesLayer = MoveMap()
