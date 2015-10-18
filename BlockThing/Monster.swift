@@ -9,8 +9,8 @@
 import SpriteKit
 
 class Monster:SKSpriteNode {
-    var x=0;
-    var y=0;
+    var xCoor=0;
+    var yCoor=0;
     
     init (imageNamed: String, inX:Int,inY:Int ) {
         
@@ -29,10 +29,10 @@ class Monster:SKSpriteNode {
 //        
 //        self.physicsBody = body
         
-        x=inX
-        y=inY
+        xCoor=inX
+        yCoor=inY
         
-        position = CGPointMake(CGFloat(x)*TileWidth, CGFloat(y)*TileHeight)
+        position = CGPointMake(CGFloat(xCoor)*TileWidth, CGFloat(yCoor)*TileHeight)
         
         
     }

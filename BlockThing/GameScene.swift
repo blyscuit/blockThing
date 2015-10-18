@@ -36,7 +36,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         let circleMonster = CircleMonster(imageNamed: "mon", inX: 5, inY: 4)
         circleMonster.zPosition = 2;
-        circleMonster.position = pointForColumn(circleMonster.x, row: circleMonster.y)
+        circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
         tilesLayer.addChild(circleMonster)
         
     }
@@ -73,25 +73,25 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if(justMove){return;}
         if(touches.first?.locationInNode(self).x > (fingerPosition?.x)!+10){
-            if(myMap.canMoveToTile(hero.x+1, row: hero.y)){
+            if(myMap.canMoveToTile(hero.xCoor+1, row: hero.yCoor)){
                 hero.goRight()
                 tilesLayer.goRight()
                 checkTile()
             }
         }else if(touches.first?.locationInNode(self).x < (fingerPosition?.x)!-10){
-            if(myMap.canMoveToTile(hero.x-1, row: hero.y)){
+            if(myMap.canMoveToTile(hero.xCoor-1, row: hero.yCoor)){
                 hero.goLeft()
                 tilesLayer.goLeft()
                 checkTile()
             }
         }else if(touches.first?.locationInNode(self).y > (fingerPosition?.y)!+10){
-            if(myMap.canMoveToTile(hero.x, row: hero.y+1)){
+            if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor+1)){
                 hero.goUp()
                 tilesLayer.goUp()
                 checkTile()
             }
         }else if(touches.first?.locationInNode(self).y < (fingerPosition?.y)!-10){
-            if(myMap.canMoveToTile(hero.x, row: hero.y-1)){
+            if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor-1)){
                 hero.goDown()
                 tilesLayer.goDown()
                 checkTile()
@@ -102,7 +102,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
    
     func checkTile(){
-        if let tile = myMap.tileAtColumn(hero.x, row: hero.y) {
+        if let tile = myMap.tileAtColumn(hero.xCoor, row: hero.yCoor) {
             if(tile.tileType == TileType.Lava){
                 print("Fall in lava")
             }else if(tile.tileType == TileType.Door){

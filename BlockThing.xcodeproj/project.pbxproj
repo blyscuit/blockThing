@@ -27,6 +27,7 @@
 		68A065AD1BCCB5AA0080A28C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A065AC1BCCB5AA0080A28C /* Extensions.swift */; settings = {ASSET_TAGS = (); }; };
 		68A065AF1BCCE84C0080A28C /* Monster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A065AE1BCCE84C0080A28C /* Monster.swift */; settings = {ASSET_TAGS = (); }; };
 		68A065B11BCCEB170080A28C /* CircleMonster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A065B01BCCEB170080A28C /* CircleMonster.swift */; settings = {ASSET_TAGS = (); }; };
+		68B232321BD38EF800DEB4F2 /* SpriteKit-Spring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B232311BD38EF800DEB4F2 /* SpriteKit-Spring.swift */; settings = {ASSET_TAGS = (); }; };
 		68DB37871BCD045E00A7FB0A /* MoveMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DB37861BCD045E00A7FB0A /* MoveMap.swift */; settings = {ASSET_TAGS = (); }; };
 		68DB37891BCE454900A7FB0A /* Door.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DB37881BCE454900A7FB0A /* Door.swift */; settings = {ASSET_TAGS = (); }; };
 		9A9033FB1BCCE85B00D47C4B /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9033FA1BCCE85B00D47C4B /* Hero.swift */; settings = {ASSET_TAGS = (); }; };
@@ -77,6 +78,7 @@
 		68A065AC1BCCB5AA0080A28C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		68A065AE1BCCE84C0080A28C /* Monster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Monster.swift; sourceTree = "<group>"; };
 		68A065B01BCCEB170080A28C /* CircleMonster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleMonster.swift; sourceTree = "<group>"; };
+		68B232311BD38EF800DEB4F2 /* SpriteKit-Spring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SpriteKit-Spring.swift"; sourceTree = "<group>"; };
 		68DB37861BCD045E00A7FB0A /* MoveMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveMap.swift; sourceTree = "<group>"; };
 		68DB37881BCE454900A7FB0A /* Door.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Door.swift; sourceTree = "<group>"; };
 		9A9033FA1BCCE85B00D47C4B /* Hero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 		683AF6D01BCC14E600DBCCBC = {
 			isa = PBXGroup;
 			children = (
+				68B232311BD38EF800DEB4F2 /* SpriteKit-Spring.swift */,
 				683AF6DB1BCC14E600DBCCBC /* BlockThing */,
 				683AF6F41BCC14E700DBCCBC /* BlockThingTests */,
 				683AF6FF1BCC14E700DBCCBC /* BlockThingUITests */,
@@ -330,6 +333,7 @@
 				68A0659C1BCCA6F40080A28C /* Map.swift in Sources */,
 				9A9033FB1BCCE85B00D47C4B /* Hero.swift in Sources */,
 				68A065A01BCCAF260080A28C /* Tile.swift in Sources */,
+				68B232321BD38EF800DEB4F2 /* SpriteKit-Spring.swift in Sources */,
 				683AF6DD1BCC14E600DBCCBC /* AppDelegate.swift in Sources */,
 				68A0659E1BCCA79B0080A28C /* Array2D.swift in Sources */,
 				68A065AD1BCCB5AA0080A28C /* Extensions.swift in Sources */,
