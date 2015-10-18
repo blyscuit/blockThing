@@ -7,9 +7,12 @@
               [1, 1, 1, 1, 9, 1, 1, 1, 3 ],
               [1, 1, 1, 1, 1, 1, 1, 1, 6 ],
               [1, 1, 1, 1, 1, 1, 3, 1, 1 ],
+              [2, 1, 1, 2, 2, 2, 1, 1, 2 ],
               [2, 1, 1, 2, 2, 2, 1, 1, 2 ] ],
 
   "targetScore" : 1222,
   "moves" : 15,
     "comment":"//0,1Ground , 2Lava,3Wall, 4Monster, 5Button, 6Birth, 7Key, 8Lock,9door,10 second birth",
+    "column" : 9,
+    "row" : 10,
 }

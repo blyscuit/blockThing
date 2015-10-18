@@ -9,8 +9,8 @@
 import UIKit
 
 
-let NumColumns = 9
-let NumRows = 9
+var NumColumns = 9
+var NumRows = 9
 
 class Map {
     
@@ -33,6 +33,14 @@ class Map {
     
     init(filename: String) {
         if let dictionary = Dictionary<String, AnyObject>.loadJSONFromBundle(filename) {
+            if let columnN: AnyObject = dictionary["column"]{
+                NumColumns = columnN.integerValue
+            }
+            if let rowN: AnyObject = dictionary["row"]{
+                NumRows = rowN.integerValue
+            }
+            
+            tiles = Array2D<Tile>(columns:NumColumns, rows: NumRows)
             
             // The dictionary contains an array named "tiles". This array contains
             // one element for each row of the level. Each of those row elements in
