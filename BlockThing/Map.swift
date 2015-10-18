@@ -9,8 +9,8 @@
 import UIKit
 
 
-let NumColumns = 30
-let NumRows = 40
+var NumColumns = 30
+var NumRows = 40
 
 class Map {
     
@@ -33,20 +33,23 @@ class Map {
     
     init(filename: String) {
         if let dictionary = Dictionary<String, AnyObject>.loadJSONFromBundle(filename) {
-            if let columnN: AnyObject = dictionary["column"]{
-                NumColumns = columnN.integerValue
-            }
-            if let rowN: AnyObject = dictionary["row"]{
-                NumRows = rowN.integerValue
-            }
-            
-            tiles = Array2D<Tile>(columns:NumColumns, rows: NumRows)
+//            if let columnN: AnyObject = dictionary["column"]{
+//                NumColumns = columnN.integerValue
+//            }
+//            if let rowN: AnyObject = dictionary["row"]{
+//                NumRows = rowN.integerValue
+//            }
             
             // The dictionary contains an array named "tiles". This array contains
             // one element for each row of the level. Each of those row elements in
             // turn is also an array describing the columns in that row. If a column
             // is 1, it means there is a tile at that location, 0 means there is not.
             if let tilesArray: AnyObject = dictionary["tiles"] {
+                
+                NumRows = tilesArray.count
+                NumColumns = tilesArray[0].count
+                
+                tiles = Array2D<Tile>(columns:NumColumns, rows: NumRows)
                 
                 // Loop through the rows...
                 for (row, rowArray) in (tilesArray as! [[Int]]).enumerate() {
