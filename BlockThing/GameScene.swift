@@ -28,6 +28,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     override func didMoveToView(view: SKView) {
         
         physicsWorld.contactDelegate = self
+        backgroundColor = UIColor.whiteColor()
         
         /* Setup your scene here */
         myMap = Map(filename: "Level_1")
