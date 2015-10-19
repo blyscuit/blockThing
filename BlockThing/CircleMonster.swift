@@ -12,7 +12,7 @@ class TriangleMonster: Monster {
     
     override init (imageNamed: String, inX:Int,inY:Int ) {
         
-        let imageTexture = SKTexture(imageNamed: imageNamed)
+        let imageTexture = SKTexture(imageNamed: "triangle")
         
         super.init(imageNamed: imageNamed, inX: inX, inY: inY)
         self.texture = nil;

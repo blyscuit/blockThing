@@ -10,10 +10,24 @@ import SpriteKit
 
 class Door: Tile {
     var close = true
-    var tag = 0;
-    func flip(){
-        close = !close
-        walk = !close;
+    var tag = 0
+    var life = 0
+    func flip(closing:Bool){
+        if(closing){
+            life++;
+        }else{
+            life--;
+            if(life<=0){
+                life=0;
+            }
+        }
+        if(life>0){
+            close = true
+            walk = false
+        }else{
+            close = false
+            walk = true
+        }
         if(close==true){
             self.texture = SKTexture(imageNamed: TileType.Door.spriteName)
         }else{
@@ -51,6 +65,11 @@ class Switch: Tile {
     var close = true
     func flip(){
         close = !close
+        if(close == true){
+            self.texture = SKTexture(imageNamed: "button")
+        }else{
+            self.texture = SKTexture(imageNamed: "buttonOn")
+        }
     }
     init(column: Int, row: Int , inTag:Int){
         tag = inTag
