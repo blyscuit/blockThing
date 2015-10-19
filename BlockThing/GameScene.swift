@@ -43,10 +43,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         addTiles()
         self.addChild(tilesLayer);
         
-        let circleMonster = CircleMonster(imageNamed: "mon", inX: 5, inY: 4)
-        circleMonster.zPosition = 2;
-        circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
-        tilesLayer.addChild(circleMonster)
+//        let circleMonster = TriangleMonster(imageNamed: "triangle", inX: 5, inY: 4)
+//        circleMonster.zPosition = 2;
+//        circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
+//        tilesLayer.addChild(circleMonster)
         
     }
     
@@ -117,12 +117,13 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 gameOver()
             }else if(tile.tileType == TileType.Door){
                 print("Leave")
-            }else if(tile.tileType == TileType.Button){
+            }else if(tile.tileType == TileType.Button && (tile as? Switch)?.tag != 0){
+                (tile as? Switch)?.flip()
                 for row in 0..<NumRows {
                     for column in 0..<NumColumns {
                         if let tiles = myMap.tileAtColumn(column, row: row) as? Door {
                             if(tiles.tileType == TileType.Door && tiles.tag == (tile as? Switch)?.tag){
-                                tiles.flip()
+                                tiles.flip(((tile as? Switch)?.close)!)
                             }
                         }
                     }
@@ -150,10 +151,20 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     if(tile.tileType == TileType.Birth){
                         centerTile = tile
                     }else if(tile.tileType == TileType.Monster){
-                        let circleMonster = TriangleMonster(imageNamed: "mon", inX: tile.row, inY: tile.column)
+                        let circleMonster = TriangleMonster(imageNamed: "triangle", inX: tile.row, inY: tile.column)
                         circleMonster.zPosition = 2;
                         circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
                         tilesLayer.addChild(circleMonster)
+                    }else if(tile.tileType == TileType.Button){
+                        for row in 0..<NumRows {
+                            for column in 0..<NumColumns {
+                                if let tileIn = myMap.tileAtColumn(column, row: row) {
+                                    if(tileIn.tileType == TileType.Door && (tileIn as? Door)?.tag == (tile as? Switch)!.tag){
+                                        (tileIn as? Door)?.life += 1
+                                    }
+                                }
+                            }
+                        }
                     }
                     tile.texture = SKTexture(imageNamed: tile.tileType.spriteName)
                     tile.position = pointForColumn(column, row: row)
