@@ -18,7 +18,7 @@ class TriangleMonster: Monster {
         self.texture = nil;
         
         var circleHit = SKSpriteNode(imageNamed: imageNamed);
-        circleHit.position = CGPointMake(self.frame.size.width, 0);
+        circleHit.position = CGPointMake(self.frame.size.width*1.3, 0);
         var body:SKPhysicsBody = SKPhysicsBody(circleOfRadius: (imageTexture.size().width/2) )
         body.dynamic = true
         body.affectedByGravity = false
@@ -30,6 +30,11 @@ class TriangleMonster: Monster {
         circleHit.physicsBody = body
         
         self.addChild(circleHit)
+        
+//                circleHit.runAction(SKAction.repeatActionForever(SKAction.rotateByAngle(3.15, duration: 2, delay: 0.0, usingSpringWithDamping: 10.01, initialSpringVelocity: 0)))
+
+                circleHit.runAction(SKAction.repeatActionForever(SKAction.sequence([SKAction.rotateByAngle(7.15, duration: 1.6),SKAction.rotateByAngle(5.15, duration: 1.3).reversedAction()])))
+
         
         startMoving()
         
