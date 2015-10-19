@@ -135,7 +135,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     if(tile.tileType == TileType.Birth){
                         centerTile = tile
                     }else if(tile.tileType == TileType.Monster){
-                        let circleMonster = CircleMonster(imageNamed: "mon", inX: tile.row, inY: tile.column)
+                        let circleMonster = TriangleMonster(imageNamed: "mon", inX: tile.row, inY: tile.column)
                         circleMonster.zPosition = 2;
                         circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
                         tilesLayer.addChild(circleMonster)
