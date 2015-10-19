@@ -30,7 +30,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         
         /* Setup your scene here */
-        myMap = Map(filename: "Level_1")
+        myMap = Map(filename: "Level_5")
         addTiles()
         self.addChild(tilesLayer);
         
@@ -39,6 +39,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         circleMonster.position = pointForColumn(circleMonster.x, row: circleMonster.y)
         tilesLayer.addChild(circleMonster)
         
+        let monster = Monster(imageNamed: "mon", inX: 5, inY: 4)
+        monster.zPosition = 2;
+        monster.position = pointForColumn(monster.x, row: monster.y)
+        tilesLayer.addChild(monster)
     }
     
     
