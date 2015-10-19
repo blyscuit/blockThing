@@ -48,20 +48,36 @@ class TriangleMonster: Monster {
     }
 }
 class CircleMonster: Monster {
-    
+    //var velocity: CG = 0;
+    var moveHorizontal = 1
+    var body: SKPhysicsBody!
     override init(imageNamed: String, inX: Int, inY: Int) {
-        super.init(imageNamed: imageNamed, , )
+        let imageTexture = SKTexture(imageNamed: imageNamed)
         
-        var body:SKPhysicsBody = SKPhysicsBody(circleOfRadius: (imageTexture.size().width/2))
-        body.dynamic = false
-        body.affectedByGravity = false
-        body.allowsRotation = false
-        body.categoryBitMask = BodyType.hero.rawValue
-        body.contactTestBitMask = BodyType.monster.rawValue
-        body.collisionBitMask = 0
-    }
+        body = SKPhysicsBody(circleOfRadius: (imageTexture.size().width/2))
+        
     
-    required init?(coder aDecoder: NSCoder) {
+        super.init(imageNamed: imageNamed, inX: inX, inY: inY)
+        
+        body!.dynamic = true
+        body!.affectedByGravity = false
+        body!.allowsRotation = false
+        body!.categoryBitMask = BodyType.hero.rawValue
+        body!.contactTestBitMask = BodyType.monster.rawValue
+        body!.collisionBitMask = 0
+        self.physicsBody = body
+        
+        startMoving()
+        
+    }
+    func startMoving() {
+        if moveHorizontal == 1 {
+            body.applyForce(CGVectorMake(200, 0))
+        } else if moveHorizontal == 0 {
+            body.applyForce(CGVectorMake(0, 200))
+        }
+    }
+    required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

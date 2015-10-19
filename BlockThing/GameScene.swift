@@ -43,11 +43,15 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         addTiles()
         self.addChild(tilesLayer);
         
-        let circleMonster = CircleMonster(imageNamed: "mon", inX: 5, inY: 4)
+        let circleMonster = TriangleMonster(imageNamed: "mon", inX: 5, inY: 4)
         circleMonster.zPosition = 2;
         circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
         tilesLayer.addChild(circleMonster)
         
+        let monster = CircleMonster(imageNamed: "mon", inX: 5, inY: 4)
+        monster.zPosition = 2;
+        monster.position = pointForColumn(monster.xCoor, row: monster.yCoor)
+        tilesLayer.addChild(monster)
     }
     
     
