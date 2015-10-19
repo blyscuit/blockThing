@@ -12,8 +12,8 @@ import Foundation
 
 
 class Hero: SKSpriteNode {
-    var x=0
-    var y=0
+    var xCoor=0
+    var yCoor=0
     var key = false;
     
     init(xd: Int, yd: Int) {
@@ -30,8 +30,8 @@ class Hero: SKSpriteNode {
         
         self.physicsBody = body
         
-        x=xd
-        y=yd
+        xCoor=xd
+        yCoor=yd
 
     }
 
@@ -40,19 +40,19 @@ class Hero: SKSpriteNode {
     }
     
     func goLeft(){
-        x--;
+        xCoor--;
     }
     func goRight(){
         
-        x++;
+        xCoor++;
     }
     func goUp(){
         
-        y++;
+        yCoor++;
     }
     func goDown(){
         
-        y--;
+        yCoor--;
         
     }
 }

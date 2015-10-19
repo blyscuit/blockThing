@@ -27,7 +27,16 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     override func didMoveToView(view: SKView) {
         
+        var cover:SKSpriteNode = SKSpriteNode(color: UIColor.blackColor(), size: self.size)
+        cover.zPosition = 5
+        addChild(cover)
+        cover.anchorPoint = CGPointMake(0.0, 0.0)
+        cover.runAction(SKAction.fadeAlphaTo(0.0, duration: 0.2)) { () -> Void in
+            cover.removeFromParent()
+        }
+        
         physicsWorld.contactDelegate = self
+        backgroundColor = UIColor.whiteColor()
         
         /* Setup your scene here */
         myMap = Map(filename: "Level_5")
@@ -77,25 +86,25 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if(justMove){return;}
         if(touches.first?.locationInNode(self).x > (fingerPosition?.x)!+10){
-            if(myMap.canMoveToTile(hero.x+1, row: hero.y)){
+            if(myMap.canMoveToTile(hero.xCoor+1, row: hero.yCoor)){
                 hero.goRight()
                 tilesLayer.goRight()
                 checkTile()
             }
         }else if(touches.first?.locationInNode(self).x < (fingerPosition?.x)!-10){
-            if(myMap.canMoveToTile(hero.x-1, row: hero.y)){
+            if(myMap.canMoveToTile(hero.xCoor-1, row: hero.yCoor)){
                 hero.goLeft()
                 tilesLayer.goLeft()
                 checkTile()
             }
         }else if(touches.first?.locationInNode(self).y > (fingerPosition?.y)!+10){
-            if(myMap.canMoveToTile(hero.x, row: hero.y+1)){
+            if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor+1)){
                 hero.goUp()
                 tilesLayer.goUp()
                 checkTile()
             }
         }else if(touches.first?.locationInNode(self).y < (fingerPosition?.y)!-10){
-            if(myMap.canMoveToTile(hero.x, row: hero.y-1)){
+            if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor-1)){
                 hero.goDown()
                 tilesLayer.goDown()
                 checkTile()
@@ -106,9 +115,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
    
     func checkTile(){
-        if let tile = myMap.tileAtColumn(hero.x, row: hero.y) {
+        if let tile = myMap.tileAtColumn(hero.xCoor, row: hero.yCoor) {
             if(tile.tileType == TileType.Lava){
                 print("Fall in lava")
+                gameOver()
             }else if(tile.tileType == TileType.Door){
                 print("Leave")
             }
@@ -133,6 +143,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 if let tile = myMap.tileAtColumn(column, row: row) {
                     if(tile.tileType == TileType.Birth){
                         centerTile = tile
+                    }else if(tile.tileType == TileType.Monster){
+                        let circleMonster = CircleMonster(imageNamed: "mon", inX: tile.row, inY: tile.column)
+                        circleMonster.zPosition = 2;
+                        circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
+                        tilesLayer.addChild(circleMonster)
                     }
                     tile.texture = SKTexture(imageNamed: tile.tileType.spriteName)
                     tile.position = pointForColumn(column, row: row)
@@ -172,12 +187,27 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         if (contact.bodyA.categoryBitMask == BodyType.hero.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue )  {
             
+            gameOver()
             print("bodyA was our Bro hero, bodyB was the monster")
         } else if (contact.bodyA.categoryBitMask == BodyType.hero.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue )  {
             
+            gameOver()
             print("bodyB was our Bro hero, bodyA was the monster")
         }
         
+    }
+    
+    func gameOver(){
+        var cover:SKSpriteNode = SKSpriteNode(color: UIColor.blackColor(), size: self.size)
+        cover.anchorPoint = CGPointMake(0.0, 0.0)
+        cover.alpha = 0.0
+        cover.zPosition = 5
+        addChild(cover)
+        cover.runAction(SKAction.fadeAlphaTo(1.0, duration: 0.2)) { () -> Void in
+            self.removeAllActions()
+            self.removeAllChildren()
+            self.didMoveToView(self.view!)
+        }
     }
     
     

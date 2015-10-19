@@ -28,8 +28,8 @@ class Monster:SKSpriteNode {
        
         self.physicsBody = body
         
-        x=inX
-        y=inY
+        xCoor=inX
+        yCoor=inY
         
         position = CGPointMake(CGFloat(x)*TileWidth, CGFloat(y)*TileHeight)
         //startMovingCircle()
