@@ -9,24 +9,25 @@
 import SpriteKit
 
 class Monster:SKSpriteNode {
-    var x=0;
-    var y=0;
+    var xCoor=0;
+    var yCoor=0;
+    
     init (imageNamed: String, inX:Int,inY:Int ) {
         
         let imageTexture = SKTexture(imageNamed: imageNamed)
         
         super.init(texture: imageTexture, color: UIColor.clearColor(), size: imageTexture.size())
         
-        var body:SKPhysicsBody = SKPhysicsBody(circleOfRadius: (imageTexture.size().width/2) )
-        body.dynamic = false
-        body.affectedByGravity = false
-        body.allowsRotation = false
-        body.usesPreciseCollisionDetection = true
-        body.categoryBitMask = BodyType.monster.rawValue
-        body.contactTestBitMask = BodyType.hero.rawValue
-        body.collisionBitMask = BodyType.hero.rawValue // was toRaw() in Xcode 6
-       
-        self.physicsBody = body
+//        var body:SKPhysicsBody = SKPhysicsBody(circleOfRadius: (imageTexture.size().width/2) )
+//        body.dynamic = false
+//        body.affectedByGravity = false
+//        body.allowsRotation = false
+//        body.usesPreciseCollisionDetection = true
+//        body.categoryBitMask = BodyType.monster.rawValue
+//        body.contactTestBitMask = BodyType.hero.rawValue
+//        body.collisionBitMask = BodyType.hero.rawValue // was toRaw() in Xcode 6
+//        
+//        self.physicsBody = body
         
         xCoor=inX
         yCoor=inY
