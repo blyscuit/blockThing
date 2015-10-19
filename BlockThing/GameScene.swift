@@ -43,6 +43,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         addTiles()
         self.addChild(tilesLayer);
         
+        let circleMonster = CircleMonster(imageNamed: "mon", inX: 5, inY: 4)
+        circleMonster.zPosition = 2;
+        circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
+        tilesLayer.addChild(circleMonster)
+        
     }
     
     
