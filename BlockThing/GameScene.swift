@@ -39,7 +39,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         backgroundColor = UIColor.whiteColor()
         
         /* Setup your scene here */
-        myMap = Map(filename: "Level_1")
+        myMap = Map(filename: "Level_5")
         addTiles()
         self.addChild(tilesLayer);
         
@@ -112,6 +112,16 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 gameOver()
             }else if(tile.tileType == TileType.Door){
                 print("Leave")
+            }else if(tile.tileType == TileType.Button){
+                for row in 0..<NumRows {
+                    for column in 0..<NumColumns {
+                        if let tiles = myMap.tileAtColumn(column, row: row) as? Door {
+                            if(tiles.tileType == TileType.Door && tiles.tag == (tile as? Switch)?.tag){
+                                tiles.flip()
+                            }
+                        }
+                    }
+                }
             }
         }
     }
