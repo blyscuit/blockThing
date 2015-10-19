@@ -27,28 +27,26 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     var fingerPosition:CGPoint?
     
     override func didMoveToView(view: SKView) {
+        physicsWorld.contactDelegate = self
+        backgroundColor = UIColor.whiteColor()
+        
+        startGame()
+    }
+    
+    func startGame(){
         
         var cover:SKSpriteNode = SKSpriteNode(color: UIColor.blackColor(), size: self.size)
         cover.zPosition = 5
         addChild(cover)
         cover.anchorPoint = CGPointMake(0.0, 0.0)
-        cover.runAction(SKAction.fadeAlphaTo(0.0, duration: 0.2)) { () -> Void in
+        cover.runAction(SKAction.fadeAlphaTo(0.0, duration: 0.32)) { () -> Void in
             cover.removeFromParent()
         }
-        
-        physicsWorld.contactDelegate = self
-        backgroundColor = UIColor.whiteColor()
         
         /* Setup your scene here */
         myMap = Map(filename: "Level_5")
         addTiles()
         self.addChild(tilesLayer);
-        
-//        let circleMonster = TriangleMonster(imageNamed: "triangle", inX: 5, inY: 4)
-//        circleMonster.zPosition = 2;
-//        circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
-//        tilesLayer.addChild(circleMonster)
-        
     }
     
     
@@ -190,12 +188,12 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     if(tile.tileType == TileType.Birth){
                         centerTile = tile
                     }else if(tile.tileType == TileType.Monster){
-                        let circleMonster = TriangleMonster(imageNamed: "triangle", inX: tile.row, inY: tile.column)
-                        circleMonster.zPosition = 2;
-                        circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
-                        tilesLayer.addChild(circleMonster)
+                        let triangleMonster = TriangleMonster(imageNamed: "triangle", inX: tile.column, inY: tile.row)
+                        triangleMonster.zPosition = 2;
+                        triangleMonster.position = pointForColumn(triangleMonster.xCoor, row: triangleMonster.yCoor)
+                        tilesLayer.addChild(triangleMonster)
                     }else if(tile.tileType == TileType.CircleMon){
-                        let circleMonster = CircleMonster(imageNamed: "mon", inX: tile.row, inY: tile.column)
+                        let circleMonster = CircleMonster(imageNamed: "mon", inX: tile.column, inY: tile.row)
                         circleMonster.zPosition = 2;
                         circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
                         tilesLayer.addChild(circleMonster)
@@ -264,13 +262,19 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         cover.alpha = 0.0
         cover.zPosition = 5
         addChild(cover)
-        cover.runAction(SKAction.fadeAlphaTo(1.0, duration: 0.2)) { () -> Void in
+        
+        self.tilesLayer.runAction(SKAction.shake(0.57, amplitudeX: 40, amplitudeY: 40)) { () -> Void in
+            self.myMap.remove()
+            self.hero.remove()
+            self.tilesLayer.removeAllActions()
+            self.tilesLayer.removeAllChildren()
+            self.tilesLayer.removeFromParent()
             self.removeAllActions()
             self.removeAllChildren()
-            self.didMoveToView(self.view!)
+            self.startGame()
         }
+        cover.runAction(SKAction.fadeAlphaTo(0.95, duration: 0.4))
     }
-    
     
 }
 

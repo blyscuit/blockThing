@@ -55,4 +55,8 @@ class Hero: SKSpriteNode {
         yCoor--;
         
     }
+    
+    func remove(){
+        removeFromParent()
+    }
 }

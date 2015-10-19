@@ -31,6 +31,14 @@ class Map {
         return true
     }
     
+    func remove(){
+        for row in 0..<NumRows {
+            for column in 0..<NumColumns {
+                tiles[column, row]!.removeFromParent()
+            }
+        }
+    }
+    
     init(filename: String) {
         if let dictionary = Dictionary<String, AnyObject>.loadJSONFromBundle(filename) {
 //            if let columnN: AnyObject = dictionary["column"]{
