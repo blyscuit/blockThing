@@ -16,6 +16,8 @@
 		683AF6EB1BCC14E700DBCCBC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 683AF6E91BCC14E700DBCCBC /* LaunchScreen.storyboard */; };
 		683AF6F61BCC14E700DBCCBC /* BlockThingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AF6F51BCC14E700DBCCBC /* BlockThingTests.swift */; };
 		683AF7011BCC14E700DBCCBC /* BlockThingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AF7001BCC14E700DBCCBC /* BlockThingUITests.swift */; };
+		686C2C1C1BD54EE000993F63 /* DeathParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 686C2C1B1BD54EE000993F63 /* DeathParticle.sks */; settings = {ASSET_TAGS = (); }; };
+		686C2C201BD550E100993F63 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 686C2C1E1BD550E100993F63 /* spark.png */; settings = {ASSET_TAGS = (); }; };
 		68A0659C1BCCA6F40080A28C /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A0659B1BCCA6F40080A28C /* Map.swift */; settings = {ASSET_TAGS = (); }; };
 		68A0659E1BCCA79B0080A28C /* Array2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A0659D1BCCA79B0080A28C /* Array2D.swift */; settings = {ASSET_TAGS = (); }; };
 		68A065A01BCCAF260080A28C /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A0659F1BCCAF260080A28C /* Tile.swift */; settings = {ASSET_TAGS = (); }; };
@@ -67,6 +69,8 @@
 		683AF6FC1BCC14E700DBCCBC /* BlockThingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlockThingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		683AF7001BCC14E700DBCCBC /* BlockThingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockThingUITests.swift; sourceTree = "<group>"; };
 		683AF7021BCC14E700DBCCBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		686C2C1B1BD54EE000993F63 /* DeathParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = DeathParticle.sks; sourceTree = "<group>"; };
+		686C2C1E1BD550E100993F63 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		68A0659B1BCCA6F40080A28C /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		68A0659D1BCCA79B0080A28C /* Array2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array2D.swift; sourceTree = "<group>"; };
 		68A0659F1BCCAF260080A28C /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
@@ -152,6 +156,8 @@
 				683AF6E71BCC14E600DBCCBC /* Assets.xcassets */,
 				683AF6E91BCC14E700DBCCBC /* LaunchScreen.storyboard */,
 				683AF6EC1BCC14E700DBCCBC /* Info.plist */,
+				686C2C1B1BD54EE000993F63 /* DeathParticle.sks */,
+				686C2C1E1BD550E100993F63 /* spark.png */,
 			);
 			path = BlockThing;
 			sourceTree = "<group>";
@@ -295,10 +301,12 @@
 				68A065A91BCCB57E0080A28C /* Level_2.json in Resources */,
 				68A065A71BCCB57E0080A28C /* Level_0.json in Resources */,
 				683AF6EB1BCC14E700DBCCBC /* LaunchScreen.storyboard in Resources */,
+				686C2C201BD550E100993F63 /* spark.png in Resources */,
 				683AF6E81BCC14E600DBCCBC /* Assets.xcassets in Resources */,
 				9A9033FD1BCE4D3C00D47C4B /* Level_5.json in Resources */,
 				68A065A81BCCB57E0080A28C /* Level_1.json in Resources */,
 				68A065AA1BCCB57E0080A28C /* Level_3.json in Resources */,
+				686C2C1C1BD54EE000993F63 /* DeathParticle.sks in Resources */,
 				683AF6E61BCC14E600DBCCBC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

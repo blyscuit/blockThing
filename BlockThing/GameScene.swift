@@ -263,6 +263,16 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         cover.zPosition = 5
         addChild(cover)
         
+        hero.dieAnimation()
+        
+        var path = NSBundle.mainBundle().pathForResource("DeathParticle", ofType: "sks")
+        var rainParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
+        
+        rainParticle.position = CGPointMake(hero.position.x,hero.position.y)
+        rainParticle.name = "death"
+        rainParticle.targetNode = self
+        addChild(rainParticle)
+        
         self.tilesLayer.runAction(SKAction.shake(0.57, amplitudeX: 40, amplitudeY: 40)) { () -> Void in
             self.myMap.remove()
             self.hero.remove()
@@ -273,7 +283,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             self.removeAllChildren()
             self.startGame()
         }
-        cover.runAction(SKAction.fadeAlphaTo(0.95, duration: 0.4))
+//        cover.runAction(SKAction.fadeAlphaTo(0.95, duration: 0.4))
     }
     
 }
