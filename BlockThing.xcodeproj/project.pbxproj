@@ -32,7 +32,6 @@
 		68DB37891BCE454900A7FB0A /* Door.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DB37881BCE454900A7FB0A /* Door.swift */; settings = {ASSET_TAGS = (); }; };
 		9A9033FB1BCCE85B00D47C4B /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9033FA1BCCE85B00D47C4B /* Hero.swift */; settings = {ASSET_TAGS = (); }; };
 		9A9033FD1BCE4D3C00D47C4B /* Level_5.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A9033FC1BCE4D3C00D47C4B /* Level_5.json */; settings = {ASSET_TAGS = (); }; };
-		9A9033FF1BD49C3B00D47C4B /* Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9033FE1BD49C3B00D47C4B /* Circle.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,7 +83,6 @@
 		68DB37881BCE454900A7FB0A /* Door.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Door.swift; sourceTree = "<group>"; };
 		9A9033FA1BCCE85B00D47C4B /* Hero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
 		9A9033FC1BCE4D3C00D47C4B /* Level_5.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_5.json; sourceTree = "<group>"; };
-		9A9033FE1BD49C3B00D47C4B /* Circle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Circle.swift; path = ../Circle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,7 +136,6 @@
 			isa = PBXGroup;
 			children = (
 				683AF6DC1BCC14E600DBCCBC /* AppDelegate.swift */,
-				9A9033FE1BD49C3B00D47C4B /* Circle.swift */,
 				683AF6DE1BCC14E600DBCCBC /* GameScene.sks */,
 				68A065AC1BCCB5AA0080A28C /* Extensions.swift */,
 				683AF6E01BCC14E600DBCCBC /* GameScene.swift */,
@@ -334,7 +331,6 @@
 				683AF6E11BCC14E600DBCCBC /* GameScene.swift in Sources */,
 				683AF6E31BCC14E600DBCCBC /* GameViewController.swift in Sources */,
 				68A0659C1BCCA6F40080A28C /* Map.swift in Sources */,
-				9A9033FF1BD49C3B00D47C4B /* Circle.swift in Sources */,
 				9A9033FB1BCCE85B00D47C4B /* Hero.swift in Sources */,
 				68A065A01BCCAF260080A28C /* Tile.swift in Sources */,
 				68B232321BD38EF800DEB4F2 /* SpriteKit-Spring.swift in Sources */,
