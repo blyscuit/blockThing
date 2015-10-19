@@ -27,6 +27,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     override func didMoveToView(view: SKView) {
         
+        var cover:SKSpriteNode = SKSpriteNode(color: UIColor.blackColor(), size: self.size)
+        cover.zPosition = 5
+        addChild(cover)
+        cover.anchorPoint = CGPointMake(0.0, 0.0)
+        cover.runAction(SKAction.fadeAlphaTo(0.0, duration: 0.2)) { () -> Void in
+            cover.removeFromParent()
+        }
+        
         physicsWorld.contactDelegate = self
         backgroundColor = UIColor.whiteColor()
         
@@ -34,11 +42,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         myMap = Map(filename: "Level_1")
         addTiles()
         self.addChild(tilesLayer);
-        
-        let circleMonster = CircleMonster(imageNamed: "mon", inX: 5, inY: 4)
-        circleMonster.zPosition = 2;
-        circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
-        tilesLayer.addChild(circleMonster)
         
     }
     
@@ -106,6 +109,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         if let tile = myMap.tileAtColumn(hero.xCoor, row: hero.yCoor) {
             if(tile.tileType == TileType.Lava){
                 print("Fall in lava")
+                gameOver()
             }else if(tile.tileType == TileType.Door){
                 print("Leave")
             }
@@ -130,6 +134,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 if let tile = myMap.tileAtColumn(column, row: row) {
                     if(tile.tileType == TileType.Birth){
                         centerTile = tile
+                    }else if(tile.tileType == TileType.Monster){
+                        let circleMonster = CircleMonster(imageNamed: "mon", inX: tile.row, inY: tile.column)
+                        circleMonster.zPosition = 2;
+                        circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
+                        tilesLayer.addChild(circleMonster)
                     }
                     tile.texture = SKTexture(imageNamed: tile.tileType.spriteName)
                     tile.position = pointForColumn(column, row: row)
@@ -169,12 +178,27 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         if (contact.bodyA.categoryBitMask == BodyType.hero.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue )  {
             
+            gameOver()
             print("bodyA was our Bro hero, bodyB was the monster")
         } else if (contact.bodyA.categoryBitMask == BodyType.hero.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue )  {
             
+            gameOver()
             print("bodyB was our Bro hero, bodyA was the monster")
         }
         
+    }
+    
+    func gameOver(){
+        var cover:SKSpriteNode = SKSpriteNode(color: UIColor.blackColor(), size: self.size)
+        cover.anchorPoint = CGPointMake(0.0, 0.0)
+        cover.alpha = 0.0
+        cover.zPosition = 5
+        addChild(cover)
+        cover.runAction(SKAction.fadeAlphaTo(1.0, duration: 0.2)) { () -> Void in
+            self.removeAllActions()
+            self.removeAllChildren()
+            self.didMoveToView(self.view!)
+        }
     }
     
     
