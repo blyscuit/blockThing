@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+//import UIKit
 
 enum BodyType:UInt32 {
     
@@ -78,6 +79,44 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //            self.addChild(circleMonster)
         }
     }
+    
+//    override func keyUp(theEvent: NSEvent) {
+//        let s: String = String(self.returnChar(theEvent)!)
+//        switch(s){
+//        case "w":
+//            if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor+1)){
+//                hero.goUp()
+//                tilesLayer.goUp()
+//                checkTile()
+//            }
+//            break
+//        case "s":
+//            if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor-1)){
+//                hero.goDown()
+//                tilesLayer.goDown()
+//                checkTile()
+//            }
+//            break
+//        case "d":
+//            if(myMap.canMoveToTile(hero.xCoor+1, row: hero.yCoor)){
+//                hero.goRight()
+//                tilesLayer.goRight()
+//                checkTile()
+//            }
+//            break
+//        case "a":
+//            if(myMap.canMoveToTile(hero.xCoor-1, row: hero.yCoor)){
+//                hero.goLeft()
+//                tilesLayer.goLeft()
+//                checkTile()
+//            }
+//            break
+//            
+//            
+//        default:
+//            print("default")
+//        }
+//    }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if(justMove){return;}
