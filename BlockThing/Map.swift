@@ -52,20 +52,24 @@ class Map {
                 tiles = Array2D<Tile>(columns:NumColumns, rows: NumRows)
                 
                 // Loop through the rows...
-                for (row, rowArray) in (tilesArray as! [[Int]]).enumerate() {
+                for (row, rowArray) in (tilesArray as! [[Float]]).enumerate() {
                     
                     // Note: In Sprite Kit (0,0) is at the bottom of the screen,
                     // so we need to read this file upside down.
                     let tileRow = NumRows - row - 1
                     
                     // Loop through the columns in the current row...
-                    for (column, value) in rowArray.enumerate() {
+                    for (column, rawValueIn) in rowArray.enumerate() {
                         
+                        let afterValue = Int((rawValueIn * 10000)%10000)
+                        let value = Int(rawValueIn)
                         // If the value is 1, create a tile object.
                         if value == TileType.Door.rawValue {
-                            tiles[column, tileRow] = Door(column: column, row: tileRow)
+                            tiles[column, tileRow] = Door(column: column, row: tileRow, inTag:afterValue)
                         }else if value == TileType.Wall.rawValue {
                             tiles[column, tileRow] = Wall(column: column, row: tileRow)
+                        }else if value == TileType.Button.rawValue{
+                            tiles[column,tileRow] = Switch(column: column, row: tileRow, inTag: afterValue)
                         }else{
                             tiles[column, tileRow] = Tile(column: column, row: tileRow, tileType: value)
                         }

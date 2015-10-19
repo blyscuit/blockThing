@@ -117,6 +117,16 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 gameOver()
             }else if(tile.tileType == TileType.Door){
                 print("Leave")
+            }else if(tile.tileType == TileType.Button){
+                for row in 0..<NumRows {
+                    for column in 0..<NumColumns {
+                        if let tiles = myMap.tileAtColumn(column, row: row) as? Door {
+                            if(tiles.tileType == TileType.Door && tiles.tag == (tile as? Switch)?.tag){
+                                tiles.flip()
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -140,7 +150,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     if(tile.tileType == TileType.Birth){
                         centerTile = tile
                     }else if(tile.tileType == TileType.Monster){
-                        let circleMonster = CircleMonster(imageNamed: "mon", inX: tile.row, inY: tile.column)
+                        let circleMonster = TriangleMonster(imageNamed: "mon", inX: tile.row, inY: tile.column)
                         circleMonster.zPosition = 2;
                         circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
                         tilesLayer.addChild(circleMonster)

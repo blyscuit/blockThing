@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class CircleMonster: Monster {
+class TriangleMonster: Monster {
     
     override init (imageNamed: String, inX:Int,inY:Int ) {
         
