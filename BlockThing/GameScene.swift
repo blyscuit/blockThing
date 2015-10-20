@@ -173,19 +173,19 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
     }
     
-    func checkWall () {
-        if let tile1 = myMap.tileAtColumn(monster.xCoor, row: monster.yCoor) {
-            if(tile1.tileType == TileType.Wall) {
-                print("Monster bounces against wall")
-                monster.changeDirection()
-            }
-        }
-    }
+//    func checkWall () {
+//        if let tile1 = myMap.tileAtColumn(monster.xCoor, row: monster.yCoor) {
+//            if(tile1.tileType == TileType.Wall) {
+//                print("Monster bounces against wall")
+//                monster.changeDirection()
+//            }
+//        }
+//    }
     
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
         
-        checkWall()
+        //checkWall()
         
         
         
@@ -201,7 +201,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     if(tile.tileType == TileType.Birth){
                         centerTile = tile
                     }else if(tile.tileType == TileType.Monster){
-                        let triangleMonster = TriangleMonster(imageNamed: "triangle", inX: tile.row, inY: tile.column)
+                        let triangleMonster = TriangleMonster(imageNamed: "triangle", inX: tile.column, inY: tile.row)
                         triangleMonster.zPosition = 2;
                         triangleMonster.position = pointForColumn(triangleMonster.xCoor, row: triangleMonster.yCoor)
                         tilesLayer.addChild(triangleMonster)
