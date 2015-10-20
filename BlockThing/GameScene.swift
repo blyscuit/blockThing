@@ -14,16 +14,18 @@ enum BodyType:UInt32 {
     case ground = 2
     case monster = 4
     case emptyness = 9
-    
+    case wall = 5
 }
 
 let TileWidth: CGFloat = 80.0
 let TileHeight: CGFloat = 80.0
 
 class GameScene: SKScene,SKPhysicsContactDelegate {
-    var hero:Hero!
+    var hero: Hero!
     var justMove = false;
     var fingerPosition:CGPoint?
+    var velo: CGVector!
+    var monster: CircleMonster!
     
     override func didMoveToView(view: SKView) {
         
@@ -132,10 +134,19 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
     }
     
+    func checkWall () {
+        if let tile1 = myMap.tileAtColumn(monster.xCoor, row: monster.yCoor) {
+            if(tile1.tileType == TileType.Wall) {
+                print("Monster bounces against wall")
+                monster.changeDirection()
+            }
+        }
+    }
+    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
         
-        
+        checkWall()
         
         
         
@@ -151,12 +162,12 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     if(tile.tileType == TileType.Birth){
                         centerTile = tile
                     }else if(tile.tileType == TileType.Monster){
-                        let circleMonster = TriangleMonster(imageNamed: "triangle", inX: tile.row, inY: tile.column)
-                        circleMonster.zPosition = 2;
-                        circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
-                        tilesLayer.addChild(circleMonster)
+                        let triangleMonster = TriangleMonster(imageNamed: "triangle", inX: tile.row, inY: tile.column)
+                        triangleMonster.zPosition = 2;
+                        triangleMonster.position = pointForColumn(triangleMonster.xCoor, row: triangleMonster.yCoor)
+                        tilesLayer.addChild(triangleMonster)
                     }else if(tile.tileType == TileType.CircleMon){
-                        let circleMonster = CircleMonster(imageNamed: "mon", inX: tile.row, inY: tile.column)
+                        let circleMonster = CircleMonster(imageNamed: "mon", inX: tile.row, inY: tile.column, horizontal: true, inv: true)
                         circleMonster.zPosition = 2;
                         circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
                         tilesLayer.addChild(circleMonster)
@@ -215,8 +226,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             
             gameOver()
             print("bodyB was our Bro hero, bodyA was the monster")
-        }
-        
+        }        
     }
     
     func gameOver(){
