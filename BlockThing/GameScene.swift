@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+//import UIKit
 
 enum BodyType:UInt32 {
     
@@ -27,29 +28,29 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     var velo: CGVector!
     var monster: CircleMonster!
     
+    var levelIs = "Level_5"
+    
     override func didMoveToView(view: SKView) {
+        physicsWorld.contactDelegate = self
+        backgroundColor = UIColor.whiteColor()
+        
+        startGame()
+    }
+    
+    func startGame(){
         
         var cover:SKSpriteNode = SKSpriteNode(color: UIColor.blackColor(), size: self.size)
         cover.zPosition = 5
         addChild(cover)
         cover.anchorPoint = CGPointMake(0.0, 0.0)
-        cover.runAction(SKAction.fadeAlphaTo(0.0, duration: 0.2)) { () -> Void in
+        cover.runAction(SKAction.fadeAlphaTo(0.0, duration: 0.32)) { () -> Void in
             cover.removeFromParent()
         }
         
-        physicsWorld.contactDelegate = self
-        backgroundColor = UIColor.whiteColor()
-        
         /* Setup your scene here */
-        myMap = Map(filename: "Level_5")
+        myMap = Map(filename: levelIs)
         addTiles()
         self.addChild(tilesLayer);
-        
-//        let circleMonster = TriangleMonster(imageNamed: "triangle", inX: 5, inY: 4)
-//        circleMonster.zPosition = 2;
-//        circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
-//        tilesLayer.addChild(circleMonster)
-        
     }
     
     
@@ -80,6 +81,44 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //            self.addChild(circleMonster)
         }
     }
+    
+//    override func keyUp(theEvent: NSEvent) {
+//        let s: String = String(self.returnChar(theEvent)!)
+//        switch(s){
+//        case "w":
+//            if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor+1)){
+//                hero.goUp()
+//                tilesLayer.goUp()
+//                checkTile()
+//            }
+//            break
+//        case "s":
+//            if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor-1)){
+//                hero.goDown()
+//                tilesLayer.goDown()
+//                checkTile()
+//            }
+//            break
+//        case "d":
+//            if(myMap.canMoveToTile(hero.xCoor+1, row: hero.yCoor)){
+//                hero.goRight()
+//                tilesLayer.goRight()
+//                checkTile()
+//            }
+//            break
+//        case "a":
+//            if(myMap.canMoveToTile(hero.xCoor-1, row: hero.yCoor)){
+//                hero.goLeft()
+//                tilesLayer.goLeft()
+//                checkTile()
+//            }
+//            break
+//            
+//            
+//        default:
+//            print("default")
+//        }
+//    }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if(justMove){return;}
@@ -117,8 +156,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             if(tile.tileType == TileType.Lava){
                 print("Fall in lava")
                 gameOver()
-            }else if(tile.tileType == TileType.Door){
-                print("Leave")
+            }else if(tile.tileType == TileType.Exit){
+                clearLevel()
             }else if(tile.tileType == TileType.Button && (tile as? Switch)?.tag != 0){
                 (tile as? Switch)?.flip()
                 for row in 0..<NumRows {
@@ -235,13 +274,51 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         cover.alpha = 0.0
         cover.zPosition = 5
         addChild(cover)
-        cover.runAction(SKAction.fadeAlphaTo(1.0, duration: 0.2)) { () -> Void in
+        
+        hero.dieAnimation()
+        
+        var path = NSBundle.mainBundle().pathForResource("DeathParticle", ofType: "sks")
+        var rainParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
+        
+        rainParticle.position = CGPointMake(hero.position.x,hero.position.y)
+        rainParticle.name = "death"
+        rainParticle.targetNode = self
+        addChild(rainParticle)
+        
+        self.tilesLayer.runAction(SKAction.shake(0.57, amplitudeX: 40, amplitudeY: 40)) { () -> Void in
+            self.myMap.remove()
+            self.hero.remove()
+            self.tilesLayer.removeAllActions()
+            self.tilesLayer.removeAllChildren()
+            self.tilesLayer.removeFromParent()
             self.removeAllActions()
             self.removeAllChildren()
-            self.didMoveToView(self.view!)
+            self.startGame()
         }
+//        cover.runAction(SKAction.fadeAlphaTo(0.95, duration: 0.4))
     }
     
+    func clearLevel(){
+        var cover:SKSpriteNode = SKSpriteNode(color: UIColor.whiteColor(), size: self.size)
+        cover.anchorPoint = CGPointMake(0.0, 0.0)
+        cover.alpha = 0.0
+        cover.zPosition = 5
+        addChild(cover)
+        
+        hero.dieAnimation()
+
+//        self.tilesLayer.runAction(SKAction.shake(0.57, amplitudeX: 40, amplitudeY: 40)) { () -> Void in
+//            self.myMap.remove()
+//            self.hero.remove()
+//            self.tilesLayer.removeAllActions()
+//            self.tilesLayer.removeAllChildren()
+//            self.tilesLayer.removeFromParent()
+//            self.removeAllActions()
+//            self.removeAllChildren()
+////            self.startGame()
+//        }
+                cover.runAction(SKAction.fadeAlphaTo(0.70, duration: 0.4))
+    }
     
 }
 

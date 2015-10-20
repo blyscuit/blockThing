@@ -32,28 +32,11 @@ class Monster:SKSpriteNode {
         xCoor=inX
         yCoor=inY
         
-        position = CGPointMake(CGFloat(x)*TileWidth, CGFloat(y)*TileHeight)
+        position = CGPointMake(CGFloat(xCoor)*TileWidth, CGFloat(yCoor)*TileHeight)
         //startMovingCircle()
         
         
     }
-//    func MoveDirection () {
-//        
-//    }
-//    func startMovingCircle () {
-//        var path = CGPathCreateMutable()
-//        CGPathMoveToPoint(path, nil, startingx, startingy)
-//        CGPathAddLineToPoint(path, nil, endx, endy)
-//        var followLine = SKAction.followPath(path, asOffset: true, orientToPath: false, duration: 5.0)
-//        var reversedLine = followLine.reversedAction()
-//        runAction(SKAction.sequence([followLine,reversedLine]))
-//    }
-//    func moveUp() {
-//        
-//    }
-//    func moveRight() {
-//        
-//    }
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

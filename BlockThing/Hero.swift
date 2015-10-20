@@ -55,4 +55,12 @@ class Hero: SKSpriteNode {
         yCoor--;
         
     }
+    
+    func dieAnimation(){
+        runAction(SKAction.scaleTo(0.1, duration: 0.41, delay: 0.0, usingSpringWithDamping: 2.0, initialSpringVelocity: 0))
+    }
+    
+    func remove(){
+        removeFromParent()
+    }
 }

@@ -34,8 +34,8 @@ class Tile : SKSpriteNode {
 }
 
 enum TileType: Int, CustomStringConvertible {
-    //0,1Ground , 2Lava,3Wall, 4Monster, 5Button, 6Birth, 7Key, 8Lock,9door,10 second birth,11CircleMon"
-    case Unknown = 0,Ground , Lava,Wall, Monster, Button, Birth, Key, Lock,Door,Second,CircleMon
+    //0,1Ground , 2Lava,3Wall, 4Monster, 5Button, 6Birth, 7Key, 8Lock,9door,10 second birth,11CircleMon,12 Exit"
+    case Unknown = 0,Ground , Lava,Wall, Monster, Button, Birth, Key, Lock,Door,Second,CircleMon,Exit
     
     var spriteName: String {
         let spriteNames = [
@@ -49,7 +49,8 @@ enum TileType: Int, CustomStringConvertible {
         "lock",
             "Door",
             "plain",
-            "plain"]
+            "plain",
+            "exit"]
         
         return spriteNames[rawValue - 1]
     }
