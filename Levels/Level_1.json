@@ -42,5 +42,5 @@
 
   "targetScore" : 1222,
   "moves" : 15,
-    "comment":"//0,1Ground , 2Lava,3Wall, 4Monster, 5Button, 6Birth, 7Key, 8Lock,9door,10 second birth",
+    "comment":"//0,1Ground , 2Lava,3Wall, 4Monster, 5Button, 6Birth, 5Key, 8Lock,9door,10 second birth",
 }
