@@ -53,14 +53,15 @@ class TriangleMonster: Monster {
     }
 }
 class CircleMonster: Monster {
-    //var velocity: CG = 0;
-    var moveHorizontal = 1
+    var moveHorizontal: Bool
     var body: SKPhysicsBody!
-    override init(imageNamed: String, inX: Int, inY: Int) {
+    var inverse: Bool
+    init(imageNamed: String, inX: Int, inY: Int, horizontal: Bool, inv: Bool) {
         let imageTexture = SKTexture(imageNamed: imageNamed)
         
         body = SKPhysicsBody(circleOfRadius: (imageTexture.size().width/2))
-        
+        inverse = inv
+        moveHorizontal = horizontal
     
         super.init(imageNamed: imageNamed, inX: inX, inY: inY)
         
@@ -70,16 +71,48 @@ class CircleMonster: Monster {
         body!.categoryBitMask = BodyType.hero.rawValue
         body!.contactTestBitMask = BodyType.monster.rawValue
         body!.collisionBitMask = 0
+        body!.linearDamping = 0
         self.physicsBody = body
         
         startMoving()
         
+        
     }
     func startMoving() {
-        if moveHorizontal == 1 {
-            body.applyForce(CGVectorMake(200, 0))
-        } else if moveHorizontal == 0 {
-            body.applyForce(CGVectorMake(0, 200))
+        if moveHorizontal == true {
+            if inverse == true {
+                body!.velocity = CGVectorMake(-50, 0)
+                //body.applyForce(CGVectorMake(-20, 0))
+            } else if inverse == false {
+                body!.velocity = CGVectorMake(50, 0)
+                //body.applyForce(CGVectorMake(20,0))
+            }
+        } else if moveHorizontal == false {
+            if inverse == true {
+                body!.velocity = CGVectorMake(0, -50)
+                //body.applyForce(CGVectorMake(0, 2))
+            } else if inverse == false {
+                body!.velocity = CGVectorMake(0, 50)
+            }
+        }
+    }
+    func changeDirection() {
+        if moveHorizontal == true {
+            if inverse == true {
+                body!.velocity = CGVectorMake(50, 0)
+                inverse = false
+            } else if inverse == false {
+                body!.velocity = CGVectorMake(-50, 0)
+                inverse = true
+            }
+        } else if moveHorizontal == false {
+            if inverse == true {
+                body!.velocity = CGVectorMake(0, 50)
+                inverse = false
+            } else if inverse == false {
+                body!.velocity = CGVectorMake(0, -50)
+                inverse = true
+            }
         }
     }
     required init(coder aDecoder: NSCoder) {
