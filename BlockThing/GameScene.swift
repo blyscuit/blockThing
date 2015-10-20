@@ -26,6 +26,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     var justMove = false;
     var fingerPosition:CGPoint?
     
+    var levelIs = "Level_5"
+    
     override func didMoveToView(view: SKView) {
         physicsWorld.contactDelegate = self
         backgroundColor = UIColor.whiteColor()
@@ -44,7 +46,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
         
         /* Setup your scene here */
-        myMap = Map(filename: "Level_5")
+        myMap = Map(filename: levelIs)
         addTiles()
         self.addChild(tilesLayer);
     }
@@ -152,8 +154,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             if(tile.tileType == TileType.Lava){
                 print("Fall in lava")
                 gameOver()
-            }else if(tile.tileType == TileType.Door){
-                print("Leave")
+            }else if(tile.tileType == TileType.Exit){
+                clearLevel()
             }else if(tile.tileType == TileType.Button && (tile as? Switch)?.tag != 0){
                 (tile as? Switch)?.flip()
                 for row in 0..<NumRows {
@@ -284,6 +286,28 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             self.startGame()
         }
 //        cover.runAction(SKAction.fadeAlphaTo(0.95, duration: 0.4))
+    }
+    
+    func clearLevel(){
+        var cover:SKSpriteNode = SKSpriteNode(color: UIColor.whiteColor(), size: self.size)
+        cover.anchorPoint = CGPointMake(0.0, 0.0)
+        cover.alpha = 0.0
+        cover.zPosition = 5
+        addChild(cover)
+        
+        hero.dieAnimation()
+
+//        self.tilesLayer.runAction(SKAction.shake(0.57, amplitudeX: 40, amplitudeY: 40)) { () -> Void in
+//            self.myMap.remove()
+//            self.hero.remove()
+//            self.tilesLayer.removeAllActions()
+//            self.tilesLayer.removeAllChildren()
+//            self.tilesLayer.removeFromParent()
+//            self.removeAllActions()
+//            self.removeAllChildren()
+////            self.startGame()
+//        }
+                cover.runAction(SKAction.fadeAlphaTo(0.70, duration: 0.4))
     }
     
 }
