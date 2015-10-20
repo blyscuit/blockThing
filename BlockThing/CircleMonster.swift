@@ -81,36 +81,36 @@ class CircleMonster: Monster {
     func startMoving() {
         if moveHorizontal == true {
             if inverse == true {
-                body!.velocity = CGVectorMake(-50, 0)
+                body!.velocity = CGVectorMake(-80, 0)
                 //body.applyForce(CGVectorMake(-20, 0))
             } else if inverse == false {
-                body!.velocity = CGVectorMake(50, 0)
+                body!.velocity = CGVectorMake(80, 0)
                 //body.applyForce(CGVectorMake(20,0))
             }
         } else if moveHorizontal == false {
             if inverse == true {
-                body!.velocity = CGVectorMake(0, -50)
+                body!.velocity = CGVectorMake(0, -80)
                 //body.applyForce(CGVectorMake(0, 2))
             } else if inverse == false {
-                body!.velocity = CGVectorMake(0, 50)
+                body!.velocity = CGVectorMake(0, 80)
             }
         }
     }
     func changeDirection() {
         if moveHorizontal == true {
             if inverse == true {
-                body!.velocity = CGVectorMake(50, 0)
+                body!.velocity = CGVectorMake(80, 0)
                 inverse = false
             } else if inverse == false {
-                body!.velocity = CGVectorMake(-50, 0)
+                body!.velocity = CGVectorMake(-80, 0)
                 inverse = true
             }
         } else if moveHorizontal == false {
             if inverse == true {
-                body!.velocity = CGVectorMake(0, 50)
+                body!.velocity = CGVectorMake(0, 80)
                 inverse = false
             } else if inverse == false {
-                body!.velocity = CGVectorMake(0, -50)
+                body!.velocity = CGVectorMake(0, -80)
                 inverse = true
             }
         }
