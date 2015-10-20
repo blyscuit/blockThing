@@ -11,24 +11,33 @@ import SpriteKit
 class MoveMap: SKSpriteNode {
     let dur = 0.4
     let spring = CGFloat(10.0)
-    func goLeft(){
+    
+    func goLeft(completion:() -> Void){
         
         let action = SKAction.moveBy(CGVectorMake(TileWidth,0), duration: dur,delay:0,usingSpringWithDamping: spring, initialSpringVelocity: 0);
-        runAction(action)
+        runAction(action){ () -> Void in
+            completion()
+        }
     }
-    func goRight(){
+    func goRight(completion:() -> Void){
         
         let action = SKAction.moveBy(CGVectorMake(-TileWidth,0), duration: dur,delay:0,usingSpringWithDamping: spring, initialSpringVelocity: 0);
-        runAction(action)
+        runAction(action){ () -> Void in
+            completion()
+        }
     }
-    func goUp(){
+    func goUp(completion:() -> Void) {
         
         let action = SKAction.moveBy(CGVectorMake(0,-TileHeight), duration: dur,delay:0,usingSpringWithDamping: spring, initialSpringVelocity: 0);
-        runAction(action)
+        runAction(action){ () -> Void in
+            completion()
+        }
     }
-    func goDown(){
+    func goDown(completion:() -> Void){
         let action = SKAction.moveBy(CGVectorMake(0,TileHeight), duration: dur,delay:0,usingSpringWithDamping: spring, initialSpringVelocity: 0);
-        runAction(action)
+        runAction(action){ () -> Void in
+            completion()
+        }
         
     }
 }

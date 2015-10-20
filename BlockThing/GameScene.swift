@@ -23,9 +23,13 @@ let TileHeight: CGFloat = 80.0
 
 class GameScene: SKScene,SKPhysicsContactDelegate {
     var hero: Hero!
-    var justMove = false;
+    var justMove = false
     var fingerPosition:CGPoint?
     var velo: CGVector!
+    
+    var isOver = false
+    
+//    var isMoving = false
     
     var levelIs = "Level_1"
     
@@ -37,6 +41,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
     
     func startGame(){
+        
+        isOver = false
         
         var cover:SKSpriteNode = SKSpriteNode(color: UIColor.blackColor(), size: self.size)
         cover.zPosition = 5
@@ -57,8 +63,13 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
         fingerPosition = touches.first?.locationInNode(self)
-        justMove = false;
-        for touch in touches {
+//        if (isMoving==true){
+//            return
+//        }
+
+        //        justMove = false;
+        
+//        for touch in touches {
 //            let location = touch.locationInNode(self)
 //            
 //            let sprite = SKSpriteNode(imageNamed:"Spaceship")
@@ -78,7 +89,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //                        let location = touch.locationInNode(self)
 //                        circleMonster.position = location
 //            self.addChild(circleMonster)
-        }
+//        }
     }
     
 //    override func keyUp(theEvent: NSEvent) {
@@ -118,31 +129,52 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //            print("default")
 //        }
 //    }
-    
+    var moveDistance = CGFloat(5)
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if(justMove){return;}
-        if(touches.first?.locationInNode(self).x > (fingerPosition?.x)!+10){
+        if(justMove||isOver){return;}
+        
+        let distanceX = abs((touches.first?.locationInNode(self).x)! - (fingerPosition?.x)!)
+        let distanceY = abs((touches.first?.locationInNode(self).y)! - (fingerPosition?.y)!)
+        
+        if(touches.first?.locationInNode(self).x > (fingerPosition?.x)!+moveDistance && distanceX > distanceY){
             if(myMap.canMoveToTile(hero.xCoor+1, row: hero.yCoor)){
+                centerMap();
+//                isMoving = true
                 hero.goRight()
-                tilesLayer.goRight()
+                tilesLayer.goRight(){
+//                    self.isMoving = false
+                    
+                }
                 checkTile()
             }
-        }else if(touches.first?.locationInNode(self).x < (fingerPosition?.x)!-10){
+        }else if(touches.first?.locationInNode(self).x < (fingerPosition?.x)!-moveDistance && distanceX > distanceY){
             if(myMap.canMoveToTile(hero.xCoor-1, row: hero.yCoor)){
+                centerMap();
+//                isMoving = true
                 hero.goLeft()
-                tilesLayer.goLeft()
+                tilesLayer.goLeft(){
+//                    self.isMoving = false
+                }
                 checkTile()
             }
-        }else if(touches.first?.locationInNode(self).y > (fingerPosition?.y)!+10){
+        }else if(touches.first?.locationInNode(self).y > (fingerPosition?.y)!+moveDistance && distanceX < distanceY){
             if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor+1)){
+                centerMap();
+//                isMoving = true
                 hero.goUp()
-                tilesLayer.goUp()
+                tilesLayer.goUp(){
+//                    self.isMoving = false
+                }
                 checkTile()
             }
-        }else if(touches.first?.locationInNode(self).y < (fingerPosition?.y)!-10){
+        }else if(touches.first?.locationInNode(self).y < (fingerPosition?.y)!-moveDistance && distanceX < distanceY){
             if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor-1)){
+                centerMap();
+//                isMoving = true
                 hero.goDown()
-                tilesLayer.goDown()
+                tilesLayer.goDown(){
+//                    self.isMoving = false
+                }
                 checkTile()
             }
         }
@@ -227,6 +259,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         tilesLayer.position = CGPointMake(self.size.width/2 - (pointForColumn(centerTile.column, row: centerTile.row)).x, self.size.height/2 - (pointForColumn(centerTile.column, row: centerTile.row)).y)
     }
     
+    func centerMap(){
+        tilesLayer.position = CGPointMake(self.size.width/2 - (pointForColumn(hero.xCoor, row: hero.yCoor)).x, self.size.height/2 - (pointForColumn(hero.xCoor, row: hero.yCoor)).y)
+    }
+    
     func spawnPlayer(inX : Int, inY: Int){
         hero = Hero(xd: inX, yd: inY)
         hero.anchorPoint = CGPointMake(0.5, 0.5)
@@ -244,6 +280,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     
     func gameOver(){
+        isOver = true
         var cover:SKSpriteNode = SKSpriteNode(color: UIColor.blackColor(), size: self.size)
         cover.anchorPoint = CGPointMake(0.0, 0.0)
         cover.alpha = 0.0
