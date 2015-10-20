@@ -79,7 +79,7 @@ class Map {
                         }else if value == TileType.Button.rawValue{
                             tiles[column,tileRow] = Switch(column: column, row: tileRow, inTag: afterValue)
                         }else{
-                            tiles[column, tileRow] = Tile(column: column, row: tileRow, tileType: value)
+                            tiles[column, tileRow] = Tile(column: column, row: tileRow, tileType: value, inTag:afterValue)
                         }
                     }
                 }

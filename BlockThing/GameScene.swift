@@ -172,15 +172,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             }
         }
     }
-    
-//    func checkWall () {
-//        if let tile1 = myMap.tileAtColumn(monster.xCoor, row: monster.yCoor) {
-//            if(tile1.tileType == TileType.Wall) {
-//                print("Monster bounces against wall")
-//                monster.changeDirection()
-//            }
-//        }
-//    }
+
     
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */

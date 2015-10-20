@@ -16,10 +16,13 @@ class Tile : SKSpriteNode {
     
     var walk : Bool
     
-    init(column: Int, row: Int, tileType: Int) {
+    var tag : Int
+    
+    init(column: Int, row: Int, tileType: Int, inTag:Int) {
         self.column = column
         self.row = row
         self.walk = true
+        self.tag = inTag
         self.tileType = TileType(rawValue: tileType)!
         super.init(texture: nil, color: UIColor.clearColor(), size: CGSizeZero)
     }

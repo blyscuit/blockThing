@@ -10,7 +10,6 @@ import SpriteKit
 
 class Door: Tile {
     var close = true
-    var tag = 0
     var life = 0
     func flip(closing:Bool){
         if(closing){
@@ -35,12 +34,11 @@ class Door: Tile {
         }
     }
     init(column: Int, row: Int){
-        super.init(column: column, row: row, tileType: TileType.Door.rawValue)
+        super.init(column: column, row: row, tileType: TileType.Door.rawValue, inTag:0)
         walk = false;
     }
     init(column: Int, row: Int , inTag:Int){
-        tag = inTag
-        super.init(column: column, row: row, tileType: TileType.Door.rawValue)
+        super.init(column: column, row: row, tileType: TileType.Door.rawValue, inTag:inTag)
         walk = false;
     }
     required init?(coder aDecoder: NSCoder) {
@@ -51,7 +49,7 @@ class Door: Tile {
 class Wall: Tile {
     var close = true
     init(column: Int, row: Int){
-        super.init(column: column, row: row, tileType: TileType.Wall.rawValue)
+        super.init(column: column, row: row, tileType: TileType.Wall.rawValue, inTag:0)
         walk = false;
         let body = SKPhysicsBody(rectangleOfSize: texture!.size())
         body.dynamic = false
@@ -69,7 +67,6 @@ class Wall: Tile {
 }
 
 class Switch: Tile {
-    var tag = 0;
     var close = true
     func flip(){
         close = !close
@@ -80,11 +77,10 @@ class Switch: Tile {
         }
     }
     init(column: Int, row: Int , inTag:Int){
-        tag = inTag
-        super.init(column: column, row: row, tileType: TileType.Button.rawValue)
+        super.init(column: column, row: row, tileType: TileType.Button.rawValue, inTag:inTag)
     }
     init(column: Int, row: Int){
-        super.init(column: column, row: row, tileType: TileType.Button.rawValue)
+        super.init(column: column, row: row, tileType: TileType.Button.rawValue, inTag:0)
     }
     
     required init?(coder aDecoder: NSCoder) {
