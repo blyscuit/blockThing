@@ -197,7 +197,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                         triangleMonster.position = pointForColumn(triangleMonster.xCoor, row: triangleMonster.yCoor)
                         tilesLayer.addChild(triangleMonster)
                     }else if(tile.tileType == TileType.CircleMon){
-                        let circleMonster = CircleMonster(imageNamed: "mon", inX: tile.column, inY: tile.row, horizontal: true, inv: true)
+                        let circleMonster = CircleMonster(imageNamed: "mon", inX: tile.column, inY: tile.row, horizontal: tile.tag, inv: true)
                         circleMonster.zPosition = 2;
                         circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
                         tilesLayer.addChild(circleMonster)

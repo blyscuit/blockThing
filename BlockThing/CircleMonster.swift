@@ -56,12 +56,12 @@ class CircleMonster: Monster {
     var moveHorizontal: Bool
     var body: SKPhysicsBody!
     var inverse: Bool
-    init(imageNamed: String, inX: Int, inY: Int, horizontal: Bool, inv: Bool) {
+    init(imageNamed: String, inX: Int, inY: Int, horizontal: Int, inv: Bool) {
         let imageTexture = SKTexture(imageNamed: imageNamed)
         
         body = SKPhysicsBody(circleOfRadius: (imageTexture.size().width/2))
         inverse = inv
-        moveHorizontal = horizontal
+        moveHorizontal = (horizontal==1000)
     
         super.init(imageNamed: imageNamed, inX: inX, inY: inY)
         
