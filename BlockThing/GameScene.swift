@@ -27,7 +27,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     var fingerPosition:CGPoint?
     var velo: CGVector!
     
-    var levelIs = "Level_5"
+    var levelIs = "Level_1"
     
     override func didMoveToView(view: SKView) {
         physicsWorld.contactDelegate = self
