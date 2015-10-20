@@ -51,11 +51,11 @@ class Wall: Tile {
     init(column: Int, row: Int){
         super.init(column: column, row: row, tileType: TileType.Wall.rawValue, inTag:0)
         walk = false;
-        let body = SKPhysicsBody(rectangleOfSize: texture!.size())
+        let body = SKPhysicsBody(rectangleOfSize: CGSizeMake(TileWidth, TileWidth))
         body.dynamic = false
         body.affectedByGravity = false
         body.allowsRotation = false
-        body.categoryBitMask = BodyType.hero.rawValue
+        body.categoryBitMask = BodyType.wall.rawValue
         body.contactTestBitMask = BodyType.monster.rawValue
         body.collisionBitMask = 0
         self.physicsBody = body

@@ -26,7 +26,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     var justMove = false;
     var fingerPosition:CGPoint?
     var velo: CGVector!
-    var monster: CircleMonster!
     
     var levelIs = "Level_5"
     
@@ -198,7 +197,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                         triangleMonster.position = pointForColumn(triangleMonster.xCoor, row: triangleMonster.yCoor)
                         tilesLayer.addChild(triangleMonster)
                     }else if(tile.tileType == TileType.CircleMon){
-                        let circleMonster = CircleMonster(imageNamed: "mon", inX: tile.row, inY: tile.column, horizontal: true, inv: true)
+                        let circleMonster = CircleMonster(imageNamed: "mon", inX: tile.column, inY: tile.row, horizontal: true, inv: true)
                         circleMonster.zPosition = 2;
                         circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
                         tilesLayer.addChild(circleMonster)
@@ -243,22 +242,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             y: CGFloat(row)*TileHeight + TileHeight/2)
     }
     
-    func didBeginContact(contact: SKPhysicsContact) {
-        
-        //this gets called automatically when two objects begin contact with each other
-        
-        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
-        
-        if (contact.bodyA.categoryBitMask == BodyType.hero.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue )  {
-            
-            gameOver()
-            print("bodyA was our Bro hero, bodyB was the monster")
-        } else if (contact.bodyA.categoryBitMask == BodyType.hero.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue )  {
-            
-            gameOver()
-            print("bodyB was our Bro hero, bodyA was the monster")
-        }        
-    }
     
     func gameOver(){
         var cover:SKSpriteNode = SKSpriteNode(color: UIColor.blackColor(), size: self.size)
@@ -311,7 +294,30 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //        }
                 cover.runAction(SKAction.fadeAlphaTo(0.70, duration: 0.4))
     }
-    
+    func didBeginContact(contact: SKPhysicsContact) {
+        
+        //this gets called automatically when two objects begin contact with each other
+        
+        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        
+        if (contact.bodyA.categoryBitMask == BodyType.hero.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue )  {
+            
+            gameOver()
+            print("bodyA was our Bro hero, bodyB was the monster")
+        } else if (contact.bodyA.categoryBitMask == BodyType.hero.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue )  {
+            
+            gameOver()
+            print("bodyB was our Bro hero, bodyA was the monster")
+        } else if (contact.bodyA.categoryBitMask == BodyType.monster.rawValue && contact.bodyB.categoryBitMask == BodyType.wall.rawValue) {
+            print("Contact Wall")
+            let circleMon = contact.bodyA.node as! CircleMonster
+            circleMon.changeDirection()
+        } else if (contact.bodyA.categoryBitMask == BodyType.wall.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue) {
+            let circleMon = contact.bodyB.node as! CircleMonster
+            circleMon.changeDirection()
+            print("Wall contact")
+        }
+    }
 }
 
 

@@ -68,8 +68,8 @@ class CircleMonster: Monster {
         body!.dynamic = true
         body!.affectedByGravity = false
         body!.allowsRotation = false
-        body!.categoryBitMask = BodyType.hero.rawValue
-        body!.contactTestBitMask = BodyType.monster.rawValue
+        body!.categoryBitMask = BodyType.monster.rawValue
+        body!.contactTestBitMask = BodyType.hero.rawValue
         body!.collisionBitMask = 0
         body!.linearDamping = 0
         self.physicsBody = body
