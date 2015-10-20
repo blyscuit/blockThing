@@ -53,6 +53,14 @@ class Wall: Tile {
     init(column: Int, row: Int){
         super.init(column: column, row: row, tileType: TileType.Wall.rawValue)
         walk = false;
+        let body = SKPhysicsBody(rectangleOfSize: texture!.size())
+        body.dynamic = false
+        body.affectedByGravity = false
+        body.allowsRotation = false
+        body.categoryBitMask = BodyType.hero.rawValue
+        body.contactTestBitMask = BodyType.monster.rawValue
+        body.collisionBitMask = 0
+        self.physicsBody = body
     }
     
     required init?(coder aDecoder: NSCoder) {
