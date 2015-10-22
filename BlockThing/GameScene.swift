@@ -31,7 +31,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
 //    var isMoving = false
     
-    var levelIs = "Level_1"
+    var levelIs = "Level_13"
     
     override func didMoveToView(view: SKView) {
         physicsWorld.contactDelegate = self
@@ -196,13 +196,15 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 gameOver()
             }else if(tile.tileType == TileType.Exit){
                 clearLevel()
-            }else if(tile.tileType == TileType.Button && (tile as? Switch)?.tag != 0){
+            }else if(tile.tileType == TileType.Button){
                 (tile as? Switch)?.flip()
-                for row in 0..<NumRows {
-                    for column in 0..<NumColumns {
-                        if let tiles = myMap.tileAtColumn(column, row: row) as? Door {
-                            if(tiles.tileType == TileType.Door && tiles.tag == (tile as? Switch)?.tag){
-                                tiles.flip(((tile as? Switch)?.close)!)
+                if((tile as? Switch)?.tag != 0){
+                    for row in 0..<NumRows {
+                        for column in 0..<NumColumns {
+                            if let tiles = myMap.tileAtColumn(column, row: row) as? Door {
+                                if(tiles.tileType == TileType.Door && tiles.tag == (tile as? Switch)?.tag){
+                                    tiles.flip(((tile as? Switch)?.close)!)
+                                }
                             }
                         }
                     }

@@ -36,10 +36,16 @@ class Door: Tile {
     init(column: Int, row: Int){
         super.init(column: column, row: row, tileType: TileType.Door.rawValue, inTag:0)
         walk = false;
+        
+        let rotate = SKAction.rotateByAngle(CGFloat(M_PI_2*Double(Int(arc4random_uniform(4)))), duration: 0.0)
+        runAction(rotate)
     }
     init(column: Int, row: Int , inTag:Int){
         super.init(column: column, row: row, tileType: TileType.Door.rawValue, inTag:inTag)
         walk = false;
+        
+        let rotate = SKAction.rotateByAngle(CGFloat(M_PI_2*Double(Int(arc4random_uniform(4)))), duration: 0.0)
+        runAction(rotate)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -59,6 +65,10 @@ class Wall: Tile {
         body.contactTestBitMask = BodyType.monster.rawValue
         body.collisionBitMask = 0
         self.physicsBody = body
+        
+        
+        let rotate = SKAction.rotateByAngle(CGFloat(M_PI_2), duration: 0.000001)
+        runAction(SKAction.repeatActionForever(SKAction.sequence([rotate,SKAction.waitForDuration(Double(arc4random_uniform(7)+1))])))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -68,19 +78,58 @@ class Wall: Tile {
 
 class Switch: Tile {
     var close = true
+    let time = 1.0
+    
     func flip(){
         close = !close
+        removeAllActions()
         if(close == true){
-            self.texture = SKTexture(imageNamed: "button")
+                        self.texture = SKTexture(imageNamed: "switch")
+            runAction(SKAction.colorizeWithColor(.whiteColor(), colorBlendFactor: 1, duration: 0.0))
         }else{
-            self.texture = SKTexture(imageNamed: "buttonOn")
+                        self.texture = SKTexture(imageNamed: "switch-on")
+            
+            let colorize = SKAction.colorizeWithColor(.blackColor(), colorBlendFactor: 1, duration: time*1.36)//SKAction.colorizeWithColorBlendFactor(1, duration: time, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0)//
+            let colorizeB = SKAction.colorizeWithColor(.whiteColor(), colorBlendFactor: 0.6, duration: time)//SKAction.colorizeWithColorBlendFactor(1, duration: time, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0)//
+            let rotate = SKAction.rotateByAngle(CGFloat(M_PI_2), duration: 0.0)
+            
+            runAction(SKAction.colorizeWithColor(.blackColor(), colorBlendFactor: 1, duration: 0.0))
+            
+            var coloring = SKAction.repeatActionForever(SKAction.sequence([colorizeB,colorize,rotate]))
+            
+            runAction(coloring)
         }
     }
     init(column: Int, row: Int , inTag:Int){
         super.init(column: column, row: row, tileType: TileType.Button.rawValue, inTag:inTag)
+        
+        let over = SKSpriteNode(texture: SKTexture(imageNamed: "switch-over"), color: UIColor.clearColor(), size: CGSizeMake(TileWidth, TileHeight))
+        over.position = self.position
+//        self.parent?.addChild(over)
+//        addChild(over)
+//        over.runAction(SKAction.repeatActionForever(SKAction.colorizeWithColor(.clearColor(), colorBlendFactor: 1, duration: 0.0)))
+        
+        runAction(SKAction.colorizeWithColor(.whiteColor(), colorBlendFactor: 1, duration: 0.0))
     }
     init(column: Int, row: Int){
         super.init(column: column, row: row, tileType: TileType.Button.rawValue, inTag:0)
+        runAction(SKAction.colorizeWithColor(.whiteColor(), colorBlendFactor: 1, duration: 0.0))
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+class Lava: Tile {
+    
+    init(column: Int, row: Int){
+        super.init(column: column, row: row, tileType: TileType.Lava.rawValue, inTag:0)
+        
+        let time = 3.0
+        runAction(SKAction.colorizeWithColor(.blackColor(), colorBlendFactor: 1, duration: 0.0))
+        let colorize = SKAction.colorizeWithColor(.redColor(), colorBlendFactor: 0.82, duration: time*1.36)
+        let colorizeB = SKAction.colorizeWithColor(.blackColor(), colorBlendFactor: 1, duration: time)
+        runAction(SKAction.repeatActionForever(SKAction.sequence([colorizeB,colorize])))
     }
     
     required init?(coder aDecoder: NSCoder) {

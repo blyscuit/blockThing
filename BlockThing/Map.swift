@@ -78,6 +78,8 @@ class Map {
                             tiles[column, tileRow] = Wall(column: column, row: tileRow)
                         }else if value == TileType.Button.rawValue{
                             tiles[column,tileRow] = Switch(column: column, row: tileRow, inTag: afterValue)
+                        }else if value == TileType.Lava.rawValue{
+                            tiles[column,tileRow] = Lava(column: column, row: tileRow)
                         }else{
                             tiles[column, tileRow] = Tile(column: column, row: tileRow, tileType: value, inTag:afterValue)
                         }
