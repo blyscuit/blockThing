@@ -36,6 +36,7 @@
 		68A065AD1BCCB5AA0080A28C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A065AC1BCCB5AA0080A28C /* Extensions.swift */; settings = {ASSET_TAGS = (); }; };
 		68A065AF1BCCE84C0080A28C /* Monster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A065AE1BCCE84C0080A28C /* Monster.swift */; settings = {ASSET_TAGS = (); }; };
 		68A065B11BCCEB170080A28C /* CircleMonster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A065B01BCCEB170080A28C /* CircleMonster.swift */; settings = {ASSET_TAGS = (); }; };
+		68A4ADC31BDE90C50011A688 /* Smoke.sks in Resources */ = {isa = PBXBuildFile; fileRef = 68A4ADC21BDE90C50011A688 /* Smoke.sks */; settings = {ASSET_TAGS = (); }; };
 		68B232321BD38EF800DEB4F2 /* SpriteKit-Spring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B232311BD38EF800DEB4F2 /* SpriteKit-Spring.swift */; settings = {ASSET_TAGS = (); }; };
 		68D2CAC01BD97204008DAB5D /* Level_13.json in Resources */ = {isa = PBXBuildFile; fileRef = 68D2CABF1BD97204008DAB5D /* Level_13.json */; settings = {ASSET_TAGS = (); }; };
 		68DB37871BCD045E00A7FB0A /* MoveMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DB37861BCD045E00A7FB0A /* MoveMap.swift */; settings = {ASSET_TAGS = (); }; };
@@ -97,6 +98,7 @@
 		68A065AC1BCCB5AA0080A28C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		68A065AE1BCCE84C0080A28C /* Monster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Monster.swift; sourceTree = "<group>"; };
 		68A065B01BCCEB170080A28C /* CircleMonster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleMonster.swift; sourceTree = "<group>"; };
+		68A4ADC21BDE90C50011A688 /* Smoke.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Smoke.sks; sourceTree = "<group>"; };
 		68B232311BD38EF800DEB4F2 /* SpriteKit-Spring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SpriteKit-Spring.swift"; sourceTree = "<group>"; };
 		68D2CABF1BD97204008DAB5D /* Level_13.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_13.json; sourceTree = "<group>"; };
 		68DB37861BCD045E00A7FB0A /* MoveMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveMap.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				683AF6E71BCC14E600DBCCBC /* Assets.xcassets */,
 				683AF6E91BCC14E700DBCCBC /* LaunchScreen.storyboard */,
 				683AF6EC1BCC14E700DBCCBC /* Info.plist */,
+				68A4ADC21BDE90C50011A688 /* Smoke.sks */,
 				6803DE9C1BDCB72300C4EDBC /* Flicker.sks */,
 				686C2C1B1BD54EE000993F63 /* DeathParticle.sks */,
 				686C2C1E1BD550E100993F63 /* spark.png */,
@@ -345,6 +348,7 @@
 				683223541BD96B3100383BC2 /* Level_11.json in Resources */,
 				683AF6E61BCC14E600DBCCBC /* Main.storyboard in Resources */,
 				683223561BD96D0800383BC2 /* Level_12.json in Resources */,
+				68A4ADC31BDE90C50011A688 /* Smoke.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
