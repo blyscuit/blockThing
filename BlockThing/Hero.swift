@@ -32,7 +32,15 @@ class Hero: SKSpriteNode {
         
         xCoor=xd
         yCoor=yd
-
+        
+        var path = NSBundle.mainBundle().pathForResource("DeathParticle", ofType: "sks")
+        var flickParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
+        
+        flickParticle.position = CGPointMake(0,0)
+        flickParticle.name = "death"
+        flickParticle.targetNode = self
+        addChild(flickParticle)
+        
     }
 
     required init?(coder aDecoder: NSCoder) {

@@ -7,6 +7,8 @@
 //
 
 import SpriteKit
+
+import MultipeerConnectivity
 //import UIKit
 
 enum BodyType:UInt32 {
@@ -22,6 +24,11 @@ let TileWidth: CGFloat = 80.0
 let TileHeight: CGFloat = 80.0
 
 class GameScene: SKScene,SKPhysicsContactDelegate {
+    
+    var messagesArray: [Dictionary<String, String>] = []
+    
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
     var hero: Hero!
     var justMove = false
     var fingerPosition:CGPoint?
@@ -31,9 +38,12 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
 //    var isMoving = false
     
-    var levelIs = "Level_13"
+    var levelIs = "Level_1"
     
     override func didMoveToView(view: SKView) {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleMPCReceivedDataWithNotification:", name: "receivedMPCDataNotification", object: nil)
+
+        
         physicsWorld.contactDelegate = self
         backgroundColor = UIColor.whiteColor()
         
@@ -281,6 +291,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         hero.anchorPoint = CGPointMake(0.5, 0.5)
         hero.position = CGPointMake(self.size.width/2, self.size.height/2)
         self.addChild(hero)
+        
+        
+        
+        let darkness = SKSpriteNode(imageNamed: "dark")
+        darkness.position = hero.position
+        let darknessSize = 11 - 0
+        darkness.size = CGSizeMake(darkness.size.width *  CGFloat(darknessSize), darkness.size.height *  CGFloat(darknessSize))
+        addChild(darkness)
     }
     
     var myMap : Map!
@@ -302,11 +320,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         hero.dieAnimation()
         
-        var path = NSBundle.mainBundle().pathForResource("DeathParticle", ofType: "sks")
+        var path = NSBundle.mainBundle().pathForResource("Flicker", ofType: "sks")
         var rainParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
         
         rainParticle.position = CGPointMake(hero.position.x,hero.position.y)
-        rainParticle.name = "death"
+        rainParticle.name = "flick"
         rainParticle.targetNode = self
         addChild(rainParticle)
         
@@ -367,6 +385,82 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             circleMon.changeDirection()
             print("Wall contact")
         }
+    }
+    
+    //MARK: - Multi
+//    func textFieldShouldReturn(textField: UITextField) -> Bool {
+//        textField.resignFirstResponder()
+//        
+//        let messageDictionary: [String: String] = ["message": textField.text]
+//        
+//        if appDelegate.mpcManager.sendData(dictionaryWithData: messageDictionary, toPeer: appDelegate.mpcManager.session.connectedPeers[0] as MCPeerID){
+//            
+//            var dictionary: [String: String] = ["sender": "self", "message": textField.text]
+//            messagesArray.append(dictionary)
+//            
+//            self.updateTableview()
+//        }
+//        else{
+//            println("Could not send data")
+//        }
+//        
+//        textField.text = ""
+//        
+//        return true
+//    }
+    
+    func handleMPCReceivedDataWithNotification(notification: NSNotification) {
+        // Get the dictionary containing the data and the source peer from the notification.
+        let receivedDataDictionary = notification.object as! Dictionary<String, AnyObject>
+        
+        // "Extract" the data and the source peer from the received dictionary.
+        let data = receivedDataDictionary["data"] as? NSData
+        let fromPeer = receivedDataDictionary["fromPeer"] as! MCPeerID
+        
+        // Convert the data (NSData) into a Dictionary object.
+        let dataDictionary = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! Dictionary<String, String>
+        
+        // Check if there's an entry with the "message" key.
+        if let message = dataDictionary["message"] {
+            // Make sure that the message is other than "_end_chat_".
+            if message != "_end_chat_"{
+                // Create a new dictionary and set the sender and the received message to it.
+                var messageDictionary: [String: String] = ["sender": fromPeer.displayName, "message": message]
+                
+                // Add this dictionary to the messagesArray array.
+                messagesArray.append(messageDictionary)
+                
+                // Reload the tableview data and scroll to the bottom using the main thread.
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+//                    self.updateTableview()
+                })
+            }
+            else{
+                // In this case an "_end_chat_" message was received.
+                // Show an alert view to the user.
+                let alert = UIAlertController(title: "", message: "\(fromPeer.displayName) ended this chat.", preferredStyle: UIAlertControllerStyle.Alert)
+                
+                let doneAction: UIAlertAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) { (alertAction) -> Void in
+                    self.appDelegate.mpcManager.session.disconnect()
+//                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+                
+                alert.addAction(doneAction)
+                
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+//                    self.presentViewController(alert, animated: true, completion: nil)
+                })
+            }
+        }
+    }
+    
+    @IBAction func endChat(sender: AnyObject) {
+        let messageDictionary: [String: String] = ["message": "_end_chat_"]
+//        if appDelegate.mpcManager.sendData(dictionaryWithData: messageDictionary, toPeer: appDelegate.mpcManager.session.connectedPeers[0] as MCPeerID){
+//            self.dismissViewControllerAnimated(true, completion: { () -> Void in
+//                self.appDelegate.mpcManager.session.disconnect()
+//            })
+//        }
     }
 }
 
