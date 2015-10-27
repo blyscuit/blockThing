@@ -80,36 +80,44 @@ class Switch: Tile {
     var close = true
     let time = 1.0
     
+    var under:SKSpriteNode!
+    
     func flip(){
         close = !close
-        removeAllActions()
+        under.removeAllActions()
         if(close == true){
-                        self.texture = SKTexture(imageNamed: "switch")
-            runAction(SKAction.colorizeWithColor(.whiteColor(), colorBlendFactor: 1, duration: 0.0))
+                        under.texture = SKTexture(imageNamed: "switch")
+            under.runAction(SKAction.colorizeWithColor(.whiteColor(), colorBlendFactor: 1, duration: 0.0))
         }else{
-                        self.texture = SKTexture(imageNamed: "switch-on")
+                        under.texture = SKTexture(imageNamed: "switch-on")
             
             let colorize = SKAction.colorizeWithColor(.blackColor(), colorBlendFactor: 1, duration: time*1.36)//SKAction.colorizeWithColorBlendFactor(1, duration: time, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0)//
             let colorizeB = SKAction.colorizeWithColor(.whiteColor(), colorBlendFactor: 0.6, duration: time)//SKAction.colorizeWithColorBlendFactor(1, duration: time, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0)//
             let rotate = SKAction.rotateByAngle(CGFloat(M_PI_2), duration: 0.0)
             
-            runAction(SKAction.colorizeWithColor(.blackColor(), colorBlendFactor: 1, duration: 0.0))
+            under.runAction(SKAction.colorizeWithColor(.blackColor(), colorBlendFactor: 1, duration: 0.0))
             
             var coloring = SKAction.repeatActionForever(SKAction.sequence([colorizeB,colorize,rotate]))
             
-            runAction(coloring)
+            under.runAction(coloring)
         }
+        
+        self.texture = nil
     }
     init(column: Int, row: Int , inTag:Int){
         super.init(column: column, row: row, tileType: TileType.Button.rawValue, inTag:inTag)
         
         let over = SKSpriteNode(texture: SKTexture(imageNamed: "switch-over"), color: UIColor.clearColor(), size: CGSizeMake(TileWidth, TileHeight))
-        over.position = self.position
+//        over.position = self.position
+        under = SKSpriteNode(texture: SKTexture(imageNamed: "switch"), color: UIColor.clearColor(), size: CGSizeMake(TileWidth, TileHeight))
 //        self.parent?.addChild(over)
-//        addChild(over)
+        addChild(under)
+        self.texture = nil
+        over.zPosition = 1
+        addChild(over)
 //        over.runAction(SKAction.repeatActionForever(SKAction.colorizeWithColor(.clearColor(), colorBlendFactor: 1, duration: 0.0)))
         
-        runAction(SKAction.colorizeWithColor(.whiteColor(), colorBlendFactor: 1, duration: 0.0))
+        under.runAction(SKAction.colorizeWithColor(.whiteColor(), colorBlendFactor: 1, duration: 0.0))
     }
     init(column: Int, row: Int){
         super.init(column: column, row: row, tileType: TileType.Button.rawValue, inTag:0)

@@ -35,6 +35,7 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
     }
     */
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        multi = false
         self.performSegueWithIdentifier("game1", sender: self)
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

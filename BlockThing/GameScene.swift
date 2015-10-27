@@ -16,6 +16,8 @@ enum Direction:String{
     case South = "south"
     case East = "east"
     case West = "west"
+    case Death = "die"
+    case Win = "win"
 }
 
 enum BodyType:UInt32 {
@@ -30,6 +32,11 @@ enum BodyType:UInt32 {
 let TileWidth: CGFloat = 80.0
 let TileHeight: CGFloat = 80.0
 
+var levelIs = "Level_14"
+
+var multi = false
+var player = 1
+
 class GameScene: SKScene,SKPhysicsContactDelegate {
     
     var messagesArray: [Dictionary<String, String>] = []
@@ -43,9 +50,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     var isOver = false
     
+    
 //    var isMoving = false
     
-    var levelIs = "Level_14"
     
     override func didMoveToView(view: SKView) {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleMPCReceivedDataWithNotification:", name: "receivedMPCDataNotification", object: nil)
@@ -203,33 +210,54 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         if(touches.first?.locationInNode(self).x > (fingerPosition?.x)!+moveDistance && distanceX > distanceY){
             if(myMap.canMoveToTile(hero.xCoor+1, row: hero.yCoor)){
                 moveRight()
+                sendOnlineData(Direction.East)
             }
         }else if(touches.first?.locationInNode(self).x < (fingerPosition?.x)!-moveDistance && distanceX > distanceY){
             if(myMap.canMoveToTile(hero.xCoor-1, row: hero.yCoor)){
                 moveLeft()
+                sendOnlineData(Direction.West)
             }
         }else if(touches.first?.locationInNode(self).y > (fingerPosition?.y)!+moveDistance && distanceX < distanceY){
             if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor+1)){
                 moveUp()
+                sendOnlineData(Direction.North)
             }
         }else if(touches.first?.locationInNode(self).y < (fingerPosition?.y)!-moveDistance && distanceX < distanceY){
             moveDown()
+            sendOnlineData(Direction.South)
         }
         
         justMove = true;
     }
    
+    func sendPositionData(){
+        let messageDictionary: [String: [CGFloat]] = ["location": [hero.x,hero.y]]
+        
+        if(appDelegate.mpcManager.session.connectedPeers.count>0){
+            if appDelegate.mpcManager.sendData(dictionaryWithData: messageDictionary, toPeer: appDelegate.mpcManager.session.connectedPeers[0] as MCPeerID){
+                
+//                var dictionary: [String: AnyObject] = ["sender": "self", "message": [hero.x,hero.y]]
+//                messagesArray.append(dictionary)
+                
+            }
+            else{
+                print("Could not send data")
+            }
+        }
+    }
     func sendOnlineData(direct:Direction){
         let messageDictionary: [String: String] = ["message": direct.rawValue]
         
+        if(appDelegate.mpcManager.session.connectedPeers.count>0){
         if appDelegate.mpcManager.sendData(dictionaryWithData: messageDictionary, toPeer: appDelegate.mpcManager.session.connectedPeers[0] as MCPeerID){
             
             var dictionary: [String: String] = ["sender": "self", "message": direct.rawValue]
-            messagesArray.append(dictionary)
+//            messagesArray.append(dictionary)
             
         }
         else{
             print("Could not send data")
+        }
         }
     }
     
@@ -282,13 +310,13 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                         let triangleMonster = TriangleMonster(imageNamed: "triangle", inX: tile.column, inY: tile.row)
                         triangleMonster.zPosition = 2;
                         triangleMonster.position = pointForColumn(triangleMonster.xCoor, row: triangleMonster.yCoor)
-                        triangleMonster.rainParticle?.targetNode = (tile)
+                        triangleMonster.rainParticle?.targetNode = (tilesLayer)
                         tilesLayer.addChild(triangleMonster)
                     }else if(tile.tileType == TileType.CircleMon){
                         let circleMonster = CircleMonster(imageNamed: "mon", inX: tile.column, inY: tile.row, horizontal: tile.tag, inv: true)
                         circleMonster.zPosition = 2;
                         circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
-                        circleMonster.rainParticle?.targetNode = (tile)
+                        circleMonster.rainParticle?.targetNode = (tilesLayer)
                         tilesLayer.addChild(circleMonster)
                     }else if(tile.tileType == TileType.Button){
                         for row in 0..<NumRows {
@@ -304,7 +332,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     tile.texture = SKTexture(imageNamed: tile.tileType.spriteName)
                     tile.position = pointForColumn(column, row: row)
                     tile.size = CGSize(width: TileWidth, height: TileHeight)
-                    tile.zPosition = -1
+                    tile.zPosition = -2
                     tilesLayer.addChild(tile)
                 }
             }
@@ -350,6 +378,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     func gameOver(){
         isOver = true
+        
+        sendOnlineData(Direction.Death)
+        
         var cover:SKSpriteNode = SKSpriteNode(color: UIColor.blackColor(), size: self.size)
         cover.anchorPoint = CGPointMake(0.0, 0.0)
         cover.alpha = 0.0
@@ -416,12 +447,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             print("bodyB was our Bro hero, bodyA was the monster")
         } else if (contact.bodyA.categoryBitMask == BodyType.monster.rawValue && contact.bodyB.categoryBitMask == BodyType.wall.rawValue) {
             print("Contact Wall")
-            let circleMon = contact.bodyA.node as! CircleMonster
+            let circleMon = contact.bodyA.node as! Monster
             circleMon.changeDirection()
         } else if (contact.bodyA.categoryBitMask == BodyType.wall.rawValue && contact.bodyB.categoryBitMask == BodyType.monster.rawValue) {
+            if(contact.bodyB.node as? CircleMonster != nil){
             let circleMon = contact.bodyB.node as! CircleMonster
             circleMon.changeDirection()
             print("Wall contact")
+            }
         }
     }
     
@@ -466,7 +499,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 var messageDictionary: [String: String] = ["sender": fromPeer.displayName, "message": message]
                 
                 // Add this dictionary to the messagesArray array.
-                messagesArray.append(messageDictionary)
+//                messagesArray.append(messageDictionary)
                 if message == Direction.North.rawValue{
                     moveUp()
                 }else if message == Direction.East.rawValue{
@@ -475,6 +508,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     moveLeft()
                 }else if message == Direction.South.rawValue{
                     moveDown()
+                }else if message == Direction.Death.rawValue{
+                    gameOver()
                 }
                 
                 // Reload the tableview data and scroll to the bottom using the main thread.
@@ -498,6 +533,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //                    self.presentViewController(alert, animated: true, completion: nil)
                 })
             }
+        }else if let message = dataDictionary["location"] {
+            
         }
     }
     

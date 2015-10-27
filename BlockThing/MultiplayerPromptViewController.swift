@@ -88,12 +88,15 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
         let selectedPeer = appDelegate.mpcManager.foundPeers[indexPath.row] as MCPeerID
         
         appDelegate.mpcManager.browser.invitePeer(selectedPeer, toSession: appDelegate.mpcManager.session, withContext: nil, timeout: 20)
+        
+        player = 1
     }
     
     func invitationWasReceived(fromPeer: String) {
-        let alert = UIAlertController(title: "", message: "\(fromPeer) wants to chat with you.", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "", message: "\(fromPeer) wants to play with you.", preferredStyle: UIAlertControllerStyle.Alert)
         
         let acceptAction: UIAlertAction = UIAlertAction(title: "Accept", style: UIAlertActionStyle.Default) { (alertAction) -> Void in
+            player = 2
             self.appDelegate.mpcManager.invitationHandler(true, self.appDelegate.mpcManager.session)
         }
         
@@ -117,7 +120,8 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "game2"){
-            
+            levelIs = "Level_201"
+            multi = true
         }
     }
     
