@@ -11,11 +11,11 @@ import SpriteKit
 import MultipeerConnectivity
 //import UIKit
 
-enum Direction{
-    case North
-    case South
-    case East
-    case West
+enum Direction:String{
+    case North = "north"
+    case South = "south"
+    case East = "east"
+    case West = "west"
 }
 
 enum BodyType:UInt32 {
@@ -147,6 +147,53 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //        }
 //    }
     var moveDistance = CGFloat(5)
+    
+    func moveUp(){
+        centerMap(){
+            //                isMoving = true
+            self.hero.goUp()
+            self.tilesLayer.goUp(){
+                //                    self.isMoving = false
+                //                    self.centerMap();
+            }
+            self.checkTile()
+        }
+    }
+    func moveDown(){
+        if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor-1)){
+            centerMap(){
+                //                isMoving = true
+                self.hero.goDown()
+                self.tilesLayer.goDown(){
+                    //                    self.isMoving = false
+                    //                    self.centerMap();
+                }
+                self.checkTile()
+            }
+        }
+    }
+    func moveLeft(){
+        centerMap(){
+            //                isMoving = true
+            self.hero.goLeft()
+            self.tilesLayer.goLeft(){
+                //                    self.isMoving = false
+                //                    self.centerMap();
+            }
+            self.checkTile()
+        }
+    }
+    func moveRight(){
+        self.centerMap(){
+            //                isMoving = true
+            self.hero.goRight()
+            self.tilesLayer.goRight(){
+                //                    self.isMoving = false
+                
+            }
+            self.checkTile()
+        }
+    }
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if(justMove||isOver){return;}
         
@@ -155,74 +202,39 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         if(touches.first?.locationInNode(self).x > (fingerPosition?.x)!+moveDistance && distanceX > distanceY){
             if(myMap.canMoveToTile(hero.xCoor+1, row: hero.yCoor)){
-                self.centerMap(){
-//                isMoving = true
-                self.hero.goRight()
-                self.tilesLayer.goRight(){
-//                    self.isMoving = false
-                    
-                }
-                self.checkTile()
-                }
+                moveRight()
             }
         }else if(touches.first?.locationInNode(self).x < (fingerPosition?.x)!-moveDistance && distanceX > distanceY){
             if(myMap.canMoveToTile(hero.xCoor-1, row: hero.yCoor)){
-                centerMap(){
-//                isMoving = true
-                self.hero.goLeft()
-                self.tilesLayer.goLeft(){
-                    //                    self.isMoving = false
-//                    self.centerMap();
-                }
-                self.checkTile()
-                }
+                moveLeft()
             }
         }else if(touches.first?.locationInNode(self).y > (fingerPosition?.y)!+moveDistance && distanceX < distanceY){
             if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor+1)){
-                centerMap(){
-//                isMoving = true
-                self.hero.goUp()
-                self.tilesLayer.goUp(){
-                    //                    self.isMoving = false
-//                    self.centerMap();
-                }
-                self.checkTile()
-                }
+                moveUp()
             }
         }else if(touches.first?.locationInNode(self).y < (fingerPosition?.y)!-moveDistance && distanceX < distanceY){
-            if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor-1)){
-                centerMap(){
-//                isMoving = true
-                self.hero.goDown()
-                self.tilesLayer.goDown(){
-                    //                    self.isMoving = false
-//                    self.centerMap();
-                }
-                self.checkTile()
-                }
-            }
+            moveDown()
         }
         
         justMove = true;
     }
    
-    func sendOnlineData(){
-        
-    }
-    
-    func checkTile(){
-        let messageDictionary: [String: String] = ["message": textField.text]
+    func sendOnlineData(direct:Direction){
+        let messageDictionary: [String: String] = ["message": direct.rawValue]
         
         if appDelegate.mpcManager.sendData(dictionaryWithData: messageDictionary, toPeer: appDelegate.mpcManager.session.connectedPeers[0] as MCPeerID){
             
-            var dictionary: [String: String] = ["sender": "self", "message": textField.text]
+            var dictionary: [String: String] = ["sender": "self", "message": direct.rawValue]
             messagesArray.append(dictionary)
             
-            self.updateTableview()
         }
         else{
-            println("Could not send data")
+            print("Could not send data")
         }
+    }
+    
+    func checkTile(){
+        
         
         if let tile = myMap.tileAtColumn(hero.xCoor, row: hero.yCoor) {
             if(tile.tileType == TileType.Lava){
@@ -455,6 +467,15 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 
                 // Add this dictionary to the messagesArray array.
                 messagesArray.append(messageDictionary)
+                if message == Direction.North.rawValue{
+                    moveUp()
+                }else if message == Direction.East.rawValue{
+                    moveRight()
+                }else if message == Direction.West.rawValue{
+                    moveLeft()
+                }else if message == Direction.South.rawValue{
+                    moveDown()
+                }
                 
                 // Reload the tableview data and scroll to the bottom using the main thread.
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
