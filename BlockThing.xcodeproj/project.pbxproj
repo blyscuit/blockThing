@@ -41,6 +41,7 @@
 		68D2CAC01BD97204008DAB5D /* Level_13.json in Resources */ = {isa = PBXBuildFile; fileRef = 68D2CABF1BD97204008DAB5D /* Level_13.json */; settings = {ASSET_TAGS = (); }; };
 		68DB37871BCD045E00A7FB0A /* MoveMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DB37861BCD045E00A7FB0A /* MoveMap.swift */; settings = {ASSET_TAGS = (); }; };
 		68DB37891BCE454900A7FB0A /* Door.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DB37881BCE454900A7FB0A /* Door.swift */; settings = {ASSET_TAGS = (); }; };
+		9A2C8FAF1BDF643D00B57083 /* Level_main.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A2C8FAE1BDF643D00B57083 /* Level_main.json */; settings = {ASSET_TAGS = (); }; };
 		9A9033FB1BCCE85B00D47C4B /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9033FA1BCCE85B00D47C4B /* Hero.swift */; settings = {ASSET_TAGS = (); }; };
 		9A9033FD1BCE4D3C00D47C4B /* Level_5.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A9033FC1BCE4D3C00D47C4B /* Level_5.json */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
@@ -103,6 +104,7 @@
 		68D2CABF1BD97204008DAB5D /* Level_13.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_13.json; sourceTree = "<group>"; };
 		68DB37861BCD045E00A7FB0A /* MoveMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveMap.swift; sourceTree = "<group>"; };
 		68DB37881BCE454900A7FB0A /* Door.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Door.swift; sourceTree = "<group>"; };
+		9A2C8FAE1BDF643D00B57083 /* Level_main.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_main.json; sourceTree = "<group>"; };
 		9A9033FA1BCCE85B00D47C4B /* Hero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
 		9A9033FC1BCE4D3C00D47C4B /* Level_5.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_5.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -217,6 +219,7 @@
 				68A065A21BCCB57E0080A28C /* Level_0.json */,
 				68A065A31BCCB57E0080A28C /* Level_1.json */,
 				68A065A41BCCB57E0080A28C /* Level_2.json */,
+				9A2C8FAE1BDF643D00B57083 /* Level_main.json */,
 				68A065A51BCCB57E0080A28C /* Level_3.json */,
 				68A065A61BCCB57E0080A28C /* Level_4.json */,
 				9A9033FC1BCE4D3C00D47C4B /* Level_5.json */,
@@ -337,6 +340,7 @@
 				68A065AB1BCCB57E0080A28C /* Level_4.json in Resources */,
 				68D2CAC01BD97204008DAB5D /* Level_13.json in Resources */,
 				68A065A91BCCB57E0080A28C /* Level_2.json in Resources */,
+				9A2C8FAF1BDF643D00B57083 /* Level_main.json in Resources */,
 				68A065A71BCCB57E0080A28C /* Level_0.json in Resources */,
 				683AF6EB1BCC14E700DBCCBC /* LaunchScreen.storyboard in Resources */,
 				686C2C201BD550E100993F63 /* spark.png in Resources */,
