@@ -11,6 +11,7 @@ import SpriteKit
 class Monster:SKSpriteNode {
     var xCoor=0;
     var yCoor=0;
+    var rainParticle : SKEmitterNode?
     
     init (imageNamed: String, inX:Int,inY:Int ) {
         

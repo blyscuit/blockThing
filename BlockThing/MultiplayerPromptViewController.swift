@@ -31,6 +31,8 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
         appDelegate.mpcManager.delegate = self
         appDelegate.mpcManager.browser.startBrowsingForPeers()
         
+        appDelegate.mpcManager.advertiser.startAdvertisingPeer()
+        
         tableMulti.delegate = self
         tableMulti.dataSource = self
         

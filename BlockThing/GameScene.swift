@@ -11,6 +11,13 @@ import SpriteKit
 import MultipeerConnectivity
 //import UIKit
 
+enum Direction{
+    case North
+    case South
+    case East
+    case West
+}
+
 enum BodyType:UInt32 {
     
     case hero = 1
@@ -38,7 +45,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
 //    var isMoving = false
     
-    var levelIs = "Level_1"
+    var levelIs = "Level_14"
     
     override func didMoveToView(view: SKView) {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleMPCReceivedDataWithNotification:", name: "receivedMPCDataNotification", object: nil)
@@ -199,7 +206,24 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         justMove = true;
     }
    
+    func sendOnlineData(){
+        
+    }
+    
     func checkTile(){
+        let messageDictionary: [String: String] = ["message": textField.text]
+        
+        if appDelegate.mpcManager.sendData(dictionaryWithData: messageDictionary, toPeer: appDelegate.mpcManager.session.connectedPeers[0] as MCPeerID){
+            
+            var dictionary: [String: String] = ["sender": "self", "message": textField.text]
+            messagesArray.append(dictionary)
+            
+            self.updateTableview()
+        }
+        else{
+            println("Could not send data")
+        }
+        
         if let tile = myMap.tileAtColumn(hero.xCoor, row: hero.yCoor) {
             if(tile.tileType == TileType.Lava){
                 print("Fall in lava")
@@ -246,11 +270,13 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                         let triangleMonster = TriangleMonster(imageNamed: "triangle", inX: tile.column, inY: tile.row)
                         triangleMonster.zPosition = 2;
                         triangleMonster.position = pointForColumn(triangleMonster.xCoor, row: triangleMonster.yCoor)
+                        triangleMonster.rainParticle?.targetNode = (tile)
                         tilesLayer.addChild(triangleMonster)
                     }else if(tile.tileType == TileType.CircleMon){
                         let circleMonster = CircleMonster(imageNamed: "mon", inX: tile.column, inY: tile.row, horizontal: tile.tag, inv: true)
                         circleMonster.zPosition = 2;
                         circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
+                        circleMonster.rainParticle?.targetNode = (tile)
                         tilesLayer.addChild(circleMonster)
                     }else if(tile.tileType == TileType.Button){
                         for row in 0..<NumRows {

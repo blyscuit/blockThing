@@ -25,6 +25,7 @@ class Tile : SKSpriteNode {
         self.tag = inTag
         self.tileType = TileType(rawValue: tileType)!
         super.init(texture: nil, color: UIColor.clearColor(), size: CGSizeZero)
+        zPosition = 0
     }
 
     required init?(coder aDecoder: NSCoder) {

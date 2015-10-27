@@ -40,8 +40,12 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
         session = MCSession(peer: peer)
         session.delegate = self
         
+        advertiser = MCNearbyServiceAdvertiser(peer: peer, discoveryInfo: nil, serviceType: "mika")
+        advertiser.delegate = self
+        
         browser = MCNearbyServiceBrowser(peer: peer, serviceType: "mika")
         browser.delegate = self
+        
     }
     
     func browser(browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
