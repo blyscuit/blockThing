@@ -32,7 +32,7 @@ enum BodyType:UInt32 {
 let TileWidth: CGFloat = 80.0
 let TileHeight: CGFloat = 80.0
 
-var levelIs = "Level_14"
+var levelIs = 1
 
 var multi = false
 var player = 1
@@ -47,6 +47,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     var justMove = false
     var fingerPosition:CGPoint?
     var velo: CGVector!
+    
+    var secondHero: SKSpriteNode!
     
     var isOver = false
     
@@ -77,7 +79,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
         
         /* Setup your scene here */
-        myMap = Map(filename: levelIs)
+        let levelIn = "Level_\(levelIs)"
+        myMap = Map(filename: levelIn)
         addTiles()
         self.addChild(tilesLayer);
     }
@@ -163,7 +166,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 //                    self.isMoving = false
                 //                    self.centerMap();
             }
-            self.checkTile()
+            self.sendPositionData()
+            self.checkTile(self.hero.xCoor,inY: self.hero.yCoor)
         }
     }
     func moveDown(){
@@ -175,7 +179,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     //                    self.isMoving = false
                     //                    self.centerMap();
                 }
-                self.checkTile()
+                self.sendPositionData()
+                self.checkTile(self.hero.xCoor,inY: self.hero.yCoor)
             }
         }
     }
@@ -187,7 +192,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 //                    self.isMoving = false
                 //                    self.centerMap();
             }
-            self.checkTile()
+            self.sendPositionData()
+            self.checkTile(self.hero.xCoor,inY: self.hero.yCoor)
         }
     }
     func moveRight(){
@@ -198,7 +204,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 //                    self.isMoving = false
                 
             }
-            self.checkTile()
+            self.sendPositionData()
+            self.checkTile(self.hero.xCoor,inY: self.hero.yCoor)
         }
     }
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -210,28 +217,34 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         if(touches.first?.locationInNode(self).x > (fingerPosition?.x)!+moveDistance && distanceX > distanceY){
             if(myMap.canMoveToTile(hero.xCoor+1, row: hero.yCoor)){
                 moveRight()
-                sendOnlineData(Direction.East)
+//                sendOnlineData(Direction.East)
+//                sendPositionData()
             }
         }else if(touches.first?.locationInNode(self).x < (fingerPosition?.x)!-moveDistance && distanceX > distanceY){
             if(myMap.canMoveToTile(hero.xCoor-1, row: hero.yCoor)){
                 moveLeft()
-                sendOnlineData(Direction.West)
+//                sendOnlineData(Direction.West)
+//                sendPositionData()
             }
         }else if(touches.first?.locationInNode(self).y > (fingerPosition?.y)!+moveDistance && distanceX < distanceY){
             if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor+1)){
                 moveUp()
-                sendOnlineData(Direction.North)
+//                sendOnlineData(Direction.North)
+//                sendPositionData()
             }
         }else if(touches.first?.locationInNode(self).y < (fingerPosition?.y)!-moveDistance && distanceX < distanceY){
             moveDown()
-            sendOnlineData(Direction.South)
+//            sendOnlineData(Direction.South)
+//            sendPositionData()
         }
         
         justMove = true;
     }
    
     func sendPositionData(){
-        let messageDictionary: [String: [CGFloat]] = ["location": [hero.x,hero.y]]
+        let messageDictionary: [String: [Int]] = ["location": [hero.xCoor,hero.yCoor]]
+        
+        print(messageDictionary)
         
         if(appDelegate.mpcManager.session.connectedPeers.count>0){
             if appDelegate.mpcManager.sendData(dictionaryWithData: messageDictionary, toPeer: appDelegate.mpcManager.session.connectedPeers[0] as MCPeerID){
@@ -261,10 +274,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
     }
     
-    func checkTile(){
+    func checkTile(inX:Int,inY:Int){
         
         
-        if let tile = myMap.tileAtColumn(hero.xCoor, row: hero.yCoor) {
+        if let tile = myMap.tileAtColumn(inX, row: inY) {
             if(tile.tileType == TileType.Lava){
                 print("Fall in lava")
                 gameOver()
@@ -301,11 +314,22 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     func addTiles() {
         var centerTile:Tile!
+        var centerSecond:Tile!
         for row in 0..<NumRows {
             for column in 0..<NumColumns {
                 if let tile = myMap.tileAtColumn(column, row: row) {
                     if(tile.tileType == TileType.Birth){
-                        centerTile = tile
+                        if(player == 1){
+                            centerTile = tile
+                        }else if(player == 2){
+                            centerSecond = tile
+                        }
+                    }else if(tile.tileType == TileType.Second && player == 2){
+                        if(player == 2){
+                            centerTile = tile
+                        }else if(player == 1){
+                            centerSecond = tile
+                        }
                     }else if(tile.tileType == TileType.Monster){
                         let triangleMonster = TriangleMonster(imageNamed: "triangle", inX: tile.column, inY: tile.row)
                         triangleMonster.zPosition = 2;
@@ -329,6 +353,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                             }
                         }
                     }
+                    
                     tile.texture = SKTexture(imageNamed: tile.tileType.spriteName)
                     tile.position = pointForColumn(column, row: row)
                     tile.size = CGSize(width: TileWidth, height: TileHeight)
@@ -336,6 +361,15 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     tilesLayer.addChild(tile)
                 }
             }
+        }
+        
+        if(multi){
+            let square = SKTexture(imageNamed: "player2")
+            secondHero = SKSpriteNode(texture: square)
+            secondHero.anchorPoint = CGPointMake(0.5, 0.5)
+            secondHero.position = centerSecond.position // pointForColumn(column, row: row)
+            secondHero.zPosition = -1
+            tilesLayer.addChild(secondHero)
         }
         
         spawnPlayer(centerTile.column, inY: centerTile.row)
@@ -362,6 +396,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         let darkness = SKSpriteNode(imageNamed: "dark")
         darkness.position = hero.position
+        darkness.zPosition = 10
         let darknessSize = 11 - 0
         darkness.size = CGSizeMake(darkness.size.width *  CGFloat(darknessSize), darkness.size.height *  CGFloat(darknessSize))
         addChild(darkness)
@@ -377,6 +412,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     
     func gameOver(){
+        if(isOver == true){
+            return
+        }
         isOver = true
         
         sendOnlineData(Direction.Death)
@@ -411,6 +449,13 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
     
     func clearLevel(){
+        if(multi == false){
+            NSUserDefaults.standardUserDefaults().setInteger(levelIs, forKey: "singleLevel")
+        }else{
+            if(player == 1){
+                NSUserDefaults.standardUserDefaults().setInteger(levelIs, forKey: "multiLevel")
+            }
+        }
         var cover:SKSpriteNode = SKSpriteNode(color: UIColor.whiteColor(), size: self.size)
         cover.anchorPoint = CGPointMake(0.0, 0.0)
         cover.alpha = 0.0
@@ -489,26 +534,27 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         let fromPeer = receivedDataDictionary["fromPeer"] as! MCPeerID
         
         // Convert the data (NSData) into a Dictionary object.
-        let dataDictionary = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! Dictionary<String, String>
+        let dataDictionary = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! Dictionary<String, AnyObject>
         
         // Check if there's an entry with the "message" key.
-        if let message = dataDictionary["message"] {
+        if let message = dataDictionary["message"]{
+            let messageS = message as! String
             // Make sure that the message is other than "_end_chat_".
-            if message != "_end_chat_"{
+            if messageS != "_end_chat_"{
                 // Create a new dictionary and set the sender and the received message to it.
-                var messageDictionary: [String: String] = ["sender": fromPeer.displayName, "message": message]
+//                var messageDictionary: [String: String] = ["sender": fromPeer.displayName, "message": messageS]
                 
                 // Add this dictionary to the messagesArray array.
 //                messagesArray.append(messageDictionary)
-                if message == Direction.North.rawValue{
+                if messageS == Direction.North.rawValue{
                     moveUp()
-                }else if message == Direction.East.rawValue{
+                }else if messageS == Direction.East.rawValue{
                     moveRight()
-                }else if message == Direction.West.rawValue{
+                }else if messageS == Direction.West.rawValue{
                     moveLeft()
-                }else if message == Direction.South.rawValue{
+                }else if messageS == Direction.South.rawValue{
                     moveDown()
-                }else if message == Direction.Death.rawValue{
+                }else if messageS == Direction.Death.rawValue{
                     gameOver()
                 }
                 
@@ -533,8 +579,13 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //                    self.presentViewController(alert, animated: true, completion: nil)
                 })
             }
-        }else if let message = dataDictionary["location"] {
-            
+        }else if let message = dataDictionary["location"]{
+            let messageI = message as! [Int]
+            if messageI.count == 2 {
+                messageI[0]
+                checkTile(Int(messageI[0]),inY: Int(messageI[1]))
+                secondHero.position = (myMap.tileAtColumn(Int(messageI[0]), row: Int(messageI[1]))?.position)!
+            }
         }
     }
     

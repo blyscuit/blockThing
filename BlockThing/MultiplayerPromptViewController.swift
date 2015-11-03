@@ -92,11 +92,12 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
         player = 1
     }
     
-    func invitationWasReceived(fromPeer: String) {
+    func invitationWasReceived(fromPeer: String,level:Int) {
         let alert = UIAlertController(title: "", message: "\(fromPeer) wants to play with you.", preferredStyle: UIAlertControllerStyle.Alert)
         
         let acceptAction: UIAlertAction = UIAlertAction(title: "Accept", style: UIAlertActionStyle.Default) { (alertAction) -> Void in
             player = 2
+            levelIs = level
             self.appDelegate.mpcManager.invitationHandler(true, self.appDelegate.mpcManager.session)
         }
         
@@ -114,14 +115,18 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
     
     func connectedWithPeer(peerID: MCPeerID) {
         NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
+            if let currentLevel = NSUserDefaults.standardUserDefaults().objectForKey("multiLevel") as? Int{
+                levelIs = currentLevel
+            }else{
+                levelIs = 201
+            }
+            multi = true
             self.performSegueWithIdentifier("game2", sender: self)
         }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "game2"){
-            levelIs = "Level_201"
-            multi = true
         }
     }
     

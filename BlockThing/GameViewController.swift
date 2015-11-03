@@ -14,6 +14,7 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
         var level: Map!
         
@@ -66,15 +67,13 @@ class GameViewController: UIViewController {
         let fromPeer = receivedDataDictionary["fromPeer"] as! MCPeerID
         
         // Convert the data (NSData) into a Dictionary object.
-        let dataDictionary = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! Dictionary<String, String>
+        let dataDictionary = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! Dictionary<String, AnyObject>
         
         // Check if there's an entry with the "message" key.
         if let message = dataDictionary["message"] {
+            let messageS = message as! String
             // Make sure that the message is other than "_end_chat_".
-            if message != "_end_chat_"{
-
-            }
-            else{
+            if messageS == "_end_chat_"{
                 // In this case an "_end_chat_" message was received.
                 // Show an alert view to the user.
                 let alert = UIAlertController(title: "", message: "\(fromPeer.displayName) ended this chat.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -89,6 +88,9 @@ class GameViewController: UIViewController {
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                     //                    self.presentViewController(alert, animated: true, completion: nil)
                 })
+            }
+            else{
+                
             }
         }
     }
