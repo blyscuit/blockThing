@@ -7,16 +7,37 @@
 //
 
 import UIKit
+import SpriteKit
 
 class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDelegate {
     @IBAction func startMulti(sender: AnyObject) {
         performSegueWithIdentifier("m_multi", sender: self)
     }
 
+    @IBOutlet var Stage: SKView!
+    @IBOutlet var Esqace: UILabel!
+    @IBOutlet var SlideLeft: UILabel!
+    @IBOutlet var SlideRight: UILabel!
+    @IBOutlet var startsingle: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        if let scene = GameScene(fileNamed:"GameScene") {
+            scene.levelIs = "Level_main"
+            // Configure the view.
+
+            /* Sprite Kit applies additional optimizations to improve rendering performance */
+            MainMenuMap.ignoresSiblingOrder = true
+            
+            /* Set the scale mode to scale to fit the window */
+            scene.scaleMode = .AspectFill
+        
+            MainMenuMap.presentScene(scene)
+            
+          
+        }
+        
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,6 +46,7 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
     }
     
 
+    @IBOutlet var MainMenuMap: SKView!
     /*
     // MARK: - Navigation
 
