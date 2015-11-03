@@ -28,6 +28,13 @@ enum BodyType:UInt32 {
     case wall = 5
 }
 
+
+@objc protocol PlayerChooseControllerDelegate {
+    func playerControllerDidOnePlay()
+    func playerControllerDidTwoPlay()
+}
+
+
 let TileWidth: CGFloat = 80.0
 let TileHeight: CGFloat = 80.0
 
@@ -37,6 +44,7 @@ var multi = false
 var player = 1
 
 class GameScene: SKScene,SKPhysicsContactDelegate {
+    var delegatePlayer: PlayerChooseControllerDelegate?
     
     var messagesArray: [Dictionary<String, String>] = []
     
@@ -299,10 +307,20 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                         }
                     }
                 }
+            }else if(tile.tileType == TileType.TwoPlay){
+                gotoTwoPlay()
+            }else if(tile.tileType == TileType.OnePlay){
+                gotoOnePlay()
             }
         }
     }
 
+    func gotoTwoPlay(){
+        delegatePlayer?.playerControllerDidTwoPlay()
+    }
+    func gotoOnePlay(){
+        delegatePlayer?.playerControllerDidOnePlay()
+    }
     
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
@@ -402,7 +420,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         darkness.zPosition = 10
         let darknessSize = 11 - 0
         darkness.size = CGSizeMake(darkness.size.width *  CGFloat(darknessSize), darkness.size.height *  CGFloat(darknessSize))
-//        addChild(darkness)
+        addChild(darkness)
     }
     
     var myMap : Map!
