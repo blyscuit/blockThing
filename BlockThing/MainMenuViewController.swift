@@ -14,10 +14,8 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
         performSegueWithIdentifier("m_multi", sender: self)
     }
 
-    @IBOutlet var Stage: SKView!
-    @IBOutlet var Esqace: UILabel!
-    @IBOutlet var SlideLeft: UILabel!
-    @IBOutlet var SlideRight: UILabel!
+    
+    @IBOutlet var stage: UIView!
     @IBOutlet var startsingle: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
