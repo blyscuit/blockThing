@@ -33,7 +33,7 @@
                                 <rect key="frame" x="0.0" y="48" width="600" height="1"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uIf-Zo-YkA" customClass="SKView">
-                                        <rect key="frame" x="0.0" y="-275" width="600" height="552"/>
+                                        <rect key="frame" x="0.0" y="8" width="600" height="545"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
