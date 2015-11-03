@@ -56,9 +56,15 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
         // Pass the selected object to the new view controller.
     }
     */
-//    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-//       self.performSegueWithIdentifier("game1", sender: self)
-//    }
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        multi = false
+        if let currentLevel = NSUserDefaults.standardUserDefaults().objectForKey("singleLevel") as? Int{
+            levelIs = currentLevel
+        }else{
+            levelIs = 1
+        }
+        self.performSegueWithIdentifier("game1", sender: self)
+    }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "m_multi"){
             let mVC = segue.destinationViewController as? MultiplayerPromptViewController

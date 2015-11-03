@@ -17,7 +17,7 @@ class Text: SKLabelNode {
     //init (Color: UIColor, Size: CGFloat, inX: CGFloat, inY: CGFloat, text: String) {
        // super.init (Color: Color, Size: Size, inX: inX, inY: inY, text: text)
         self.init(text: text)
-        self.fontName = "Helvetica Neue"
+        self.fontName = "Times"
         self.fontColor = UIColor.blackColor()
         self.fontSize = 20
         self.position = CGPointMake(300, 300)

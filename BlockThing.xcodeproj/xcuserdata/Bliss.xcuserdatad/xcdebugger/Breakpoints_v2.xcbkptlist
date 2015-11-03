@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BlockThing/GameScene.swift"
-            timestampString = "467652209.129203"
+            timestampString = "468230221.74039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
             landmarkName = "GameScene"
             landmarkType = "3">
          </BreakpointContent>
@@ -58,12 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BlockThing/GameScene.swift"
-            timestampString = "467652209.129203"
+            timestampString = "468230221.74039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "292"
-            endingLineNumber = "292"
-            landmarkName = "update(_:)"
+            startingLineNumber = "299"
+            endingLineNumber = "299"
+            landmarkName = "checkTile(_:inY:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -122,13 +122,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BlockThing/GameScene.swift"
-            timestampString = "467653183.979077"
+            timestampString = "468230221.74039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "479"
-            endingLineNumber = "479"
-            landmarkName = "GameScene"
-            landmarkType = "3">
+            startingLineNumber = "499"
+            endingLineNumber = "499"
+            landmarkName = "didBeginContact(_:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
