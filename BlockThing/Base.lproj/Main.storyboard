@@ -18,6 +18,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uIf-Zo-YkA" customClass="SKView">
+                                <rect key="frame" x="0.0" y="48" width="600" height="525"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TeS-BH-D5j">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
                                 <animations/>
@@ -52,20 +56,10 @@
                             </label>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YLa-aF-aqW">
                                 <rect key="frame" x="0.0" y="48" width="600" height="1"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uIf-Zo-YkA" customClass="SKView">
-                                        <rect key="frame" x="0.0" y="8" width="600" height="545"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="uIf-Zo-YkA" secondAttribute="trailing" id="B3k-De-G00"/>
-                                    <constraint firstAttribute="bottom" secondItem="uIf-Zo-YkA" secondAttribute="bottom" constant="-552" id="Tur-Ed-d2h"/>
                                     <constraint firstAttribute="height" constant="1" id="ZQv-Ud-FOn"/>
-                                    <constraint firstItem="uIf-Zo-YkA" firstAttribute="top" secondItem="YLa-aF-aqW" secondAttribute="top" constant="8" id="jsH-34-Cn9"/>
-                                    <constraint firstItem="uIf-Zo-YkA" firstAttribute="leading" secondItem="YLa-aF-aqW" secondAttribute="leading" id="k7e-Ly-dzE"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" layoutMarginsFollowReadableWidth="YES" text="Slide our Hero to the Left for Single Player" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zDd-y2-7e6">
@@ -74,10 +68,6 @@
                                 <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ryz-zM-8eL">
-                                <rect key="frame" x="0.0" y="48" width="600" height="552"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -150,8 +140,6 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="MainMenuMap" destination="uIf-Zo-YkA" id="C6V-ku-j7v"/>
-                        <outlet property="SlideLeft" destination="zDd-y2-7e6" id="o7c-dO-UQw"/>
-                        <outlet property="SlideRight" destination="Oam-4z-OFa" id="Zep-UE-noH"/>
                         <outlet property="startsingle" destination="uZi-gr-o3s" id="nWI-cf-HcV"/>
                         <segue destination="BV1-FR-VrT" kind="show" identifier="game1" animates="NO" id="kZE-Fe-1d5"/>
                         <segue destination="oPu-rD-7Fk" kind="presentation" identifier="m_multi" id="G6J-O1-7Fo"/>
