@@ -14,6 +14,10 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
         performSegueWithIdentifier("m_multi", sender: self)
     }
 
+    @IBOutlet var Stage: SKView!
+    @IBOutlet var Esqace: UILabel!
+    @IBOutlet var SlideLeft: UILabel!
+    @IBOutlet var SlideRight: UILabel!
     @IBOutlet var startsingle: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,10 +31,12 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
             
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
-            
+        
             MainMenuMap.presentScene(scene)
             
+          
         }
+        
 
     }
 
@@ -50,9 +56,9 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
         // Pass the selected object to the new view controller.
     }
     */
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.performSegueWithIdentifier("game1", sender: self)
-    }
+//    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+//       self.performSegueWithIdentifier("game1", sender: self)
+//    }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "m_multi"){
             let mVC = segue.destinationViewController as? MultiplayerPromptViewController

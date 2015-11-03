@@ -7,7 +7,6 @@
 //
 
 import SpriteKit
-
 import MultipeerConnectivity
 //import UIKit
 
@@ -38,12 +37,13 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
 //    var isMoving = false
     
-    var levelIs = "Level_1"
+    var levelIs = "Level_main"
     
     override func didMoveToView(view: SKView) {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleMPCReceivedDataWithNotification:", name: "receivedMPCDataNotification", object: nil)
 
-        
+        //let someText = Text(text: "THIS IS TOO HARD!")
+        //self.addChild(someText)
         physicsWorld.contactDelegate = self
         backgroundColor = UIColor.whiteColor()
         
@@ -53,6 +53,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     func startGame(){
         
         isOver = false
+        
+        //let someText = Text(Color: UIColor.blackColor(), Size: 20, inX: 300, inY: 300,text: "GG")
+        //self.addChild(someText)
         
         var cover:SKSpriteNode = SKSpriteNode(color: UIColor.blackColor(), size: self.size)
         cover.zPosition = 5
@@ -298,7 +301,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         darkness.position = hero.position
         let darknessSize = 11 - 0
         darkness.size = CGSizeMake(darkness.size.width *  CGFloat(darknessSize), darkness.size.height *  CGFloat(darknessSize))
-        addChild(darkness)
+//        addChild(darkness)
     }
     
     var myMap : Map!

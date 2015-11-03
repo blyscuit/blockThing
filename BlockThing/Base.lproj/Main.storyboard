@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dmD-wf-PYO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dmD-wf-PYO">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -31,20 +31,26 @@
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YLa-aF-aqW">
                                 <rect key="frame" x="0.0" y="48" width="600" height="1"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uIf-Zo-YkA" customClass="SKView">
+                                        <rect key="frame" x="0.0" y="-275" width="600" height="552"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="ZQv-Ud-FOn"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Slide Right for" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oam-4z-OFa">
-                                <rect key="frame" x="329" y="399" width="115" height="22"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" misplaced="YES" text="Slide Right for Multiplayer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oam-4z-OFa">
+                                <rect key="frame" x="373" y="393" width="207" height="21.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" layoutMarginsFollowReadableWidth="YES" text="Slide Left for" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zDd-y2-7e6">
-                                <rect key="frame" x="60" y="400" width="105.5" height="22"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" layoutMarginsFollowReadableWidth="YES" text="Slide Left for Single Player" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zDd-y2-7e6">
+                                <rect key="frame" x="20" y="393" width="212" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -58,22 +64,19 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Made By LifeIsACookieJar Studio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GMH-Qe-hp9">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Made By LifeIsACookieJar Studio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GMH-Qe-hp9">
                                 <rect key="frame" x="186" y="510" width="228" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.7290877525252526" green="0.7290877525252526" blue="0.7290877525252526" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uIf-Zo-YkA" customClass="SKView">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Oam-4z-OFa" firstAttribute="top" secondItem="zDd-y2-7e6" secondAttribute="bottom" constant="52" id="5OJ-Fm-IHO"/>
                             <constraint firstItem="TeS-BH-D5j" firstAttribute="top" secondItem="hE6-gu-mN3" secondAttribute="bottom" id="6Um-pY-DkO"/>
+                            <constraint firstItem="Oam-4z-OFa" firstAttribute="leading" secondItem="zDd-y2-7e6" secondAttribute="trailing" constant="141" id="7X9-bk-USX"/>
                             <constraint firstItem="YJj-qI-SDo" firstAttribute="top" secondItem="Oam-4z-OFa" secondAttribute="bottom" constant="178.5" id="8CR-pP-jX7"/>
                             <constraint firstItem="Oam-4z-OFa" firstAttribute="top" secondItem="zDd-y2-7e6" secondAttribute="bottom" constant="52" id="8j6-8z-Psn"/>
                             <constraint firstItem="eKd-Ca-fSh" firstAttribute="top" secondItem="uZi-gr-o3s" secondAttribute="top" constant="150" id="8ss-Lk-S9F"/>
@@ -87,11 +90,13 @@
                             <constraint firstItem="TeS-BH-D5j" firstAttribute="centerX" secondItem="uZi-gr-o3s" secondAttribute="centerX" id="LRq-Op-GbA"/>
                             <constraint firstItem="Oam-4z-OFa" firstAttribute="top" secondItem="eKd-Ca-fSh" secondAttribute="bottom" constant="214" id="Tj4-W3-ofU"/>
                             <constraint firstItem="Oam-4z-OFa" firstAttribute="leading" secondItem="zDd-y2-7e6" secondAttribute="trailing" constant="57" id="U7r-rC-MjE"/>
+                            <constraint firstItem="GMH-Qe-hp9" firstAttribute="top" secondItem="Oam-4z-OFa" secondAttribute="bottom" constant="95.5" id="VIZ-KH-sk8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="GMH-Qe-hp9" secondAttribute="trailing" constant="166" id="Xcr-ux-zIU"/>
                             <constraint firstItem="zDd-y2-7e6" firstAttribute="leading" secondItem="uZi-gr-o3s" secondAttribute="leadingMargin" constant="40" id="Yd2-D0-Yym"/>
                             <constraint firstItem="YLa-aF-aqW" firstAttribute="centerX" secondItem="TeS-BH-D5j" secondAttribute="centerX" id="Yuw-wE-4l3"/>
                             <constraint firstItem="YLa-aF-aqW" firstAttribute="top" secondItem="TeS-BH-D5j" secondAttribute="bottom" constant="8" id="c04-Id-ODb"/>
                             <constraint firstItem="YLa-aF-aqW" firstAttribute="width" secondItem="TeS-BH-D5j" secondAttribute="width" id="c6Y-G5-z9y"/>
+                            <constraint firstItem="Oam-4z-OFa" firstAttribute="trailing" secondItem="uZi-gr-o3s" secondAttribute="trailingMargin" id="dUg-Om-Lo6"/>
                             <constraint firstItem="GMH-Qe-hp9" firstAttribute="centerX" secondItem="uZi-gr-o3s" secondAttribute="centerX" id="eRE-OL-UlU"/>
                             <constraint firstItem="eKd-Ca-fSh" firstAttribute="centerX" secondItem="uZi-gr-o3s" secondAttribute="centerX" id="fe0-yx-tz2"/>
                             <constraint firstItem="Oam-4z-OFa" firstAttribute="leading" secondItem="zDd-y2-7e6" secondAttribute="trailing" constant="57" id="iEO-bv-8zv"/>
@@ -102,10 +107,20 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="9c5-x2-Fjr"/>
+                                <exclude reference="AR8-7W-xdD"/>
+                                <exclude reference="Yd2-D0-Yym"/>
                                 <exclude reference="jtU-f2-fFT"/>
                                 <exclude reference="5OJ-Fm-IHO"/>
                                 <exclude reference="8j6-8z-Psn"/>
                                 <exclude reference="DdK-wJ-R7F"/>
+                                <exclude reference="FV2-2y-ekJ"/>
+                                <exclude reference="Tj4-W3-ofU"/>
+                                <exclude reference="U7r-rC-MjE"/>
+                                <exclude reference="iEO-bv-8zv"/>
+                                <exclude reference="FNb-Kb-8h4"/>
+                                <exclude reference="8CR-pP-jX7"/>
+                                <exclude reference="kQb-Lv-sL1"/>
                                 <exclude reference="pjl-xw-pan"/>
                             </mask>
                         </variation>
@@ -113,6 +128,8 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="MainMenuMap" destination="uIf-Zo-YkA" id="C6V-ku-j7v"/>
+                        <outlet property="SlideLeft" destination="zDd-y2-7e6" id="o7c-dO-UQw"/>
+                        <outlet property="SlideRight" destination="Oam-4z-OFa" id="Zep-UE-noH"/>
                         <outlet property="startsingle" destination="uZi-gr-o3s" id="nWI-cf-HcV"/>
                         <segue destination="BV1-FR-VrT" kind="show" identifier="game1" animates="NO" id="kZE-Fe-1d5"/>
                         <segue destination="oPu-rD-7Fk" kind="presentation" identifier="m_multi" id="G6J-O1-7Fo"/>
