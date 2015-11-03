@@ -10,18 +10,22 @@ import Foundation
 import SpriteKit
 
 class Text: SKLabelNode {
+    var xCoor=0
+    var yCoor=0
 //    var text: String? = ""
 //    var fontColor = UIColor.blackColor()
 //    var fontName =
-    convenience init (text: String) {
+    init (text: String,xd: Int, yd: Int) {
     //init (Color: UIColor, Size: CGFloat, inX: CGFloat, inY: CGFloat, text: String) {
        // super.init (Color: Color, Size: Size, inX: inX, inY: inY, text: text)
-        self.init(text: text)
-        self.fontName = "Times"
-        self.fontColor = UIColor.blackColor()
+        super.init()
+        self.fontName = "Timeless"
+        self.fontColor = UIColor.grayColor()
         self.fontSize = 20
-        self.position = CGPointMake(300, 300)
+        self.position = CGPointMake(0, 0)
         self.text = text
+        xCoor=xd
+        yCoor=yd
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
