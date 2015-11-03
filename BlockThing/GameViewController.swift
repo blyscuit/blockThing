@@ -8,6 +8,7 @@
 
 import UIKit
 import SpriteKit
+import MultipeerConnectivity
 
 class GameViewController: UIViewController {
 
@@ -15,6 +16,8 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
 
         var level: Map!
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleMPCReceivedDataWithNotification:", name: "receivedMPCDataNotification", object: nil)
         
         if let scene = GameScene(fileNamed:"GameScene") {
             // Configure the view.
@@ -52,5 +55,41 @@ class GameViewController: UIViewController {
 
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+    
+    func handleMPCReceivedDataWithNotification(notification: NSNotification) {
+        // Get the dictionary containing the data and the source peer from the notification.
+        let receivedDataDictionary = notification.object as! Dictionary<String, AnyObject>
+        
+        // "Extract" the data and the source peer from the received dictionary.
+        let data = receivedDataDictionary["data"] as? NSData
+        let fromPeer = receivedDataDictionary["fromPeer"] as! MCPeerID
+        
+        // Convert the data (NSData) into a Dictionary object.
+        let dataDictionary = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! Dictionary<String, String>
+        
+        // Check if there's an entry with the "message" key.
+        if let message = dataDictionary["message"] {
+            // Make sure that the message is other than "_end_chat_".
+            if message != "_end_chat_"{
+
+            }
+            else{
+                // In this case an "_end_chat_" message was received.
+                // Show an alert view to the user.
+                let alert = UIAlertController(title: "", message: "\(fromPeer.displayName) ended this chat.", preferredStyle: UIAlertControllerStyle.Alert)
+                
+                let doneAction: UIAlertAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) { (alertAction) -> Void in
+                    (UIApplication.sharedApplication().delegate as! AppDelegate).mpcManager.session.disconnect()
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+                
+                alert.addAction(doneAction)
+                
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    //                    self.presentViewController(alert, animated: true, completion: nil)
+                })
+            }
+        }
     }
 }

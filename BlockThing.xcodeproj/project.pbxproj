@@ -233,6 +233,7 @@
 				683223551BD96D0800383BC2 /* Level_12.json */,
 				680842CA1BDA7E710027CC31 /* Level_14.json */,
 				68D2CABF1BD97204008DAB5D /* Level_13.json */,
+				68EA4A891BDF72A1005E44D8 /* Level_201.json */,
 			);
 			path = Levels;
 			sourceTree = "<group>";
@@ -304,6 +305,7 @@
 				TargetAttributes = {
 					683AF6D81BCC14E600DBCCBC = {
 						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = 93QF44Z6JU;
 					};
 					683AF6F01BCC14E700DBCCBC = {
 						CreatedOnToolsVersion = 7.0.1;
@@ -349,6 +351,7 @@
 				9A2C8FAF1BDF643D00B57083 /* Level_main.json in Resources */,
 				68A065A71BCCB57E0080A28C /* Level_0.json in Resources */,
 				683AF6EB1BCC14E700DBCCBC /* LaunchScreen.storyboard in Resources */,
+				68EA4A8A1BDF72A1005E44D8 /* Level_201.json in Resources */,
 				686C2C201BD550E100993F63 /* spark.png in Resources */,
 				683AF6E81BCC14E600DBCCBC /* Assets.xcassets in Resources */,
 				9A9033FD1BCE4D3C00D47C4B /* Level_5.json in Resources */,
@@ -542,6 +545,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = BlockThing/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -554,6 +558,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = BlockThing/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

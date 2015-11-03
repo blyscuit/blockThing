@@ -31,17 +31,19 @@ class TriangleMonster: Monster {
         
         self.addChild(circleHit)
         
+        zPosition = 1
+        
 //                circleHit.runAction(SKAction.repeatActionForever(SKAction.rotateByAngle(3.15, duration: 2, delay: 0.0, usingSpringWithDamping: 10.01, initialSpringVelocity: 0)))
 
                 circleHit.runAction(SKAction.repeatActionForever(SKAction.sequence([SKAction.rotateByAngle(7.15, duration: 1.6),SKAction.rotateByAngle(5.15, duration: 1.3).reversedAction()])))
         
         var path = NSBundle.mainBundle().pathForResource("Smoke", ofType: "sks")
-        var rainParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
+        rainParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
         
-        rainParticle.position = CGPointMake(0,0)
-        rainParticle.name = "smoke"
-        rainParticle.targetNode = self
-        circleHit.addChild(rainParticle)
+        rainParticle?.position = CGPointMake(0,0)
+        rainParticle?.name = "smoke"
+        rainParticle?.zPosition = 4
+        circleHit.addChild((rainParticle)!)
         
         startMoving()
         
@@ -58,6 +60,7 @@ class TriangleMonster: Monster {
 //        self.physicsBody?.angularDamping=0.0;
 //        self.physicsBody?.applyForce(CGVectorMake(100.0, 0.0))
     }
+    
 }
 class CircleMonster: Monster {
     var moveHorizontal: Bool
@@ -82,14 +85,15 @@ class CircleMonster: Monster {
         self.physicsBody = body
         
         var path = NSBundle.mainBundle().pathForResource("Smoke", ofType: "sks")
-        var rainParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
+        rainParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
         
-        rainParticle.position = CGPointMake(0,0)
-        rainParticle.name = "smoke"
-//        rainParticle.targetNode = self.
-        addChild(rainParticle)
+        rainParticle?.position = CGPointMake(0,0)
+        rainParticle?.name = "smoke"
+        rainParticle?.zPosition = 4
+        addChild((rainParticle)!)
         
         startMoving()
+        zPosition = 1
         
         
     }
@@ -111,7 +115,7 @@ class CircleMonster: Monster {
             }
         }
     }
-    func changeDirection() {
+    override func changeDirection() {
         if moveHorizontal == true {
             if inverse == true {
                 body!.velocity = CGVectorMake(80, 0)

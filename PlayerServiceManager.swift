@@ -16,6 +16,8 @@ protocol MPCManagerDelegate {
     func invitationWasReceived(fromPeer: String)
     
     func connectedWithPeer(peerID: MCPeerID)
+    
+//    func lostConnection()
 }
 class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvertiserDelegate
  {
@@ -30,6 +32,8 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
     
     var invitationHandler: ((Bool, MCSession)->Void)!
     
+    var connectedPeer: MCPeerID!
+    
     var delegate: MPCManagerDelegate?
     
     override init() {
@@ -40,8 +44,12 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
         session = MCSession(peer: peer)
         session.delegate = self
         
+        advertiser = MCNearbyServiceAdvertiser(peer: peer, discoveryInfo: nil, serviceType: "mika")
+        advertiser.delegate = self
+        
         browser = MCNearbyServiceBrowser(peer: peer, serviceType: "mika")
         browser.delegate = self
+        
     }
     
     func browser(browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
@@ -56,6 +64,12 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
                 foundPeers.removeAtIndex(index)
                 break
             }
+        }
+        
+        if(peerID == connectedPeer){
+            let messageDictionary: [String: String] = ["message": "_end_chat_"]
+            
+            sendData(dictionaryWithData: messageDictionary, toPeer: connectedPeer)
         }
         
         delegate?.lostPeer()
@@ -73,6 +87,7 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
         switch state{
         case MCSessionState.Connected:
             print("Connected to session: \(session)")
+            connectedPeer = peerID
             delegate?.connectedWithPeer(peerID)
             
         case MCSessionState.Connecting:
@@ -83,13 +98,21 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
         }
     }
     
-    func sendData(dictionaryWithData dictionary: Dictionary<String, String>, toPeer targetPeer: MCPeerID) -> Bool {
+    func sendData(dictionaryWithData dictionary: Dictionary<String, AnyObject>, toPeer targetPeer: MCPeerID) -> Bool {
         let dataToSend = NSKeyedArchiver.archivedDataWithRootObject(dictionary)
         let peersArray = NSArray(object: targetPeer)
         var error: NSError?
         
+        do {
+        try
+        session.sendData(dataToSend, toPeers: peersArray as! [MCPeerID], withMode: MCSessionSendDataMode.Reliable)
+        }catch{
+            return false
+        }
         return true
     }
+    
+    
     
     func advertiser(advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: NSData?, invitationHandler: (Bool, MCSession) -> Void) {
         
@@ -108,6 +131,7 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
     func session(session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, atURL localURL: NSURL, withError error: NSError?) { }
     
     func session(session: MCSession, didReceiveStream stream: NSInputStream, withName streamName: String, fromPeer peerID: MCPeerID) { }
+    
 
 }
 //    
