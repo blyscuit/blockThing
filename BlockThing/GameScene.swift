@@ -54,7 +54,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
 //    var isMoving = false
     
-    var levelIs = "Level_main"
     
     override func didMoveToView(view: SKView) {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleMPCReceivedDataWithNotification:", name: "receivedMPCDataNotification", object: nil)

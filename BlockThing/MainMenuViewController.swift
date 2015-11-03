@@ -23,7 +23,7 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         if let scene = GameScene(fileNamed:"GameScene") {
-            scene.levelIs = "Level_main"
+            levelIs = 0
             // Configure the view.
 
             /* Sprite Kit applies additional optimizations to improve rendering performance */
