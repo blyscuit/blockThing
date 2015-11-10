@@ -11,24 +11,6 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="zpZ-FI-Qmp">
-            <objects>
-                <viewController id="sch-ep-6uM" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="t2o-QT-gY5"/>
-                        <viewControllerLayoutGuide type="bottom" id="T2T-Yv-ppb"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Fai-Qc-rfs">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rBj-05-08N" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="969" y="-1123"/>
-        </scene>
         <!--Main Menu View Controller-->
         <scene sceneID="y6x-0H-CdT">
             <objects>
@@ -118,7 +100,6 @@
                         <outlet property="startsingle" destination="uZi-gr-o3s" id="nWI-cf-HcV"/>
                         <segue destination="BV1-FR-VrT" kind="presentation" identifier="game1" animates="NO" modalTransitionStyle="crossDissolve" id="kZE-Fe-1d5"/>
                         <segue destination="oPu-rD-7Fk" kind="presentation" identifier="m_multi" id="G6J-O1-7Fo"/>
-                        <segue destination="sch-ep-6uM" kind="presentation" id="oHZ-Qv-f6C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rYg-SR-mDv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -228,7 +209,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="243" y="340"/>
+            <point key="canvasLocation" x="247" y="398"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
