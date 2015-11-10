@@ -437,9 +437,12 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             darkness.position = hero.position
             darkness.zPosition = 10
             let darknessSize = 12 - myMap.darknessLevel;
-            darkness.size = CGSizeMake(darkness.size.width *  CGFloat(darknessSize), darkness.size.height *  CGFloat(darknessSize))
+            darkness.size = CGSizeMake(darkness.size.width *  CGFloat(11.5), darkness.size.height *  CGFloat(11.5))
+            darkness.runAction(SKAction.scaleTo(CGFloat(Double(darknessSize)/11.0), duration: 2.1, delay: 0.0, usingSpringWithDamping: 0.01, initialSpringVelocity: 0.0), completion: { () -> Void in
+            })
             addChild(darkness)
         }
+        
     }
     
     var myMap : Map!

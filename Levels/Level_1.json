@@ -29,5 +29,5 @@
               ],
     "targetScore" : 1000,
     "moves" : 15,
-    "darkness" : 10,
+    "darkness" : 1,
 }
