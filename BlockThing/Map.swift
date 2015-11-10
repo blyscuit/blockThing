@@ -15,6 +15,8 @@ var NumRows = 40
 class Map {
     
     private var tiles = Array2D<Tile>(columns:NumColumns, rows: NumRows)
+    var texts = [Text]()
+    var darknessLevel = 1;
 
     
     func tileAtColumn(column: Int, row: Int) -> Tile? {
@@ -52,6 +54,9 @@ class Map {
             // one element for each row of the level. Each of those row elements in
             // turn is also an array describing the columns in that row. If a column
             // is 1, it means there is a tile at that location, 0 means there is not.
+            
+            texts = [Text]()
+            
             if let tilesArray: AnyObject = dictionary["tiles"] {
                 
                 NumRows = tilesArray.count
@@ -87,7 +92,25 @@ class Map {
                 }
             }
             
+            if(dictionary["darkness"] != nil){
+                if let textArray: JSON = JSON( dictionary["darkness"]!) {
+                    darknessLevel = textArray.intValue
+                }
+            }
+            
             //andy starts here
+            
+            if(dictionary["texts"] != nil){
+                if let textArray: JSON = JSON( dictionary["texts"]!) {
+                    for (index,subJson):(String, JSON) in textArray {
+                        let coor=subJson["coor"].arrayObject as! [Int]
+                        var nText = Text(text: subJson["text"].stringValue, xd: coor[0], yd: coor[1])
+                        //Do something you want
+                        texts.append(nText)
+                    }
+                    
+                }
+            }
         }
     }
 }

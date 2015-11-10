@@ -17,6 +17,8 @@ protocol MPCManagerDelegate {
     
     func connectedWithPeer(peerID: MCPeerID)
     
+//    func disconnectedWithPeer(peerID: MCPeerID)
+    
 //    func lostConnection()
 }
 class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvertiserDelegate
@@ -100,6 +102,18 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
             
         default:
             print("Did not connect to session: \(session)")
+            if(connectedPeer == peerID){
+                print("Lost peer: \(session)")
+                
+                let messageDictionary: [String: String] = ["message": "_end_chat_"]
+                
+                let dataToSend = NSKeyedArchiver.archivedDataWithRootObject(messageDictionary)
+                
+                let dictionary: [String: AnyObject] = ["data": dataToSend, "fromPeer": peerID]
+                NSNotificationCenter.defaultCenter().postNotificationName("receivedMPCDataNotification", object: dictionary)
+                
+            }
+            
         }
     }
     
@@ -130,6 +144,7 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
         let dictionary: [String: AnyObject] = ["data": data, "fromPeer": peerID]
         NSNotificationCenter.defaultCenter().postNotificationName("receivedMPCDataNotification", object: dictionary)
     }
+    
     
     func session(session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, withProgress progress: NSProgress) { }
     

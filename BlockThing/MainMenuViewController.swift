@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDelegate {
+class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDelegate,PlayerChooseControllerDelegate {
     @IBAction func startMulti(sender: AnyObject) {
         performSegueWithIdentifier("m_multi", sender: self)
     }
@@ -31,6 +31,7 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
             scene.scaleMode = .AspectFill
         
             MainMenuMap.presentScene(scene)
+            scene.delegatePlayer = self
             
           
         }
@@ -54,15 +55,15 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
         // Pass the selected object to the new view controller.
     }
     */
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        multi = false
-        if let currentLevel = NSUserDefaults.standardUserDefaults().objectForKey("singleLevel") as? Int{
-            levelIs = currentLevel
-        }else{
-            levelIs = 1
-        }
-        self.performSegueWithIdentifier("game1", sender: self)
-    }
+//    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+//        multi = false
+//        if let currentLevel = NSUserDefaults.standardUserDefaults().objectForKey("singleLevel") as? Int{
+//            levelIs = currentLevel
+//        }else{
+//            levelIs = 1
+//        }
+//        self.performSegueWithIdentifier("game1", sender: self)
+//    }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "m_multi"){
             let mVC = segue.destinationViewController as? MultiplayerPromptViewController
@@ -75,6 +76,19 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
     }
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+    
+    func playerControllerDidOnePlay() {
+        multi = false
+                if let currentLevel = NSUserDefaults.standardUserDefaults().objectForKey("singleLevel") as? Int{
+                    levelIs = currentLevel
+                }else{
+                    levelIs = 1
+                }
+        self.performSegueWithIdentifier("game1", sender: self)
+    }
+    func playerControllerDidTwoPlay() {
+        performSegueWithIdentifier("m_multi", sender: self)
     }
 
 }

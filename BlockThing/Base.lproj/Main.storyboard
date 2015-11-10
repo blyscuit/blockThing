@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dmD-wf-PYO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dmD-wf-PYO">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Timeless-Bold.ttf">
+            <string>Timeless-Bold</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Main Menu View Controller-->
         <scene sceneID="y6x-0H-CdT">
@@ -29,6 +35,9 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="206" id="ap8-Yf-B0k"/>
+                                </constraints>
                             </view>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TeS-BH-D5j">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
@@ -42,22 +51,25 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" misplaced="YES" text="Slide our Hero to the Right for Multiplayer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oam-4z-OFa">
-                                <rect key="frame" x="133" y="416" width="334" height="25.5"/>
+                                <rect key="frame" x="133" y="416" width="334" height="26"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Esqace" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eKd-Ca-fSh">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Esqace" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eKd-Ca-fSh">
                                 <rect key="frame" x="250" y="149" width="100" height="36"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="LI2-tk-Qgr"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <fontDescription key="fontDescription" name="Timeless-Bold" family="Timeless" pointSize="32"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Made By LifeIsACookieJar Studio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GMH-Qe-hp9">
-                                <rect key="frame" x="187" y="513" width="226.5" height="18"/>
+                                <rect key="frame" x="187" y="513" width="227" height="18"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.7290877525252526" green="0.7290877525252526" blue="0.7290877525252526" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -84,17 +96,21 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Oam-4z-OFa" secondAttribute="trailing" constant="44.5" id="FV2-2y-ekJ"/>
                             <constraint firstItem="GMH-Qe-hp9" firstAttribute="top" secondItem="Oam-4z-OFa" secondAttribute="bottom" constant="76" id="Gyf-xo-yBb"/>
                             <constraint firstItem="TeS-BH-D5j" firstAttribute="centerX" secondItem="uZi-gr-o3s" secondAttribute="centerX" id="LRq-Op-GbA"/>
+                            <constraint firstItem="8cW-7D-Yrr" firstAttribute="centerX" secondItem="uZi-gr-o3s" secondAttribute="centerX" id="Nur-YP-Y3k"/>
                             <constraint firstItem="Oam-4z-OFa" firstAttribute="top" secondItem="eKd-Ca-fSh" secondAttribute="bottom" constant="214" id="Tj4-W3-ofU"/>
                             <constraint firstItem="GMH-Qe-hp9" firstAttribute="top" secondItem="Oam-4z-OFa" secondAttribute="bottom" constant="95.5" id="VIZ-KH-sk8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="GMH-Qe-hp9" secondAttribute="trailing" constant="166" id="Xcr-ux-zIU"/>
                             <constraint firstItem="YLa-aF-aqW" firstAttribute="centerX" secondItem="TeS-BH-D5j" secondAttribute="centerX" id="Yuw-wE-4l3"/>
                             <constraint firstItem="YLa-aF-aqW" firstAttribute="top" secondItem="TeS-BH-D5j" secondAttribute="bottom" constant="8" id="c04-Id-ODb"/>
                             <constraint firstItem="YLa-aF-aqW" firstAttribute="width" secondItem="TeS-BH-D5j" secondAttribute="width" id="c6Y-G5-z9y"/>
+                            <constraint firstItem="8cW-7D-Yrr" firstAttribute="width" secondItem="uZi-gr-o3s" secondAttribute="width" id="dH3-N6-Xe2"/>
                             <constraint firstItem="Oam-4z-OFa" firstAttribute="trailing" secondItem="uZi-gr-o3s" secondAttribute="trailingMargin" id="dUg-Om-Lo6"/>
                             <constraint firstItem="GMH-Qe-hp9" firstAttribute="centerX" secondItem="uZi-gr-o3s" secondAttribute="centerX" id="eRE-OL-UlU"/>
                             <constraint firstItem="eKd-Ca-fSh" firstAttribute="centerX" secondItem="uZi-gr-o3s" secondAttribute="centerX" id="fe0-yx-tz2"/>
                             <constraint firstItem="Oam-4z-OFa" firstAttribute="centerX" secondItem="uZi-gr-o3s" secondAttribute="centerX" id="n4Z-YS-Kb1"/>
+                            <constraint firstItem="uIf-Zo-YkA" firstAttribute="centerY" secondItem="uZi-gr-o3s" secondAttribute="centerY" constant="10.5" id="nks-P6-uCJ"/>
                             <constraint firstItem="YJj-qI-SDo" firstAttribute="top" secondItem="Oam-4z-OFa" secondAttribute="bottom" constant="92" id="pjl-xw-pan"/>
+                            <constraint firstItem="Roq-G6-Lb5" firstAttribute="centerX" secondItem="uZi-gr-o3s" secondAttribute="centerX" id="qlb-2J-X2b"/>
                             <constraint firstItem="TeS-BH-D5j" firstAttribute="width" secondItem="uZi-gr-o3s" secondAttribute="width" id="roA-kE-jF3"/>
                             <constraint firstItem="YJj-qI-SDo" firstAttribute="top" secondItem="GMH-Qe-hp9" secondAttribute="bottom" constant="69" id="yfs-Bm-gwh"/>
                         </constraints>
@@ -118,7 +134,7 @@
                     <connections>
                         <outlet property="MainMenuMap" destination="uIf-Zo-YkA" id="C6V-ku-j7v"/>
                         <outlet property="startsingle" destination="uZi-gr-o3s" id="nWI-cf-HcV"/>
-                        <segue destination="BV1-FR-VrT" kind="show" identifier="game1" animates="NO" id="kZE-Fe-1d5"/>
+                        <segue destination="BV1-FR-VrT" kind="presentation" identifier="game1" animates="NO" modalTransitionStyle="crossDissolve" id="kZE-Fe-1d5"/>
                         <segue destination="oPu-rD-7Fk" kind="presentation" identifier="m_multi" id="G6J-O1-7Fo"/>
                     </connections>
                 </viewController>
@@ -167,11 +183,11 @@
                                         <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lhV-vR-pJF" id="1tV-8m-Ync">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fiN-2h-LzB">
-                                                    <rect key="frame" x="15" y="12" width="31.5" height="19.5"/>
+                                                    <rect key="frame" x="15" y="12" width="32" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -179,7 +195,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Efk-RA-fQa">
-                                                    <rect key="frame" x="543.5" y="12" width="41.5" height="19.5"/>
+                                                    <rect key="frame" x="543" y="12" width="42" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -205,7 +221,7 @@
                     </view>
                     <connections>
                         <outlet property="tableMulti" destination="IYq-KG-ofW" id="7zW-8K-UDl"/>
-                        <segue destination="BV1-FR-VrT" kind="show" identifier="game2" id="Xgd-F0-4gg"/>
+                        <segue destination="BV1-FR-VrT" kind="presentation" identifier="game2" modalTransitionStyle="crossDissolve" id="Xgd-F0-4gg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hEn-Xb-k0R" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -233,7 +249,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="kZE-Fe-1d5"/>
+        <segue reference="Xgd-F0-4gg"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
 </document>

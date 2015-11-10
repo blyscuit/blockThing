@@ -10,7 +10,7 @@ import UIKit
 import SpriteKit
 import MultipeerConnectivity
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController,GameplayControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +35,7 @@ class GameViewController: UIViewController {
             skView.presentScene(scene)
             
         }
+        
     }
 
     override func shouldAutorotate() -> Bool {
@@ -92,6 +93,12 @@ class GameViewController: UIViewController {
             else{
                 
             }
+        }
+    }
+    
+    func gameDidQuit() {
+        self.dismissViewControllerAnimated(true) { () -> Void in
+            
         }
     }
 }
