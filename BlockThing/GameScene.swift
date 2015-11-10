@@ -28,6 +28,9 @@ enum BodyType:UInt32 {
     case wall = 5
 }
 
+let maxSingleStages = 13;
+let maxMultiStages = 10;
+
 
 @objc protocol PlayerChooseControllerDelegate {
     func playerControllerDidOnePlay()
@@ -645,6 +648,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //                self.appDelegate.mpcManager.session.disconnect()
 //            })
 //        }
+    }
+    
+    func toMainMenu(){
+        self.delegateGame?.gameDidQuit()
     }
 }
 
