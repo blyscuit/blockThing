@@ -692,6 +692,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //                self.removeAllActions()
 //                self.removeAllChildren()
                 
+                isOver = true
                 self.appDelegate.mpcManager.session.disconnect()
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                     //                    self.presentViewController(alert, animated: true, completion: nil)
