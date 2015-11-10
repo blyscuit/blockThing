@@ -33,7 +33,10 @@ enum BodyType:UInt32 {
     func playerControllerDidOnePlay()
     func playerControllerDidTwoPlay()
 }
-
+@objc protocol GameplayControllerDelegate {
+    func gameDidQuit()
+//    func gameDid()
+}
 
 let TileWidth: CGFloat = 80.0
 let TileHeight: CGFloat = 80.0
@@ -45,6 +48,7 @@ var player = 1
 
 class GameScene: SKScene,SKPhysicsContactDelegate {
     var delegatePlayer: PlayerChooseControllerDelegate?
+    var delegateGame: GameplayControllerDelegate?
     
     var messagesArray: [Dictionary<String, String>] = []
     
@@ -316,10 +320,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
 
     func gotoTwoPlay(){
-        delegatePlayer?.playerControllerDidTwoPlay()
+        self.runAction(SKAction.waitForDuration(0.3), completion: { () -> Void in
+            self.delegatePlayer?.playerControllerDidTwoPlay()
+        })
     }
     func gotoOnePlay(){
-        delegatePlayer?.playerControllerDidOnePlay()
+        self.runAction(SKAction.waitForDuration(0.3), completion: { () -> Void in
+            self.delegatePlayer?.playerControllerDidOnePlay()
+        })
     }
     
     override func update(currentTime: CFTimeInterval) {
@@ -384,6 +392,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             }
         }
         
+        addText()
+        
         if(multi){
             let square = SKTexture(imageNamed: "player2")
             secondHero = SKSpriteNode(texture: square)
@@ -400,6 +410,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         tilesLayer.position = realPosition
     }
     
+    func addText(){
+        for text in myMap.texts{
+            text.position = pointForColumn(text.xCoor, row: NumRows - text.yCoor)
+            text.zPosition = -1
+            tilesLayer.addChild(text)
+        }
+    }
+    
     func centerMap(complete:()-> Void){
         let realPosition = CGPointMake(self.size.width/2 - (pointForColumn(hero.xCoor, row: hero.yCoor)).x, self.size.height/2 - (pointForColumn(hero.xCoor, row: hero.yCoor)).y)
         tilesLayer.runAction(SKAction.moveTo(realPosition, duration: 0.01)){
@@ -414,13 +432,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         self.addChild(hero)
         
         
-        
-        let darkness = SKSpriteNode(imageNamed: "dark")
-        darkness.position = hero.position
-        darkness.zPosition = 10
-        let darknessSize = 11 - 0
-        darkness.size = CGSizeMake(darkness.size.width *  CGFloat(darknessSize), darkness.size.height *  CGFloat(darknessSize))
-        addChild(darkness)
+        if(levelIs != 0){
+            let darkness = SKSpriteNode(imageNamed: "dark")
+            darkness.position = hero.position
+            darkness.zPosition = 10
+            let darknessSize = 12 - myMap.darknessLevel;
+            darkness.size = CGSizeMake(darkness.size.width *  CGFloat(darknessSize), darkness.size.height *  CGFloat(darknessSize))
+            addChild(darkness)
+        }
     }
     
     var myMap : Map!
@@ -477,6 +496,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 NSUserDefaults.standardUserDefaults().setInteger(levelIs, forKey: "multiLevel")
             }
         }
+        levelIs++;
         var cover:SKSpriteNode = SKSpriteNode(color: UIColor.whiteColor(), size: self.size)
         cover.anchorPoint = CGPointMake(0.0, 0.0)
         cover.alpha = 0.0
@@ -485,17 +505,21 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         hero.dieAnimation()
 
-//        self.tilesLayer.runAction(SKAction.shake(0.57, amplitudeX: 40, amplitudeY: 40)) { () -> Void in
-//            self.myMap.remove()
-//            self.hero.remove()
-//            self.tilesLayer.removeAllActions()
-//            self.tilesLayer.removeAllChildren()
-//            self.tilesLayer.removeFromParent()
-//            self.removeAllActions()
-//            self.removeAllChildren()
-////            self.startGame()
-//        }
-                cover.runAction(SKAction.fadeAlphaTo(0.70, duration: 0.4))
+        if(isOver == true){
+            return
+        }
+        isOver = true
+        
+        cover.runAction(SKAction.fadeAlphaTo(0.70, duration: 0.4)) { () -> Void in
+            self.myMap.remove()
+            self.hero.remove()
+            self.tilesLayer.removeAllActions()
+            self.tilesLayer.removeAllChildren()
+            self.tilesLayer.removeFromParent()
+            self.removeAllActions()
+            self.removeAllChildren()
+            self.startGame()
+        }
     }
     func didBeginContact(contact: SKPhysicsContact) {
         
@@ -598,6 +622,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
 //                    self.presentViewController(alert, animated: true, completion: nil)
+                    self.delegateGame?.gameDidQuit()
                 })
             }
         }else if let message = dataDictionary["location"]{

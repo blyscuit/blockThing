@@ -79,6 +79,12 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
     }
     
     func playerControllerDidOnePlay() {
+        multi = false
+                if let currentLevel = NSUserDefaults.standardUserDefaults().objectForKey("singleLevel") as? Int{
+                    levelIs = currentLevel
+                }else{
+                    levelIs = 1
+                }
         self.performSegueWithIdentifier("game1", sender: self)
     }
     func playerControllerDidTwoPlay() {
