@@ -37,7 +37,7 @@ let maxMultiStages = 10;
 }
 @objc protocol GameplayControllerDelegate {
     func gameDidQuit()
-//    func gameDid()
+    func gameDidLostConnection()
 }
 
 let TileWidth: CGFloat = 80.0
@@ -413,7 +413,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                         }else if(player == 2){
                             centerSecond = tile
                         }
-                    }else if(tile.tileType == TileType.Second && player == 2){
+                    }else if(tile.tileType == TileType.Second && multi == true){
                         if(player == 2){
                             centerTile = tile
                         }else if(player == 1){
@@ -674,26 +674,42 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             else{
                 // In this case an "_end_chat_" message was received.
                 // Show an alert view to the user.
-                let alert = UIAlertController(title: "", message: "\(fromPeer.displayName) ended this chat.", preferredStyle: UIAlertControllerStyle.Alert)
+//                let alert = UIAlertController(title: "", message: "\(fromPeer.displayName) ended this chat.", preferredStyle: UIAlertControllerStyle.Alert)
+//                
+//                let doneAction: UIAlertAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) { (alertAction) -> Void in
+//                    self.appDelegate.mpcManager.session.disconnect()
+////                    self.dismissViewControllerAnimated(true, completion: nil)
+//                    
+//                }
+//                
+//                alert.addAction(doneAction)
                 
-                let doneAction: UIAlertAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) { (alertAction) -> Void in
-                    self.appDelegate.mpcManager.session.disconnect()
-//                    self.dismissViewControllerAnimated(true, completion: nil)
-                }
+//                self.myMap.remove()
+//                self.hero.remove()
+//                self.tilesLayer.removeAllActions()
+//                self.tilesLayer.removeAllChildren()
+//                self.tilesLayer.removeFromParent()
+//                self.removeAllActions()
+//                self.removeAllChildren()
                 
-                alert.addAction(doneAction)
-                
+                self.appDelegate.mpcManager.session.disconnect()
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-//                    self.presentViewController(alert, animated: true, completion: nil)
-                    self.delegateGame?.gameDidQuit()
+                    //                    self.presentViewController(alert, animated: true, completion: nil)
+                    self.delegateGame?.gameDidLostConnection()
                 })
+                
             }
         }else if let message = dataDictionary["location"]{
             let messageI = message as! [Int]
             if messageI.count == 2 {
                 messageI[0]
                 checkTile(Int(messageI[0]),inY: Int(messageI[1]))
-                secondHero.position = (myMap.tileAtColumn(Int(messageI[0]), row: Int(messageI[1]))?.position)!
+                if let tile = myMap.tileAtColumn(Int(messageI[0]), row: Int(messageI[1])){
+                    if secondHero != nil{
+                        secondHero.position  = tile.position
+                    }
+                }
+//                secondHero.position = (myMap.tileAtColumn(Int(messageI[0]), row: Int(messageI[1]))?.position)!
             }
         }
     }

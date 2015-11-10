@@ -96,7 +96,23 @@ class GameViewController: UIViewController,GameplayControllerDelegate {
             }
         }
     }
-    
+    func gameDidLostConnection(){
+        self.dismissViewControllerAnimated(true) { () -> Void in
+            
+//            print("LOST CONNECTION TO MJTOM")
+//            let alert = UIAlertController(title: "", message: "Lost connection", preferredStyle: UIAlertControllerStyle.Alert)
+//            
+//            let doneAction: UIAlertAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) { (alertAction) -> Void in
+//                //                    self.dismissViewControllerAnimated(true, completion: nil)
+//                
+//            }
+//            
+//            alert.addAction(doneAction)
+//            self.presentViewController(alert, animated: true, completion: { () -> Void in
+//                
+//            })
+        }
+    }
     func gameDidQuit() {
         self.dismissViewControllerAnimated(true) { () -> Void in
             

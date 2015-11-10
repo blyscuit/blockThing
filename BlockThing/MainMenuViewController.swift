@@ -20,23 +20,42 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+//        if let scene = GameScene(fileNamed:"GameScene") {
+//            levelIs = 0
+//            // Configure the view.
+//
+//            /* Sprite Kit applies additional optimizations to improve rendering performance */
+//            MainMenuMap.ignoresSiblingOrder = true
+//            
+//            /* Set the scale mode to scale to fit the window */
+//            scene.scaleMode = .AspectFill
+//        
+//            MainMenuMap.presentScene(scene)
+//            scene.delegatePlayer = self
+//            
+//          
+//        }
+        
+
+    }
+    
+    override func viewWillAppear(animated: Bool) {
         if let scene = GameScene(fileNamed:"GameScene") {
             levelIs = 0
+            multi = false
             // Configure the view.
-
+            
             /* Sprite Kit applies additional optimizations to improve rendering performance */
             MainMenuMap.ignoresSiblingOrder = true
             
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
-        
+            
             MainMenuMap.presentScene(scene)
             scene.delegatePlayer = self
             
-          
+            
         }
-        
-
     }
 
     override func didReceiveMemoryWarning() {
