@@ -306,7 +306,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
     
     func checkTile(inX:Int,inY:Int){
-        
+        if(levelIs==0){
+            cancelMenuGoto()
+        }
         
         if let tile = myMap.tileAtColumn(inX, row: inY) {
             if(tile.tileType == TileType.Lava){
@@ -350,14 +352,46 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
 
     func gotoTwoPlay(){
-        self.runAction(SKAction.waitForDuration(0.3), completion: { () -> Void in
-            self.delegatePlayer?.playerControllerDidTwoPlay()
-        })
+        var cover:SKSpriteNode = SKSpriteNode(color: UIColor.whiteColor(), size: self.size)
+        cover.anchorPoint = CGPointMake(0.0, 0.0)
+        cover.alpha = 0.0
+        cover.zPosition = 5
+        cover.name = "coverNode"
+        addChild(cover)
+        
+        
+        cover.runAction(SKAction.fadeAlphaTo(0.70, duration: 0.94)) { () -> Void in
+            self.hero.dieAnimation()
+            self.runAction(SKAction.waitForDuration(0.1), completion: { () -> Void in
+                self.delegatePlayer?.playerControllerDidTwoPlay()
+            })
+        }
     }
+    
     func gotoOnePlay(){
-        self.runAction(SKAction.waitForDuration(0.3), completion: { () -> Void in
-            self.delegatePlayer?.playerControllerDidOnePlay()
-        })
+        var cover:SKSpriteNode = SKSpriteNode(color: UIColor.whiteColor(), size: self.size)
+        cover.anchorPoint = CGPointMake(0.0, 0.0)
+        cover.alpha = 0.0
+        cover.zPosition = 5
+        cover.name = "coverNode"
+        addChild(cover)
+        
+        
+        cover.runAction(SKAction.fadeAlphaTo(0.70, duration: 0.94)) { () -> Void in
+            self.hero.dieAnimation()
+            self.runAction(SKAction.waitForDuration(0.1), completion: { () -> Void in
+                self.delegatePlayer?.playerControllerDidOnePlay()
+            })
+        }
+    }
+    
+    func cancelMenuGoto(){
+        if let cover = childNodeWithName("coverNode"){
+            cover.removeAllActions();
+            cover.runAction(SKAction.fadeAlphaTo(0.00, duration: 0.3)) { () -> Void in
+                cover.removeFromParent()
+            }
+        }
     }
     
     override func update(currentTime: CFTimeInterval) {
