@@ -5,10 +5,18 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Timeless-Bold.ttf">
             <string>Timeless-Bold</string>
+            <string>Timeless-Bold</string>
+            <string>Timeless-Bold</string>
+        </mutableArray>
+        <mutableArray key="Timeless.ttf">
+            <string>Timeless-Normal</string>
+            <string>Timeless-Normal</string>
+            <string>Timeless-Normal</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -182,11 +190,79 @@
                         <outlet property="startsingle" destination="uZi-gr-o3s" id="nWI-cf-HcV"/>
                         <segue destination="BV1-FR-VrT" kind="presentation" identifier="game1" animates="NO" modalTransitionStyle="crossDissolve" id="kZE-Fe-1d5"/>
                         <segue destination="oPu-rD-7Fk" kind="presentation" identifier="m_multi" id="G6J-O1-7Fo"/>
+                        <segue destination="GyH-Jf-5Y3" kind="presentation" id="CGp-Fz-BnD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rYg-SR-mDv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="218" y="-415"/>
+        </scene>
+        <!--Stage Select View Controller-->
+        <scene sceneID="0eM-Gh-ImO">
+            <objects>
+                <viewController id="GyH-Jf-5Y3" customClass="StageSelectViewController" customModule="Esqace" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ykC-gt-Fv6"/>
+                        <viewControllerLayoutGuide type="bottom" id="kYQ-7u-oGy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="96c-WV-Szd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hTn-RJ-aAI">
+                                <rect key="frame" x="0.0" y="333" width="600" height="267"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time Record:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HWd-LO-hjP">
+                                <rect key="frame" x="114" y="60" width="153" height="44"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="Timeless-Bold" family="Timeless" pointSize="26"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Moves:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fu4-9O-eID">
+                                <rect key="frame" x="302" y="60" width="148" height="44"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="Timeless-Bold" family="Timeless" pointSize="26"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0:00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ac8-1k-Onm">
+                                <rect key="frame" x="114" y="112" width="153" height="44"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="Timeless-Normal" family="Timeless" pointSize="26"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hKr-32-Lvn">
+                                <rect key="frame" x="302" y="112" width="153" height="44"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="Timeless-Normal" family="Timeless" pointSize="26"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Stage 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="luY-Q2-Uld">
+                                <rect key="frame" x="224" y="201" width="153" height="44"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="Timeless-Normal" family="Timeless" pointSize="30"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hTn-RJ-aAI" firstAttribute="centerX" secondItem="96c-WV-Szd" secondAttribute="centerX" id="9no-Yc-2NL"/>
+                            <constraint firstItem="kYQ-7u-oGy" firstAttribute="top" secondItem="hTn-RJ-aAI" secondAttribute="bottom" id="SLc-v4-gSw"/>
+                            <constraint firstItem="hTn-RJ-aAI" firstAttribute="height" secondItem="96c-WV-Szd" secondAttribute="height" multiplier="4:9" id="mUz-KT-Ed8"/>
+                            <constraint firstItem="hTn-RJ-aAI" firstAttribute="width" secondItem="96c-WV-Szd" secondAttribute="width" id="sZd-7t-qh8"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sll-fU-QMU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="684" y="-1064"/>
         </scene>
         <!--Multiplayer Prompt View Controller-->
         <scene sceneID="vdW-cz-Zg7">
@@ -298,7 +374,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Xgd-F0-4gg"/>
+        <segue reference="kZE-Fe-1d5"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
 </document>

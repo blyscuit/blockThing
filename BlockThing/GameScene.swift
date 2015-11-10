@@ -31,7 +31,6 @@ enum BodyType:UInt32 {
 let maxSingleStages = 13;
 let maxMultiStages = 10;
 
-
 @objc protocol PlayerChooseControllerDelegate {
     func playerControllerDidOnePlay()
     func playerControllerDidTwoPlay()

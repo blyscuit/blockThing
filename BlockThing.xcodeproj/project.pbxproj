@@ -24,6 +24,7 @@
 		685FBAD71BE26AB800CA7BB7 /* Level_202.json in Resources */ = {isa = PBXBuildFile; fileRef = 685FBAD61BE26AB800CA7BB7 /* Level_202.json */; };
 		686C2C1C1BD54EE000993F63 /* DeathParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 686C2C1B1BD54EE000993F63 /* DeathParticle.sks */; };
 		686C2C201BD550E100993F63 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 686C2C1E1BD550E100993F63 /* spark.png */; };
+		686C73801BF1F0EF00DBDECF /* StageSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686C737F1BF1F0EF00DBDECF /* StageSelectViewController.swift */; };
 		689214571BDA4B1C00D1CE02 /* PlayerServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689214561BDA4B1C00D1CE02 /* PlayerServiceManager.swift */; };
 		689214591BDA4D0100D1CE02 /* MultiplayerPromptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689214581BDA4D0100D1CE02 /* MultiplayerPromptViewController.swift */; };
 		68A0659C1BCCA6F40080A28C /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A0659B1BCCA6F40080A28C /* Map.swift */; };
@@ -96,6 +97,7 @@
 		685FBAD61BE26AB800CA7BB7 /* Level_202.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_202.json; sourceTree = "<group>"; };
 		686C2C1B1BD54EE000993F63 /* DeathParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = DeathParticle.sks; sourceTree = "<group>"; };
 		686C2C1E1BD550E100993F63 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		686C737F1BF1F0EF00DBDECF /* StageSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageSelectViewController.swift; sourceTree = "<group>"; };
 		689214561BDA4B1C00D1CE02 /* PlayerServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerServiceManager.swift; sourceTree = "<group>"; };
 		689214581BDA4D0100D1CE02 /* MultiplayerPromptViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiplayerPromptViewController.swift; sourceTree = "<group>"; };
 		68A0659B1BCCA6F40080A28C /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				9A398E841BE5C88F00799EEB /* SwiftyJSON.swift */,
 				683AF6E21BCC14E600DBCCBC /* GameViewController.swift */,
 				683AF6E41BCC14E600DBCCBC /* Main.storyboard */,
+				686C737F1BF1F0EF00DBDECF /* StageSelectViewController.swift */,
 				689214581BDA4D0100D1CE02 /* MultiplayerPromptViewController.swift */,
 				6803DE9A1BDCA38800C4EDBC /* MainMenuViewController.swift */,
 				683AF6E71BCC14E600DBCCBC /* Assets.xcassets */,
@@ -421,6 +424,7 @@
 				683AF6E11BCC14E600DBCCBC /* GameScene.swift in Sources */,
 				683AF6E31BCC14E600DBCCBC /* GameViewController.swift in Sources */,
 				68A0659C1BCCA6F40080A28C /* Map.swift in Sources */,
+				686C73801BF1F0EF00DBDECF /* StageSelectViewController.swift in Sources */,
 				689214591BDA4D0100D1CE02 /* MultiplayerPromptViewController.swift in Sources */,
 				9A9033FB1BCCE85B00D47C4B /* Hero.swift in Sources */,
 				9A2C8FB11BDF6D9500B57083 /* Text.swift in Sources */,

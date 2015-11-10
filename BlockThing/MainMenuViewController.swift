@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDelegate,PlayerChooseControllerDelegate {
+class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDelegate,PlayerChooseControllerDelegate,StageSelectControllerDelegate {
     @IBAction func startMulti(sender: AnyObject) {
         performSegueWithIdentifier("m_multi", sender: self)
     }
@@ -91,4 +91,7 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
         performSegueWithIdentifier("m_multi", sender: self)
     }
 
+    func stageDidChoose(i: Int) {
+        
+    }
 }
