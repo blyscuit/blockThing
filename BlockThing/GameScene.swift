@@ -63,6 +63,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     var isOver = false
     
+    var pauseText = SKLabelNode(fontNamed: "Timeless-Normal")
+    
     
 //    var isMoving = false
     
@@ -103,6 +105,18 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        for touch in touches {
+            let location = touch.locationInNode(self)
+            let touchedNode = nodeAtPoint(location)
+            if touch.tapCount > 2 {
+//                if paused{
+                    pause()
+//                }
+            }
+        }
+        
+        
+        
        /* Called when a touch begins */
         fingerPosition = touches.first?.locationInNode(self)
 //        if (isMoving==true){
@@ -318,6 +332,20 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             }
         }
     }
+    
+    func pause() {
+        pauseText.text = "Paused!"
+        pauseText.fontSize = 50
+        pauseText.fontColor = UIColor.grayColor()
+        pauseText.position = CGPointMake(self.frame.width/2, self.frame.height/2)
+        if paused == false {
+            self.addChild(pauseText)
+        } else if paused == true {
+            pauseText.removeFromParent()
+        }
+        isOver = !paused
+        paused = !paused
+    }
 
     func gotoTwoPlay(){
         self.runAction(SKAction.waitForDuration(0.3), completion: { () -> Void in
@@ -332,10 +360,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
-        
-        //checkWall()
-        
-        
         
     }
     

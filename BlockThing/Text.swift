@@ -15,13 +15,14 @@ class Text: SKLabelNode {
 //    var text: String? = ""
 //    var fontColor = UIColor.blackColor()
 //    var fontName =
-    init (text: String,xd: Int, yd: Int) {
+    init (text: String,xd: Int, yd: Int, Size: Int) {
     //init (Color: UIColor, Size: CGFloat, inX: CGFloat, inY: CGFloat, text: String) {
        // super.init (Color: Color, Size: Size, inX: inX, inY: inY, text: text)
         super.init()
         self.fontName = "Timeless-Normal"
         self.fontColor = UIColor.grayColor()
-        self.fontSize = 40
+       // sizeFloat = Size
+        self.fontSize = CGFloat(Size)
         self.position = CGPointMake(0, 0)
         horizontalAlignmentMode = .Center
         verticalAlignmentMode = .Center

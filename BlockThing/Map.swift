@@ -104,7 +104,7 @@ class Map {
                 if let textArray: JSON = JSON( dictionary["texts"]!) {
                     for (index,subJson):(String, JSON) in textArray {
                         let coor=subJson["coor"].arrayObject as! [Int]
-                        var nText = Text(text: subJson["text"].stringValue, xd: coor[0], yd: coor[1])
+                        var nText = Text(text: subJson["text"].stringValue, xd: coor[0], yd: coor[1], Size: subJson["size"].intValue)
                         //Do something you want
                         texts.append(nText)
                     }
