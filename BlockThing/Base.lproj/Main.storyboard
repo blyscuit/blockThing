@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dmD-wf-PYO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GyH-Jf-5Y3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -128,56 +127,107 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time Record:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HWd-LO-hjP">
+                                <rect key="frame" x="114" y="60" width="153" height="44"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="ASO-cL-Csk"/>
+                                    <constraint firstAttribute="width" constant="153" id="Co3-bU-130"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Timeless-Bold" family="Timeless" pointSize="26"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moves:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fu4-9O-eID">
+                                <rect key="frame" x="302" y="60" width="148" height="44"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="8Nu-q8-dbl"/>
+                                    <constraint firstAttribute="width" constant="148" id="jDg-zw-QEP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Timeless-Bold" family="Timeless" pointSize="26"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ac8-1k-Onm">
+                                <rect key="frame" x="114" y="112" width="153" height="44"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="9tF-TK-c8J"/>
+                                    <constraint firstAttribute="width" constant="153" id="zOM-GA-rzq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Timeless-Normal" family="Timeless" pointSize="26"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hKr-32-Lvn">
+                                <rect key="frame" x="302" y="112" width="153" height="44"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="EYX-so-T6Z"/>
+                                    <constraint firstAttribute="width" constant="153" id="dn4-OU-EUn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Timeless-Normal" family="Timeless" pointSize="26"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stage 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="luY-Q2-Uld">
+                                <rect key="frame" x="224" y="201" width="153" height="44"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="153" id="JWF-M6-zW7"/>
+                                    <constraint firstAttribute="height" constant="44" id="QXm-t3-azs"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Timeless-Normal" family="Timeless" pointSize="30"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rhw-zA-FgE" customClass="M13ProgressViewBar">
+                                <rect key="frame" x="180" y="242" width="240" height="11"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="ErL-Yd-NLb"/>
+                                    <constraint firstAttribute="height" constant="11" id="Jx1-zj-04c"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hTn-RJ-aAI">
                                 <rect key="frame" x="0.0" y="333" width="600" height="267"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time Record:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HWd-LO-hjP">
-                                <rect key="frame" x="114" y="60" width="153" height="44"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" name="Timeless-Bold" family="Timeless" pointSize="26"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Moves:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fu4-9O-eID">
-                                <rect key="frame" x="302" y="60" width="148" height="44"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" name="Timeless-Bold" family="Timeless" pointSize="26"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0:00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ac8-1k-Onm">
-                                <rect key="frame" x="114" y="112" width="153" height="44"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" name="Timeless-Normal" family="Timeless" pointSize="26"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hKr-32-Lvn">
-                                <rect key="frame" x="302" y="112" width="153" height="44"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" name="Timeless-Normal" family="Timeless" pointSize="26"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Stage 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="luY-Q2-Uld">
-                                <rect key="frame" x="224" y="201" width="153" height="44"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" name="Timeless-Normal" family="Timeless" pointSize="30"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Ac8-1k-Onm" firstAttribute="leading" secondItem="HWd-LO-hjP" secondAttribute="trailing" constant="-153" id="0Ja-EP-5BO"/>
                             <constraint firstItem="hTn-RJ-aAI" firstAttribute="centerX" secondItem="96c-WV-Szd" secondAttribute="centerX" id="9no-Yc-2NL"/>
+                            <constraint firstItem="Ac8-1k-Onm" firstAttribute="top" secondItem="HWd-LO-hjP" secondAttribute="bottom" constant="8" id="BPc-Tq-19h"/>
+                            <constraint firstItem="luY-Q2-Uld" firstAttribute="centerX" secondItem="96c-WV-Szd" secondAttribute="centerX" id="EbM-0B-XWA"/>
+                            <constraint firstItem="hKr-32-Lvn" firstAttribute="leading" secondItem="Fu4-9O-eID" secondAttribute="trailing" constant="-148" id="JdO-eL-IcS"/>
+                            <constraint firstItem="hTn-RJ-aAI" firstAttribute="top" secondItem="Rhw-zA-FgE" secondAttribute="bottom" constant="80" id="K21-cM-uCL"/>
+                            <constraint firstItem="hKr-32-Lvn" firstAttribute="top" secondItem="Fu4-9O-eID" secondAttribute="bottom" constant="8" id="PuU-jE-n85"/>
                             <constraint firstItem="kYQ-7u-oGy" firstAttribute="top" secondItem="hTn-RJ-aAI" secondAttribute="bottom" id="SLc-v4-gSw"/>
+                            <constraint firstItem="HWd-LO-hjP" firstAttribute="centerX" secondItem="96c-WV-Szd" secondAttribute="centerX" constant="-109.5" id="Srg-4t-nSM">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-103.5"/>
+                            </constraint>
+                            <constraint firstItem="luY-Q2-Uld" firstAttribute="top" secondItem="Ac8-1k-Onm" secondAttribute="bottom" constant="45" id="Tvt-NJ-TtX"/>
+                            <constraint firstItem="Rhw-zA-FgE" firstAttribute="top" secondItem="luY-Q2-Uld" secondAttribute="bottom" constant="-3" id="Vl2-8a-Mrh"/>
+                            <constraint firstItem="Fu4-9O-eID" firstAttribute="centerX" secondItem="96c-WV-Szd" secondAttribute="centerX" constant="76" id="him-7F-wZh"/>
+                            <constraint firstItem="Rhw-zA-FgE" firstAttribute="centerX" secondItem="96c-WV-Szd" secondAttribute="centerX" id="l3Z-XL-dG7"/>
                             <constraint firstItem="hTn-RJ-aAI" firstAttribute="height" secondItem="96c-WV-Szd" secondAttribute="height" multiplier="4:9" id="mUz-KT-Ed8"/>
                             <constraint firstItem="hTn-RJ-aAI" firstAttribute="width" secondItem="96c-WV-Szd" secondAttribute="width" id="sZd-7t-qh8"/>
+                            <constraint firstItem="Fu4-9O-eID" firstAttribute="top" secondItem="ykC-gt-Fv6" secondAttribute="bottom" constant="60" id="vwQ-EM-PlH"/>
+                            <constraint firstItem="HWd-LO-hjP" firstAttribute="top" secondItem="ykC-gt-Fv6" secondAttribute="bottom" constant="60" id="xIm-Wt-6d0"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="mUz-KT-Ed8"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="pro" destination="Rhw-zA-FgE" id="dRQ-ay-Var"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sll-fU-QMU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -224,11 +274,11 @@
                                         <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lhV-vR-pJF" id="1tV-8m-Ync">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fiN-2h-LzB">
-                                                    <rect key="frame" x="15" y="12" width="31.5" height="19.5"/>
+                                                    <rect key="frame" x="15" y="12" width="32" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -236,7 +286,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Efk-RA-fQa">
-                                                    <rect key="frame" x="543.5" y="12" width="41.5" height="19.5"/>
+                                                    <rect key="frame" x="543" y="12" width="42" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
