@@ -67,6 +67,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     var pauseText = SKLabelNode(fontNamed: "Timeless-Normal")
     
+    // time values
+    var delta:NSTimeInterval = NSTimeInterval(0)
+    var last_update_time:NSTimeInterval = NSTimeInterval(0)
+    
+    var numberMoved = 0;
     
 //    var isMoving = false
     
@@ -310,6 +315,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             cancelMenuGoto()
         }
         
+        numberMoved++;
+        
         if let tile = myMap.tileAtColumn(inX, row: inY) {
             if(tile.tileType == TileType.Lava){
                 print("Fall in lava")
@@ -396,6 +403,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
+        
+        if self.last_update_time == 0.0 {
+            self.delta = 0
+            self.last_update_time = currentTime
+        } else {
+            self.delta = currentTime - self.last_update_time
+        }
+        print(self.delta)
         
     }
     
@@ -559,6 +574,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 NSUserDefaults.standardUserDefaults().setInteger(levelIs, forKey: "multiLevel")
             }
         }
+        var saveManager = SaveDataModule()
+        saveManager.saveDataForStage(levelIs, time: delta, move: numberMoved)
+        
+        
         levelIs++;
         var cover:SKSpriteNode = SKSpriteNode(color: UIColor.whiteColor(), size: self.size)
         cover.anchorPoint = CGPointMake(0.0, 0.0)

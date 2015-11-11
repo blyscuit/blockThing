@@ -13,8 +13,13 @@ import UIKit
 }
 class StageSelectViewController: UIViewController {
     
+    @IBOutlet weak var stageLabel: UILabel!
+    @IBOutlet weak var moveLabel: UILabel!
+    @IBOutlet weak var time: UILabel!
     @IBOutlet weak var pro: M13ProgressViewBar!
     var delegate:StageSelectControllerDelegate?
+    
+    var saveManeger = SaveDataModule()
     
     override func viewDidLoad() {
 //        var pro = M13ProgressViewBar()
@@ -31,5 +36,9 @@ class StageSelectViewController: UIViewController {
         pro.progressBarThickness = 1
 //        progressView.addSubview(pro)
 //        progressView.backgroundColor = UIColor.clearColor()
+        
+        let dic = saveManeger.loadLevel(1)
+        time.text = "\(dic["time"]!)"
+        moveLabel.text = "\(Int(dic["move"]!))"
     }
 }

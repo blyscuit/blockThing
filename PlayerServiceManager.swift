@@ -43,14 +43,15 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
     override init() {
         super.init()
         
-        peer = MCPeerID(displayName: UIDevice.currentDevice().name)
+        if(NSUserDefaults.standardUserDefaults().integerForKey("multiLevel") > 0){
+            myLevel = NSUserDefaults.standardUserDefaults().integerForKey("multiLevel") - 200
+        }
+        let displayN = "\(UIDevice.currentDevice().name)"+":Level\(myLevel)"
+        peer = MCPeerID(displayName: displayN)
         
         session = MCSession(peer: peer)
         session.delegate = self
         
-        if(NSUserDefaults.standardUserDefaults().integerForKey("multiLevel") > 0){
-            myLevel = NSUserDefaults.standardUserDefaults().integerForKey("multiLevel") - 200
-        }
         advertiser = MCNearbyServiceAdvertiser(peer: peer, discoveryInfo: ["level":"\(myLevel)"], serviceType: "mika")
         advertiser.delegate = self
         

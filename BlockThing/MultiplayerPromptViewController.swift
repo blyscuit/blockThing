@@ -36,7 +36,11 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
         tableMulti.delegate = self
         tableMulti.dataSource = self
         
-        
+        if let currentLevel = NSUserDefaults.standardUserDefaults().objectForKey("multiLevel") as? Int{
+            levelIs = currentLevel
+        }else{
+            levelIs = 201
+        }
     }
     
     @IBAction func startStopAdvertising(sender: AnyObject) {
@@ -74,8 +78,11 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("idCellPeer")
+        let fullName = appDelegate.mpcManager.foundPeers[indexPath.row].displayName
+        let fullNameArr = fullName.componentsSeparatedByString(":")
         
-        cell!.textLabel?.text = appDelegate.mpcManager.foundPeers[indexPath.row].displayName
+        cell!.textLabel?.text = fullNameArr[0]
+        cell!.detailTextLabel?.text = fullNameArr[1]
         
         return cell!
     }
@@ -115,11 +122,6 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
     
     func connectedWithPeer(peerID: MCPeerID) {
         NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
-            if let currentLevel = NSUserDefaults.standardUserDefaults().objectForKey("multiLevel") as? Int{
-                levelIs = currentLevel
-            }else{
-                levelIs = 201
-            }
             multi = true
             self.performSegueWithIdentifier("game2", sender: self)
         }
