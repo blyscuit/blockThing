@@ -28,7 +28,7 @@ enum BodyType:UInt32 {
     case wall = 5
 }
 
-let maxSingleStages = 13;
+let maxSingleStages = 14;
 let maxMultiStages = 10;
 
 @objc protocol PlayerChooseControllerDelegate {
@@ -64,6 +64,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     var secondHero: SKSpriteNode!
     
     var isOver = false
+    
+    var darkness = SKSpriteNode(imageNamed: "dark")
     
     var pauseText = SKLabelNode(fontNamed: "Timeless-Normal")
     
@@ -336,6 +338,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                         }
                     }
                 }
+            }else if(tile.tileType == TileType.DarknessTile){
+                if((tile).tag != 0){
+                    darknessExpantTo(Double(tile.tag))
+                }
             }else if(tile.tileType == TileType.TwoPlay){
                 gotoTwoPlay()
             }else if(tile.tileType == TileType.OnePlay){
@@ -508,16 +514,20 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         
         if(levelIs != 0){
-            let darkness = SKSpriteNode(imageNamed: "dark")
+            darkness = SKSpriteNode(imageNamed: "dark")
             darkness.position = hero.position
             darkness.zPosition = 10
             let darknessSize = 12 - myMap.darknessLevel;
+            darknessExpantTo(Double(darknessSize))
             darkness.size = CGSizeMake(darkness.size.width *  CGFloat(11.5), darkness.size.height *  CGFloat(11.5))
-            darkness.runAction(SKAction.scaleTo(CGFloat(Double(darknessSize)/11.0), duration: 2.1, delay: 0.0, usingSpringWithDamping: 0.01, initialSpringVelocity: 0.0), completion: { () -> Void in
-            })
             addChild(darkness)
         }
         
+    }
+    
+    func darknessExpantTo(darknessSize:Double){
+        darkness.runAction(SKAction.scaleTo(CGFloat(Double(darknessSize)/11.0), duration: 2.1, delay: 0.0, usingSpringWithDamping: 0.01, initialSpringVelocity: 0.0), completion: { () -> Void in
+        })
     }
     
     var myMap : Map!

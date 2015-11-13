@@ -104,7 +104,9 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
                 }else{
                     levelIs = 1
                 }
-        self.performSegueWithIdentifier("game1", sender: self)
+            self.performSegueWithIdentifier("stageSelect_m", sender: self)
+//        self.performSegueWithIdentifier("game1", sender: self)
+        
     }
     func playerControllerDidTwoPlay() {
         performSegueWithIdentifier("m_multi", sender: self)

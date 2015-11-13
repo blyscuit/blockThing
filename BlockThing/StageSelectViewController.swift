@@ -13,7 +13,9 @@ import UIKit
 }
 class StageSelectViewController: UIViewController {
     
-    @IBOutlet weak var stageLabel: UILabel!
+    @IBOutlet weak var stageButton: SpringButton!
+    
+    @IBOutlet weak var buttomBR: M13ProgressViewSegmentedBar!
     @IBOutlet weak var moveLabel: UILabel!
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var pro: M13ProgressViewBar!
@@ -25,10 +27,11 @@ class StageSelectViewController: UIViewController {
 //        var pro = M13ProgressViewBar()
 
         pro.setIndeterminate(true)
-//        pro.numberOfSegments = 11
-//        pro.cornerRadius = pro.frame.size.width/CGFloat(pro.numberOfSegments)
-//        pro.segmentShape = M13ProgressViewSegmentedBarSegmentShapeRoundedRect
-//        pro.primaryColors = [UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor()]
+        buttomBR.setIndeterminate(true)
+        buttomBR.numberOfSegments = 11
+        buttomBR.cornerRadius = pro.frame.size.width/CGFloat(buttomBR.numberOfSegments)
+        buttomBR.segmentShape = M13ProgressViewSegmentedBarSegmentShapeCircle
+        buttomBR.primaryColors = [UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor()]
         //        pro.segmentSeparation = 1
         pro.setPrimaryColor(UIColor.darkGrayColor())
         pro.setSecondaryColor(UIColor.lightGrayColor())
@@ -40,5 +43,20 @@ class StageSelectViewController: UIViewController {
         let dic = saveManeger.loadLevel(1)
         time.text = "\(dic["time"]!)"
         moveLabel.text = "\(Int(dic["move"]!))"
+    }
+    @IBAction func menuPress(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true) { () -> Void in
+            
+        }
+    }
+    @IBAction func stagePress(sender: AnyObject) {
+        changeStageTo()
+        self.performSegueWithIdentifier("game1", sender: self)
+    }
+    
+    func changeStageTo(){
+        stageButton.animation="pop"
+        stageButton.force=0.76
+        stageButton.animate()
     }
 }
