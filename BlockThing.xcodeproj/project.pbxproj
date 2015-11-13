@@ -285,11 +285,11 @@
 				68F53B791BF6233D00573465 /* Spring */,
 				689214531BDA4AF700D1CE02 /* Multi */,
 				683AF6DB1BCC14E600DBCCBC /* BlockThing */,
+				68F53BEC1BF63BF800573465 /* Levels */,
 				683AF6F41BCC14E700DBCCBC /* BlockThingTests */,
 				683AF6FF1BCC14E700DBCCBC /* BlockThingUITests */,
 				686C73811BF2DE1400DBDECF /* ProgressViews */,
 				683AF6DA1BCC14E600DBCCBC /* Products */,
-				68F53BEC1BF63BF800573465 /* Levels */,
 			);
 			sourceTree = "<group>";
 		};
