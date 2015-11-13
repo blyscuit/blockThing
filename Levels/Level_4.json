@@ -27,14 +27,5 @@
                ],
   "targetScore" : 2000,
   "moves" : 25,
-  "texts" : [
-    {
-      "text":"Hello world",
-      "coor":[1,4]
-    },
-    {
-      "text":"Hello world",
-      "coor":[2,5]
-    },
-  ],
+  
 }
