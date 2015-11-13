@@ -340,7 +340,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 }
             }else if(tile.tileType == TileType.DarknessTile){
                 if((tile).tag != 0){
-                    darknessExpantTo(Double(tile.tag))
+                    darknessExpantTo(Double(tile.tag)/1000)
                 }
             }else if(tile.tileType == TileType.TwoPlay){
                 gotoTwoPlay()
@@ -517,7 +517,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             darkness = SKSpriteNode(imageNamed: "dark")
             darkness.position = hero.position
             darkness.zPosition = 10
-            let darknessSize = 12 - myMap.darknessLevel;
+            let darknessSize = myMap.darknessLevel;
             darknessExpantTo(Double(darknessSize))
             darkness.size = CGSizeMake(darkness.size.width *  CGFloat(11.5), darkness.size.height *  CGFloat(11.5))
             addChild(darkness)
@@ -526,7 +526,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
     
     func darknessExpantTo(darknessSize:Double){
-        darkness.runAction(SKAction.scaleTo(CGFloat(Double(darknessSize)/11.0), duration: 2.1, delay: 0.0, usingSpringWithDamping: 0.01, initialSpringVelocity: 0.0), completion: { () -> Void in
+        darkness.runAction(SKAction.scaleTo(CGFloat(Double(12.0-darknessSize)/11.0), duration: 2.1, delay: 0.0, usingSpringWithDamping: 0.01, initialSpringVelocity: 0.0), completion: { () -> Void in
         })
     }
     
