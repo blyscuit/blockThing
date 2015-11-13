@@ -28,6 +28,8 @@ enum BodyType:UInt32 {
     case wall = 5
 }
 
+let maxSingleStages = 14;
+let maxMultiStages = 10;
 
 @objc protocol PlayerChooseControllerDelegate {
     func playerControllerDidOnePlay()
@@ -35,7 +37,7 @@ enum BodyType:UInt32 {
 }
 @objc protocol GameplayControllerDelegate {
     func gameDidQuit()
-//    func gameDid()
+    func gameDidLostConnection()
 }
 
 let TileWidth: CGFloat = 80.0
@@ -63,8 +65,15 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     var isOver = false
     
+    var darkness = SKSpriteNode(imageNamed: "dark")
+    
     var pauseText = SKLabelNode(fontNamed: "Timeless-Normal")
     
+    // time values
+    var delta:NSTimeInterval = NSTimeInterval(0)
+    var last_update_time:NSTimeInterval = NSTimeInterval(0)
+    
+    var numberMoved = 0;
     
 //    var isMoving = false
     
@@ -304,7 +313,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
     
     func checkTile(inX:Int,inY:Int){
+        if(levelIs==0){
+            cancelMenuGoto()
+        }
         
+        numberMoved++;
         
         if let tile = myMap.tileAtColumn(inX, row: inY) {
             if(tile.tileType == TileType.Lava){
@@ -324,6 +337,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                             }
                         }
                     }
+                }
+            }else if(tile.tileType == TileType.DarknessTile){
+                if((tile).tag != 0){
+                    darknessExpantTo(Double(tile.tag))
                 }
             }else if(tile.tileType == TileType.TwoPlay){
                 gotoTwoPlay()
@@ -348,18 +365,58 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
 
     func gotoTwoPlay(){
-        self.runAction(SKAction.waitForDuration(0.3), completion: { () -> Void in
-            self.delegatePlayer?.playerControllerDidTwoPlay()
-        })
+        var cover:SKSpriteNode = SKSpriteNode(color: UIColor.whiteColor(), size: self.size)
+        cover.anchorPoint = CGPointMake(0.0, 0.0)
+        cover.alpha = 0.0
+        cover.zPosition = 5
+        cover.name = "coverNode"
+        addChild(cover)
+        
+        
+        cover.runAction(SKAction.fadeAlphaTo(0.70, duration: 0.94)) { () -> Void in
+            self.hero.dieAnimation()
+            self.runAction(SKAction.waitForDuration(0.1), completion: { () -> Void in
+                self.delegatePlayer?.playerControllerDidTwoPlay()
+            })
+        }
     }
+    
     func gotoOnePlay(){
-        self.runAction(SKAction.waitForDuration(0.3), completion: { () -> Void in
-            self.delegatePlayer?.playerControllerDidOnePlay()
-        })
+        var cover:SKSpriteNode = SKSpriteNode(color: UIColor.whiteColor(), size: self.size)
+        cover.anchorPoint = CGPointMake(0.0, 0.0)
+        cover.alpha = 0.0
+        cover.zPosition = 5
+        cover.name = "coverNode"
+        addChild(cover)
+        
+        
+        cover.runAction(SKAction.fadeAlphaTo(0.70, duration: 0.94)) { () -> Void in
+            self.hero.dieAnimation()
+            self.runAction(SKAction.waitForDuration(0.1), completion: { () -> Void in
+                self.delegatePlayer?.playerControllerDidOnePlay()
+            })
+        }
+    }
+    
+    func cancelMenuGoto(){
+        if let cover = childNodeWithName("coverNode"){
+            cover.removeAllActions();
+            cover.runAction(SKAction.fadeAlphaTo(0.00, duration: 0.3)) { () -> Void in
+                cover.removeFromParent()
+            }
+        }
     }
     
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
+        
+        if self.last_update_time == 0.0 {
+            self.delta = 0
+            self.last_update_time = currentTime
+        } else {
+            self.delta = currentTime - self.last_update_time
+        }
+        print(self.delta)
         
     }
     
@@ -377,7 +434,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                         }else if(player == 2){
                             centerSecond = tile
                         }
-                    }else if(tile.tileType == TileType.Second && player == 2){
+                    }else if(tile.tileType == TileType.Second && multi == true){
                         if(player == 2){
                             centerTile = tile
                         }else if(player == 1){
@@ -457,16 +514,20 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         
         if(levelIs != 0){
-            let darkness = SKSpriteNode(imageNamed: "dark")
+            darkness = SKSpriteNode(imageNamed: "dark")
             darkness.position = hero.position
             darkness.zPosition = 10
             let darknessSize = 12 - myMap.darknessLevel;
+            darknessExpantTo(Double(darknessSize))
             darkness.size = CGSizeMake(darkness.size.width *  CGFloat(11.5), darkness.size.height *  CGFloat(11.5))
-            darkness.runAction(SKAction.scaleTo(CGFloat(Double(darknessSize)/11.0), duration: 2.1, delay: 0.0, usingSpringWithDamping: 0.01, initialSpringVelocity: 0.0), completion: { () -> Void in
-            })
             addChild(darkness)
         }
         
+    }
+    
+    func darknessExpantTo(darknessSize:Double){
+        darkness.runAction(SKAction.scaleTo(CGFloat(Double(darknessSize)/11.0), duration: 2.1, delay: 0.0, usingSpringWithDamping: 0.01, initialSpringVelocity: 0.0), completion: { () -> Void in
+        })
     }
     
     var myMap : Map!
@@ -523,6 +584,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 NSUserDefaults.standardUserDefaults().setInteger(levelIs, forKey: "multiLevel")
             }
         }
+        var saveManager = SaveDataModule()
+        saveManager.saveDataForStage(levelIs, time: delta, move: numberMoved)
+        
+        
         levelIs++;
         var cover:SKSpriteNode = SKSpriteNode(color: UIColor.whiteColor(), size: self.size)
         cover.anchorPoint = CGPointMake(0.0, 0.0)
@@ -638,26 +703,43 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             else{
                 // In this case an "_end_chat_" message was received.
                 // Show an alert view to the user.
-                let alert = UIAlertController(title: "", message: "\(fromPeer.displayName) ended this chat.", preferredStyle: UIAlertControllerStyle.Alert)
+//                let alert = UIAlertController(title: "", message: "\(fromPeer.displayName) ended this chat.", preferredStyle: UIAlertControllerStyle.Alert)
+//                
+//                let doneAction: UIAlertAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) { (alertAction) -> Void in
+//                    self.appDelegate.mpcManager.session.disconnect()
+////                    self.dismissViewControllerAnimated(true, completion: nil)
+//                    
+//                }
+//                
+//                alert.addAction(doneAction)
                 
-                let doneAction: UIAlertAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) { (alertAction) -> Void in
-                    self.appDelegate.mpcManager.session.disconnect()
-//                    self.dismissViewControllerAnimated(true, completion: nil)
-                }
+//                self.myMap.remove()
+//                self.hero.remove()
+//                self.tilesLayer.removeAllActions()
+//                self.tilesLayer.removeAllChildren()
+//                self.tilesLayer.removeFromParent()
+//                self.removeAllActions()
+//                self.removeAllChildren()
                 
-                alert.addAction(doneAction)
-                
+                isOver = true
+                self.appDelegate.mpcManager.session.disconnect()
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-//                    self.presentViewController(alert, animated: true, completion: nil)
-                    self.delegateGame?.gameDidQuit()
+                    //                    self.presentViewController(alert, animated: true, completion: nil)
+                    self.delegateGame?.gameDidLostConnection()
                 })
+                
             }
         }else if let message = dataDictionary["location"]{
             let messageI = message as! [Int]
             if messageI.count == 2 {
                 messageI[0]
                 checkTile(Int(messageI[0]),inY: Int(messageI[1]))
-                secondHero.position = (myMap.tileAtColumn(Int(messageI[0]), row: Int(messageI[1]))?.position)!
+                if let tile = myMap.tileAtColumn(Int(messageI[0]), row: Int(messageI[1])){
+                    if secondHero != nil{
+                        secondHero.position  = tile.position
+                    }
+                }
+//                secondHero.position = (myMap.tileAtColumn(Int(messageI[0]), row: Int(messageI[1]))?.position)!
             }
         }
     }
@@ -669,6 +751,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //                self.appDelegate.mpcManager.session.disconnect()
 //            })
 //        }
+    }
+    
+    func toMainMenu(){
+        self.delegateGame?.gameDidQuit()
     }
 }
 

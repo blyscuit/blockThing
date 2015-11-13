@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDelegate,PlayerChooseControllerDelegate {
+class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDelegate,PlayerChooseControllerDelegate,StageSelectControllerDelegate {
     @IBAction func startMulti(sender: AnyObject) {
         performSegueWithIdentifier("m_multi", sender: self)
     }
@@ -20,23 +20,42 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+//        if let scene = GameScene(fileNamed:"GameScene") {
+//            levelIs = 0
+//            // Configure the view.
+//
+//            /* Sprite Kit applies additional optimizations to improve rendering performance */
+//            MainMenuMap.ignoresSiblingOrder = true
+//            
+//            /* Set the scale mode to scale to fit the window */
+//            scene.scaleMode = .AspectFill
+//        
+//            MainMenuMap.presentScene(scene)
+//            scene.delegatePlayer = self
+//            
+//          
+//        }
+        
+
+    }
+    
+    override func viewWillAppear(animated: Bool) {
         if let scene = GameScene(fileNamed:"GameScene") {
             levelIs = 0
+            multi = false
             // Configure the view.
-
+            
             /* Sprite Kit applies additional optimizations to improve rendering performance */
             MainMenuMap.ignoresSiblingOrder = true
             
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
-        
+            
             MainMenuMap.presentScene(scene)
             scene.delegatePlayer = self
             
-          
+            
         }
-        
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -85,10 +104,15 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
                 }else{
                     levelIs = 1
                 }
-        self.performSegueWithIdentifier("game1", sender: self)
+            self.performSegueWithIdentifier("stageSelect_m", sender: self)
+//        self.performSegueWithIdentifier("game1", sender: self)
+        
     }
     func playerControllerDidTwoPlay() {
         performSegueWithIdentifier("m_multi", sender: self)
     }
 
+    func stageDidChoose(i: Int) {
+        
+    }
 }
