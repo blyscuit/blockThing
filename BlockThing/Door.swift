@@ -100,8 +100,8 @@ class Switch: Tile {
             under.runAction(SKAction.colorizeWithColor(.blackColor(), colorBlendFactor: 1, duration: 0.0))
             
             var coloring = SKAction.repeatActionForever(SKAction.sequence([colorizeB,colorize,rotate]))
-            topBar.runAction(SKAction.fadeAlphaTo(1.0, duration: 0.6))
-            topBar.runAction(SKAction.repeatActionForever(SKAction.sequence([SKAction.scaleTo(0.01, duration: 0.1),SKAction.scaleTo(1.08, duration: 1.1)])))
+            topBar.runAction(SKAction.fadeAlphaTo(0.23, duration: 0.6))
+            topBar.runAction(SKAction.repeatActionForever(SKAction.sequence([SKAction.scaleTo(0.01, duration: 0.1),SKAction.scaleTo(1.01, duration: 2.1)])))
             
             under.runAction(coloring)
         }
@@ -120,9 +120,9 @@ class Switch: Tile {
         over.zPosition = 1
         
         
-        topBar = SKSpriteNode(texture: SKTexture(imageNamed: "switch-bar"), color: UIColor.clearColor(), size: CGSizeMake(TileWidth/2, TileHeight/2))
-        topBar.zPosition = 1
-        topBar.runAction(SKAction.colorizeWithColor(.blackColor(), colorBlendFactor: 0.7, duration: 0.0))
+        topBar = SKSpriteNode(texture: SKTexture(imageNamed: "switch-bar"), color: UIColor.clearColor(), size: CGSizeMake(TileWidth, TileHeight))
+        topBar.zPosition = 0.99
+        topBar.runAction(SKAction.colorizeWithColor(.blackColor(), colorBlendFactor: 0.9, duration: 0.0))
         topBar.alpha = 0;
         addChild(over)
         addChild(topBar)
