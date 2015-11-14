@@ -95,7 +95,7 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
     func playerControllerDidOnePlay() {
         multi = false
                 if let currentLevel = NSUserDefaults.standardUserDefaults().objectForKey("singleLevel") as? Int{
-                    levelIs = 15
+                    levelIs = 4
                 }else{
                     levelIs = 1
                 }
