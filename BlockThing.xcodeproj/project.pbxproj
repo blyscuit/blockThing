@@ -36,6 +36,7 @@
 		686C73AA1BF2DE1400DBDECF /* M13ProgressViewSegmentedRing.m in Sources */ = {isa = PBXBuildFile; fileRef = 686C739B1BF2DE1400DBDECF /* M13ProgressViewSegmentedRing.m */; };
 		686C73AB1BF2DE1400DBDECF /* M13ProgressViewStripedBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 686C739D1BF2DE1400DBDECF /* M13ProgressViewStripedBar.m */; };
 		686C73AE1BF2F28C00DBDECF /* SaveDataModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686C73AD1BF2F28C00DBDECF /* SaveDataModule.swift */; };
+		686C73B01BF86CDD00DBDECF /* Randoms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686C73AF1BF86CDD00DBDECF /* Randoms.swift */; };
 		689214571BDA4B1C00D1CE02 /* PlayerServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689214561BDA4B1C00D1CE02 /* PlayerServiceManager.swift */; };
 		689214591BDA4D0100D1CE02 /* MultiplayerPromptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689214581BDA4D0100D1CE02 /* MultiplayerPromptViewController.swift */; };
 		68A0659C1BCCA6F40080A28C /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A0659B1BCCA6F40080A28C /* Map.swift */; };
@@ -179,6 +180,7 @@
 		686C739D1BF2DE1400DBDECF /* M13ProgressViewStripedBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13ProgressViewStripedBar.m; sourceTree = "<group>"; };
 		686C73AC1BF2E00900DBDECF /* BlockThing-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BlockThing-Bridging-Header.h"; sourceTree = "<group>"; };
 		686C73AD1BF2F28C00DBDECF /* SaveDataModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveDataModule.swift; sourceTree = "<group>"; };
+		686C73AF1BF86CDD00DBDECF /* Randoms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Randoms.swift; sourceTree = "<group>"; };
 		689214561BDA4B1C00D1CE02 /* PlayerServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerServiceManager.swift; sourceTree = "<group>"; };
 		689214581BDA4D0100D1CE02 /* MultiplayerPromptViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiplayerPromptViewController.swift; sourceTree = "<group>"; };
 		68A0659B1BCCA6F40080A28C /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				68B232311BD38EF800DEB4F2 /* SpriteKit-Spring.swift */,
+				686C73AF1BF86CDD00DBDECF /* Randoms.swift */,
 				68F53B791BF6233D00573465 /* Spring */,
 				689214531BDA4AF700D1CE02 /* Multi */,
 				683AF6DB1BCC14E600DBCCBC /* BlockThing */,
@@ -671,6 +674,7 @@
 				686C73A51BF2DE1400DBDECF /* M13ProgressViewMetroDotPolygon.m in Sources */,
 				68F53BB41BF6233D00573465 /* UnwindSegue.swift in Sources */,
 				68F53B9D1BF6233D00573465 /* DesignableImageView.swift in Sources */,
+				686C73B01BF86CDD00DBDECF /* Randoms.swift in Sources */,
 				686C73801BF1F0EF00DBDECF /* StageSelectViewController.swift in Sources */,
 				686C73A31BF2DE1400DBDECF /* M13ProgressViewLetterpress.m in Sources */,
 				686C73A11BF2DE1400DBDECF /* M13ProgressViewFilteredImage.m in Sources */,
