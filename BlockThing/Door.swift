@@ -40,7 +40,7 @@ class Door: Tile {
         if(close==true){
             self.texture = SKTexture(imageNamed: TileType.Door.spriteName)
         }else{
-            self.texture = SKTexture(imageNamed: TileType.Ground.spriteName)
+            self.texture = nil//SKTexture(imageNamed: TileType.Ground.spriteName)
         }
     }
     init(column: Int, row: Int){

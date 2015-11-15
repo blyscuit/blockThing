@@ -22,7 +22,7 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var pro: M13ProgressViewBar!
     var delegate:StageSelectControllerDelegate?
     
-    var stageArray = [String]()
+//    var stageArray = [String]()
     
     var saveManeger = SaveDataModule()
     
@@ -42,10 +42,10 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
         pro.progressBarThickness = 1
 //        progressView.addSubview(pro)
 //        progressView.backgroundColor = UIColor.clearColor()
-        for index in 1...15 {
-            stageArray.append("Stage \(index)")
-            print(stageArray)
-        }
+//        for index in 1...15 {
+//            stageArray.append("Stage \(index)")
+//            print(stageArray)
+//        }
         let dic = saveManeger.loadLevel(1)
         time.text = "\(dic["time"]!)"
         moveLabel.text = "\(Int(dic["move"]!))"
@@ -56,7 +56,7 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     @IBAction func stagePress(sender: AnyObject) {
-        changeStageTo()
+        changeStageTo(1)
         self.performSegueWithIdentifier("game1", sender: self)
     }
     
@@ -70,11 +70,12 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("stagesth", forIndexPath: indexPath)
-        cell.textLabel!.text = stageArray[indexPath.row]
+        cell.textLabel!.text = "Stage \(indexPath.row+1)"
         return cell
     }
     
-    func changeStageTo(){
+    func changeStageTo(stage:Int){
+        stageButton.setTitle("Stage \(stage)", forState: UIControlState.Normal)
         stageButton.animation="pop"
         stageButton.force=0.76
         stageButton.animate()
