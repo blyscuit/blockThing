@@ -42,7 +42,7 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
         pro.progressBarThickness = 1
 //        progressView.addSubview(pro)
 //        progressView.backgroundColor = UIColor.clearColor()
-        for index in 1...15 {
+        for index in 1...16 {
             stageArray.append("Stage \(index)")
             print(stageArray)
         }
@@ -65,7 +65,7 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15
+        return 16
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

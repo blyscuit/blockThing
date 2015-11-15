@@ -41,8 +41,6 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
     
     override func viewWillAppear(animated: Bool) {
         if let scene = GameScene(fileNamed:"GameScene") {
-            levelIs = 0
-            multi = false
             // Configure the view.
             
             /* Sprite Kit applies additional optimizations to improve rendering performance */
@@ -51,7 +49,11 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
             
+            levelIs = 0
+            multi = false
+            
             MainMenuMap.presentScene(scene)
+            
             scene.delegatePlayer = self
             
             
@@ -95,15 +97,22 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
     func playerControllerDidOnePlay() {
         multi = false
                 if let currentLevel = NSUserDefaults.standardUserDefaults().objectForKey("singleLevel") as? Int{
-                    levelIs = 4
+                    levelIs = 15
                 }else{
                     levelIs = 1
-                }
+        }
+        
+        MainMenuMap.scene?.removeAllActions()
+        MainMenuMap.scene?.removeAllChildren()
+        MainMenuMap.scene?.removeFromParent()
             self.performSegueWithIdentifier("stageSelect_m", sender: self)
 //        self.performSegueWithIdentifier("game1", sender: self)
         
     }
     func playerControllerDidTwoPlay() {
+        MainMenuMap.scene?.removeAllActions()
+        MainMenuMap.scene?.removeAllChildren()
+        MainMenuMap.scene?.removeFromParent()
         performSegueWithIdentifier("m_multi", sender: self)
     }
 
