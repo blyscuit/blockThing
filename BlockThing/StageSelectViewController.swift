@@ -11,15 +11,18 @@ import UIKit
 @objc protocol StageSelectControllerDelegate {
     func stageDidChoose(i:Int)
 }
-class StageSelectViewController: UIViewController {
+class StageSelectViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var stageButton: SpringButton!
     
     @IBOutlet weak var buttomBR: M13ProgressViewSegmentedBar!
     @IBOutlet weak var moveLabel: UILabel!
     @IBOutlet weak var time: UILabel!
+    @IBOutlet var StageTable: UITableView!
     @IBOutlet weak var pro: M13ProgressViewBar!
     var delegate:StageSelectControllerDelegate?
+    
+    var stageArray = [String]()
     
     var saveManeger = SaveDataModule()
     
@@ -39,7 +42,10 @@ class StageSelectViewController: UIViewController {
         pro.progressBarThickness = 1
 //        progressView.addSubview(pro)
 //        progressView.backgroundColor = UIColor.clearColor()
-        
+        for index in 1...15 {
+            stageArray.append("Stage \(index)")
+            print(stageArray)
+        }
         let dic = saveManeger.loadLevel(1)
         time.text = "\(dic["time"]!)"
         moveLabel.text = "\(Int(dic["move"]!))"
@@ -52,6 +58,20 @@ class StageSelectViewController: UIViewController {
     @IBAction func stagePress(sender: AnyObject) {
         changeStageTo()
         self.performSegueWithIdentifier("game1", sender: self)
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 15
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCellWithIdentifier("stagesth", forIndexPath: indexPath)
+        cell.textLabel!.text = stageArray[indexPath.row]
+        return cell
     }
     
     func changeStageTo(){

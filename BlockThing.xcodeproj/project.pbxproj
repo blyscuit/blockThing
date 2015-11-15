@@ -47,7 +47,7 @@
 		68A065B11BCCEB170080A28C /* CircleMonster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A065B01BCCEB170080A28C /* CircleMonster.swift */; };
 		68A4ADC31BDE90C50011A688 /* Smoke.sks in Resources */ = {isa = PBXBuildFile; fileRef = 68A4ADC21BDE90C50011A688 /* Smoke.sks */; };
 		68B232321BD38EF800DEB4F2 /* SpriteKit-Spring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B232311BD38EF800DEB4F2 /* SpriteKit-Spring.swift */; };
-		68B791251BF63F610052A75A /* Level_15.json in Resources */ = {isa = PBXBuildFile; fileRef = 68B791241BF63F610052A75A /* Level_15.json */; };
+		68B791251BF63F610052A75A /* Level_16.json in Resources */ = {isa = PBXBuildFile; fileRef = 68B791241BF63F610052A75A /* Level_16.json */; };
 		68D2C02F1BE8A6B900ACFE5A /* Timeless-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68D2C02D1BE8A6B900ACFE5A /* Timeless-Bold.ttf */; };
 		68D2C0301BE8A6B900ACFE5A /* Timeless.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68D2C02E1BE8A6B900ACFE5A /* Timeless.ttf */; };
 		68DB37871BCD045E00A7FB0A /* MoveMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DB37861BCD045E00A7FB0A /* MoveMap.swift */; };
@@ -108,7 +108,9 @@
 		68F53C1F1BF63BF800573465 /* Level_9.json in Resources */ = {isa = PBXBuildFile; fileRef = 68F53C051BF63BF800573465 /* Level_9.json */; };
 		9A2C8FB11BDF6D9500B57083 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C8FB01BDF6D9500B57083 /* Text.swift */; };
 		9A398E851BE5C88F00799EEB /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A398E841BE5C88F00799EEB /* SwiftyJSON.swift */; };
+		9A8D504A1BF79DEC00B94AD0 /* Level_15.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A8D50491BF79DEC00B94AD0 /* Level_15.json */; };
 		9A9033FB1BCCE85B00D47C4B /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9033FA1BCCE85B00D47C4B /* Hero.swift */; };
+		9ABB6E621BF7BACB007BC0AA /* StageTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABB6E611BF7BACB007BC0AA /* StageTable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -190,7 +192,7 @@
 		68A065B01BCCEB170080A28C /* CircleMonster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleMonster.swift; sourceTree = "<group>"; };
 		68A4ADC21BDE90C50011A688 /* Smoke.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Smoke.sks; sourceTree = "<group>"; };
 		68B232311BD38EF800DEB4F2 /* SpriteKit-Spring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SpriteKit-Spring.swift"; sourceTree = "<group>"; };
-		68B791241BF63F610052A75A /* Level_15.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_15.json; sourceTree = "<group>"; };
+		68B791241BF63F610052A75A /* Level_16.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_16.json; sourceTree = "<group>"; };
 		68D2C02D1BE8A6B900ACFE5A /* Timeless-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Timeless-Bold.ttf"; sourceTree = "<group>"; };
 		68D2C02E1BE8A6B900ACFE5A /* Timeless.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Timeless.ttf; sourceTree = "<group>"; };
 		68DB37861BCD045E00A7FB0A /* MoveMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveMap.swift; sourceTree = "<group>"; };
@@ -252,7 +254,9 @@
 		68F53C051BF63BF800573465 /* Level_9.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_9.json; sourceTree = "<group>"; };
 		9A2C8FB01BDF6D9500B57083 /* Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		9A398E841BE5C88F00799EEB /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		9A8D50491BF79DEC00B94AD0 /* Level_15.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_15.json; sourceTree = "<group>"; };
 		9A9033FA1BCCE85B00D47C4B /* Hero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
+		9ABB6E611BF7BACB007BC0AA /* StageTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageTable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -326,6 +330,7 @@
 				9A398E841BE5C88F00799EEB /* SwiftyJSON.swift */,
 				683AF6E21BCC14E600DBCCBC /* GameViewController.swift */,
 				683AF6E41BCC14E600DBCCBC /* Main.storyboard */,
+				9ABB6E611BF7BACB007BC0AA /* StageTable.swift */,
 				686C73AD1BF2F28C00DBDECF /* SaveDataModule.swift */,
 				686C737F1BF1F0EF00DBDECF /* StageSelectViewController.swift */,
 				689214581BDA4D0100D1CE02 /* MultiplayerPromptViewController.swift */,
@@ -469,7 +474,8 @@
 				68F53C031BF63BF800573465 /* Level_7.json */,
 				68F53C041BF63BF800573465 /* Level_8.json */,
 				68F53C051BF63BF800573465 /* Level_9.json */,
-				68B791241BF63F610052A75A /* Level_15.json */,
+				9A8D50491BF79DEC00B94AD0 /* Level_15.json */,
+				68B791241BF63F610052A75A /* Level_16.json */,
 			);
 			path = Levels;
 			sourceTree = "<group>";
@@ -541,7 +547,7 @@
 				TargetAttributes = {
 					683AF6D81BCC14E600DBCCBC = {
 						CreatedOnToolsVersion = 7.0.1;
-						DevelopmentTeam = 93QF44Z6JU;
+						DevelopmentTeam = X9WP373SKJ;
 					};
 					683AF6F01BCC14E700DBCCBC = {
 						CreatedOnToolsVersion = 7.0.1;
@@ -610,7 +616,8 @@
 				68F53C1F1BF63BF800573465 /* Level_9.json in Resources */,
 				68A4ADC31BDE90C50011A688 /* Smoke.sks in Resources */,
 				68F53C0A1BF63BF800573465 /* Level_11.json in Resources */,
-				68B791251BF63F610052A75A /* Level_15.json in Resources */,
+				9A8D504A1BF79DEC00B94AD0 /* Level_15.json in Resources */,
+				68B791251BF63F610052A75A /* Level_16.json in Resources */,
 				68F53BA41BF6233D00573465 /* Info.plist in Resources */,
 				68F53C151BF63BF800573465 /* Level_207.json in Resources */,
 				68F53C191BF63BF800573465 /* Level_3.json in Resources */,
@@ -655,6 +662,7 @@
 				68A065AF1BCCE84C0080A28C /* Monster.swift in Sources */,
 				689214571BDA4B1C00D1CE02 /* PlayerServiceManager.swift in Sources */,
 				68F53BA21BF6233D00573465 /* DesignableView.swift in Sources */,
+				9ABB6E621BF7BACB007BC0AA /* StageTable.swift in Sources */,
 				68F53BA81BF6233D00573465 /* Misc.swift in Sources */,
 				686C73AA1BF2DE1400DBDECF /* M13ProgressViewSegmentedRing.m in Sources */,
 				683AF6E11BCC14E600DBCCBC /* GameScene.swift in Sources */,
