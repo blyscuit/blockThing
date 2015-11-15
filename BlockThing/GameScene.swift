@@ -84,7 +84,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         //let someText = Text(text: "THIS IS TOO HARD!")
         //self.addChild(someText)
         physicsWorld.contactDelegate = self
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = UIColor.clearColor()
+        
+        createEffect()
         
         startGame()
     }
@@ -111,6 +113,35 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         self.addChild(tilesLayer);
     }
     
+    func createEffect(){
+        if(levelIs==0){
+//            return;
+        }
+        var bg:SKSpriteNode = SKSpriteNode(color: UIColor(white: 1.0, alpha: 0.35), size: self.size)
+        bg.zPosition = -5
+        bg.anchorPoint = CGPointMake(0.0, 0.0)
+        var bgUnder:SKSpriteNode = SKSpriteNode(color: UIColor(white: 100.0/255.0, alpha: 1.0), size: self.size)
+        bgUnder.zPosition = -7
+        bgUnder.anchorPoint = CGPointMake(0.0, 0.0)
+        addChild(bgUnder)
+        addChild(bg)
+        for(var i=0;i<Randoms.randomInt(1, 5);i++){
+        var cover:SKSpriteNode = SKSpriteNode(texture: SKTexture(imageNamed: "gear"), color: UIColor.clearColor(), size: CGSizeMake(self.size.width, self.size.width))
+        cover.zPosition = -6
+        let startPosition = CGPointMake(
+            Randoms.randomCGFloat(0, self.size.width),
+            Randoms.randomCGFloat(0, self.size.height))
+        cover.runAction(SKAction.scaleTo(
+            Randoms.randomCGFloat(0.1, 0.5), duration: 0.0))
+        cover.position = startPosition
+        let endPosition = CGPointMake(
+            Randoms.randomCGFloat(0, self.size.width),
+            Randoms.randomCGFloat(0, self.size.height))
+        let duration = Randoms.randomDouble(10.0, 20.0)
+        cover.runAction(SKAction.repeatActionForever(SKAction.sequence([SKAction.moveTo(endPosition, duration: duration, delay: 0.0, usingSpringWithDamping: 1.5, initialSpringVelocity: 0.0),SKAction.moveTo(startPosition, duration: duration, delay: 0.0, usingSpringWithDamping: 1.5, initialSpringVelocity: 0.0)])))
+        addChild(cover)
+        }
+    }
     
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -194,7 +225,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //            print("default")
 //        }
 //    }
-    var moveDistance = CGFloat(5)
+    var moveDistance = CGFloat(6)
     
     func moveUp(){
         centerMap(){
@@ -465,6 +496,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     }
                     
                     tile.texture = SKTexture(imageNamed: tile.tileType.spriteName)
+                    if tile.tileType.spriteName == "plain"{
+                        tile.texture = nil
+                    }
                     tile.position = pointForColumn(column, row: row)
                     tile.size = CGSize(width: TileWidth, height: TileHeight)
                     tile.zPosition = -2
