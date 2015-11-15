@@ -115,7 +115,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     func createEffect(){
         if(levelIs==0){
-//            return;
+            return;
         }
         var bg:SKSpriteNode = SKSpriteNode(color: UIColor(white: 1.0, alpha: 0.35), size: self.size)
         bg.zPosition = -5
