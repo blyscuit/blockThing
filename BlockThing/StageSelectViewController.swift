@@ -44,7 +44,6 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
 //        progressView.backgroundColor = UIColor.clearColor()
         for index in 1...16 {
             stageArray.append("Stage \(index)")
-            print(stageArray)
         }
         let dic = saveManeger.loadLevel(1)
         time.text = "\(dic["time"]!)"
@@ -72,6 +71,10 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
         var cell = tableView.dequeueReusableCellWithIdentifier("stagesth", forIndexPath: indexPath)
         cell.textLabel!.text = stageArray[indexPath.row]
         return cell
+    }
+    
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        print("Row \(indexPath.row)")
     }
     
     func changeStageTo(){

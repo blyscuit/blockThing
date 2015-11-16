@@ -447,7 +447,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         } else {
             self.delta = currentTime - self.last_update_time
         }
-        print(self.delta)
+        //print(self.delta)
         
     }
     
