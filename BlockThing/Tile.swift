@@ -47,7 +47,7 @@ enum TileType: Int, CustomStringConvertible {
             "lava",
             "wall",
             "plain",
-            "switch",
+            "switch-1",
         "plain",
         "plain",
         "lock",

@@ -22,7 +22,7 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var pro: M13ProgressViewBar!
     var delegate:StageSelectControllerDelegate?
     
-    var stageArray = [String]()
+//    var stageArray = [String]()
     
     var saveManeger = SaveDataModule()
     
@@ -55,7 +55,7 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     @IBAction func stagePress(sender: AnyObject) {
-        changeStageTo()
+        changeStageTo(1)
         self.performSegueWithIdentifier("game1", sender: self)
     }
     
@@ -69,7 +69,7 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("stagesth", forIndexPath: indexPath)
-        cell.textLabel!.text = stageArray[indexPath.row]
+        cell.textLabel!.text = "Stage \(indexPath.row+1)"
         return cell
     }
     

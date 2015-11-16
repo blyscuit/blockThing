@@ -75,6 +75,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     var numberMoved = 0;
     
+    var gearNode = SKNode()
+    
 //    var isMoving = false
     
     
@@ -86,12 +88,12 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         backgroundColor = UIColor.clearColor()
         
-        createEffect()
         
         startGame()
     }
     
     func startGame(){
+        createEffect()
         
         isOver = false
         
@@ -115,8 +117,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     func createEffect(){
         if(levelIs==0){
+            backgroundColor = UIColor.whiteColor()
             return;
         }
+        addChild(gearNode)
         var bg:SKSpriteNode = SKSpriteNode(color: UIColor(white: 1.0, alpha: 0.35), size: self.size)
         bg.zPosition = -5
         bg.anchorPoint = CGPointMake(0.0, 0.0)
@@ -128,18 +132,25 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         for(var i=0;i<Randoms.randomInt(1, 5);i++){
         var cover:SKSpriteNode = SKSpriteNode(texture: SKTexture(imageNamed: "gear"), color: UIColor.clearColor(), size: CGSizeMake(self.size.width, self.size.width))
         cover.zPosition = -6
+            cover.alpha=0
         let startPosition = CGPointMake(
             Randoms.randomCGFloat(0, self.size.width),
             Randoms.randomCGFloat(0, self.size.height))
         cover.runAction(SKAction.scaleTo(
             Randoms.randomCGFloat(0.1, 0.5), duration: 0.0))
+            cover.runAction(SKAction.fadeAlphaTo(1.0, duration: 1.0, delay: Randoms.randomDouble(1.0, 5.0), usingSpringWithDamping: 0, initialSpringVelocity: 0))
         cover.position = startPosition
         let endPosition = CGPointMake(
             Randoms.randomCGFloat(0, self.size.width),
             Randoms.randomCGFloat(0, self.size.height))
-        let duration = Randoms.randomDouble(10.0, 20.0)
-        cover.runAction(SKAction.repeatActionForever(SKAction.sequence([SKAction.moveTo(endPosition, duration: duration, delay: 0.0, usingSpringWithDamping: 1.5, initialSpringVelocity: 0.0),SKAction.moveTo(startPosition, duration: duration, delay: 0.0, usingSpringWithDamping: 1.5, initialSpringVelocity: 0.0)])))
-        addChild(cover)
+        let duration = Randoms.randomDouble(30.0, 50.0)
+            cover.runAction(SKAction.colorizeWithColor(UIColor.blackColor(), colorBlendFactor: Randoms.randomCGFloat(0.75, 1.0), duration: 0.0))
+            let moveIn = SKAction.moveTo(endPosition, duration: duration)
+            moveIn.timingMode = SKActionTimingMode.EaseInEaseOut
+            let moveOut = SKAction.moveTo(startPosition, duration: duration)
+            moveOut.timingMode = SKActionTimingMode.EaseInEaseOut
+        cover.runAction(SKAction.repeatActionForever(SKAction.sequence([moveIn,moveOut])))
+        gearNode.addChild(cover)
         }
     }
     
@@ -227,22 +238,33 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //    }
     var moveDistance = CGFloat(6)
     
+    let gearDur = 0.3
+    let gearSpring = CGFloat(7.0)
+    let gearDivider = CGFloat(10)
+    
     func moveUp(){
-        centerMap(){
-            //                isMoving = true
-            self.hero.goUp()
-            self.tilesLayer.goUp(){
-                //                    self.isMoving = false
-                //                    self.centerMap();
+        if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor+1)){
+            centerMap(){
+                //                isMoving = true
+                self.gearNode.runAction(SKAction.moveBy(CGVectorMake(0,-TileHeight/self.gearDivider), duration: self.gearDur,delay:0,usingSpringWithDamping: self.gearSpring, initialSpringVelocity: 0))
+                
+                self.hero.goUp()
+                self.tilesLayer.goUp(){
+                    //                    self.isMoving = false
+                    //                    self.centerMap();
+                }
+                self.sendPositionData()
+                self.checkTile(self.hero.xCoor,inY: self.hero.yCoor)
             }
-            self.sendPositionData()
-            self.checkTile(self.hero.xCoor,inY: self.hero.yCoor)
         }
     }
     func moveDown(){
         if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor-1)){
             centerMap(){
                 //                isMoving = true
+                
+                self.gearNode.runAction(SKAction.moveBy(CGVectorMake(0,TileHeight/self.gearDivider), duration: self.gearDur,delay:0,usingSpringWithDamping: self.gearSpring, initialSpringVelocity: 0))
+                
                 self.hero.goDown()
                 self.tilesLayer.goDown(){
                     //                    self.isMoving = false
@@ -254,27 +276,36 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
     }
     func moveLeft(){
-        centerMap(){
-            //                isMoving = true
-            self.hero.goLeft()
-            self.tilesLayer.goLeft(){
-                //                    self.isMoving = false
-                //                    self.centerMap();
+        if(myMap.canMoveToTile(hero.xCoor-1, row: hero.yCoor)){
+            centerMap(){
+                //                isMoving = true
+                
+                self.gearNode.runAction(SKAction.moveBy(CGVectorMake(TileHeight/self.gearDivider,0), duration: self.gearDur,delay:0,usingSpringWithDamping: self.gearSpring, initialSpringVelocity: 0))
+                
+                self.hero.goLeft()
+                self.tilesLayer.goLeft(){
+                    //                    self.isMoving = false
+                    //                    self.centerMap();
+                }
+                self.sendPositionData()
+                self.checkTile(self.hero.xCoor,inY: self.hero.yCoor)
             }
-            self.sendPositionData()
-            self.checkTile(self.hero.xCoor,inY: self.hero.yCoor)
         }
     }
     func moveRight(){
-        self.centerMap(){
-            //                isMoving = true
-            self.hero.goRight()
-            self.tilesLayer.goRight(){
-                //                    self.isMoving = false
+        if(myMap.canMoveToTile(hero.xCoor+1, row: hero.yCoor)){
+            self.centerMap(){
+                //                isMoving = true
+                self.gearNode.runAction(SKAction.moveBy(CGVectorMake(-TileHeight/self.gearDivider,0), duration: self.gearDur,delay:0,usingSpringWithDamping: self.gearSpring, initialSpringVelocity: 0))
                 
+                self.hero.goRight()
+                self.tilesLayer.goRight(){
+                    //                    self.isMoving = false
+                    
+                }
+                self.sendPositionData()
+                self.checkTile(self.hero.xCoor,inY: self.hero.yCoor)
             }
-            self.sendPositionData()
-            self.checkTile(self.hero.xCoor,inY: self.hero.yCoor)
         }
     }
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -600,6 +631,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         self.tilesLayer.runAction(SKAction.shake(0.57, amplitudeX: 40, amplitudeY: 40)) { () -> Void in
             self.myMap.remove()
             self.hero.remove()
+            self.gearNode.removeAllActions()
+            self.gearNode.removeAllChildren()
+            self.gearNode.removeFromParent()
             self.tilesLayer.removeAllActions()
             self.tilesLayer.removeAllChildren()
             self.tilesLayer.removeFromParent()
@@ -639,6 +673,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         cover.runAction(SKAction.fadeAlphaTo(0.70, duration: 0.4)) { () -> Void in
             self.myMap.remove()
             self.hero.remove()
+            self.gearNode.removeAllActions()
+            self.gearNode.removeAllChildren()
+            self.gearNode.removeFromParent()
             self.tilesLayer.removeAllActions()
             self.tilesLayer.removeAllChildren()
             self.tilesLayer.removeFromParent()
