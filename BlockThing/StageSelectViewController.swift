@@ -74,8 +74,12 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
     
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        print("Row \(indexPath.row)")
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("Row \(indexPath.row+1)")
+        changeStageTo(indexPath.row+1)
+        let dic = saveManeger.loadLevel(indexPath.row+1)
+        time.text = "\(dic["time"]!)"
+        moveLabel.text = "\(Int(dic["move"]!))"
     }
 
     func changeStageTo(stage:Int){
