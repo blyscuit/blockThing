@@ -42,9 +42,10 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
         pro.progressBarThickness = 1
 //        progressView.addSubview(pro)
 //        progressView.backgroundColor = UIColor.clearColor()
-        for index in 1...16 {
-            stageArray.append("Stage \(index)")
-        }
+//        for index in 1...15 {
+//            stageArray.append("Stage \(index)")
+//            print(stageArray)
+//        }
         let dic = saveManeger.loadLevel(1)
         time.text = "\(dic["time"]!)"
         moveLabel.text = "\(Int(dic["move"]!))"
@@ -76,8 +77,9 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         print("Row \(indexPath.row)")
     }
-    
-    func changeStageTo(){
+
+    func changeStageTo(stage:Int){
+        stageButton.setTitle("Stage \(stage)", forState: UIControlState.Normal)
         stageButton.animation="pop"
         stageButton.force=0.76
         stageButton.animate()
