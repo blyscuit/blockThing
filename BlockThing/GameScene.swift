@@ -28,7 +28,7 @@ enum BodyType:UInt32 {
     case wall = 5
 }
 
-let maxSingleStages = 14;
+let maxSingleStages = 16;
 let maxMultiStages = 10;
 
 @objc protocol PlayerChooseControllerDelegate {
@@ -124,7 +124,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         var bg:SKSpriteNode = SKSpriteNode(color: UIColor(white: 1.0, alpha: 0.35), size: self.size)
         bg.zPosition = -5
         bg.anchorPoint = CGPointMake(0.0, 0.0)
-        var bgUnder:SKSpriteNode = SKSpriteNode(color: UIColor(white: 100.0/255.0, alpha: 1.0), size: self.size)
+        var bgUnder:SKSpriteNode = SKSpriteNode(color: UIColor(white: 177.0/255.0, alpha: 1.0), size: self.size)
         bgUnder.zPosition = -7
         bgUnder.anchorPoint = CGPointMake(0.0, 0.0)
         addChild(bgUnder)
@@ -138,7 +138,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             Randoms.randomCGFloat(0, self.size.height))
         cover.runAction(SKAction.scaleTo(
             Randoms.randomCGFloat(0.1, 0.5), duration: 0.0))
-            cover.runAction(SKAction.fadeAlphaTo(1.0, duration: Randoms.randomDouble(3.0, 6.0), delay: Randoms.randomDouble(1.0, 5.0), usingSpringWithDamping: 0.0001, initialSpringVelocity: 0))
+            cover.runAction(SKAction.sequence([SKAction.waitForDuration(Randoms.randomDouble(1.0, 5.0)), SKAction.fadeAlphaTo(1.0, duration: Randoms.randomDouble(3.0, 6.0))]))
         cover.position = startPosition
         let endPosition = CGPointMake(
             Randoms.randomCGFloat(0, self.size.width),
@@ -156,15 +156,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        for touch in touches {
-            let location = touch.locationInNode(self)
-            let touchedNode = nodeAtPoint(location)
-            if touch.tapCount > 2 {
-//                if paused{
-                    pause()
-//                }
-            }
-        }
+        
         
         
         
@@ -236,7 +228,48 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //            print("default")
 //        }
 //    }
-    var moveDistance = CGFloat(6)
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if(paused){
+            for touch in touches {
+                
+                let location = touch.locationInNode(self)
+                if (touch.tapCount > 2 && event?.allTouches()!.count>=3 && multi==false){
+                    isOver = true
+                    self.myMap.remove()
+                    self.hero.remove()
+                    self.gearNode.removeAllActions()
+                    self.gearNode.removeAllChildren()
+                    self.gearNode.removeFromParent()
+                    self.tilesLayer.removeAllActions()
+                    self.tilesLayer.removeAllChildren()
+                    self.tilesLayer.removeFromParent()
+                    self.removeAllActions()
+                    self.removeAllChildren()
+                    self.removeFromParent()
+                    
+                    self.toMainMenu()
+                }else if (touch.tapCount > 1){
+                    //                if paused{
+                    pause()
+                    //                }
+                }
+            }
+        }else{
+        print(event?.allTouches()!.count)
+        for touch in touches {
+            
+            let location = touch.locationInNode(self)
+            if (touch.tapCount > 1 && event?.allTouches()!.count>=2){
+                //                if paused{
+                pause()
+                //                }
+            }
+            }
+        }
+    }
+    
+    var moveDistance = CGFloat(5.8)
     
     let gearDur = 0.3
     let gearSpring = CGFloat(7.0)
@@ -320,25 +353,30 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //                sendOnlineData(Direction.East)
 //                sendPositionData()
             }
+            justMove = true;
         }else if(touches.first?.locationInNode(self).x < (fingerPosition?.x)!-moveDistance && distanceX > distanceY){
             if(myMap.canMoveToTile(hero.xCoor-1, row: hero.yCoor)){
                 moveLeft()
 //                sendOnlineData(Direction.West)
 //                sendPositionData()
             }
+            justMove = true;
         }else if(touches.first?.locationInNode(self).y > (fingerPosition?.y)!+moveDistance && distanceX < distanceY){
             if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor+1)){
                 moveUp()
 //                sendOnlineData(Direction.North)
 //                sendPositionData()
             }
+            justMove = true;
         }else if(touches.first?.locationInNode(self).y < (fingerPosition?.y)!-moveDistance && distanceX < distanceY){
-            moveDown()
-//            sendOnlineData(Direction.South)
-//            sendPositionData()
+            if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor-1)){
+                moveDown()
+                //                sendOnlineData(Direction.North)
+                //                sendPositionData()
+            }
+            justMove = true;
         }
         
-        justMove = true;
     }
    
     func sendPositionData(){
@@ -402,7 +440,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 }
             }else if(tile.tileType == TileType.DarknessTile){
                 if((tile).tag != 0){
-                    darknessExpantTo(Double(tile.tag)/1000)
+                    darknessExpantTo(Double(tile.tag)/100)
                 }
             }else if(tile.tileType == TileType.TwoPlay){
                 gotoTwoPlay()
@@ -413,6 +451,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
     
     func pause() {
+        if(levelIs==0){return;}
         pauseText.text = "Paused!"
         pauseText.fontSize = 50
         pauseText.fontColor = UIColor.grayColor()
@@ -566,7 +605,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     func centerMap(complete:()-> Void){
         let realPosition = CGPointMake(self.size.width/2 - (pointForColumn(hero.xCoor, row: hero.yCoor)).x, self.size.height/2 - (pointForColumn(hero.xCoor, row: hero.yCoor)).y)
-        tilesLayer.runAction(SKAction.moveTo(realPosition, duration: 0.01)){
+        tilesLayer.runAction(SKAction.moveTo(realPosition, duration: 0.0000)){
             complete()
         }
     }
@@ -593,6 +632,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     func darknessExpantTo(darknessSize:Double){
         darkness.runAction(SKAction.scaleTo(CGFloat(Double(12.0-darknessSize)/11.0), duration: 2.1, delay: 0.0, usingSpringWithDamping: 0.01, initialSpringVelocity: 0.0), completion: { () -> Void in
         })
+        darkness.runAction(SKAction.fadeAlphaTo(CGFloat(Double(darknessSize+1.8)/11.0), duration: 0.3))
     }
     
     var myMap : Map!
@@ -681,7 +721,19 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             self.tilesLayer.removeFromParent()
             self.removeAllActions()
             self.removeAllChildren()
-            self.startGame()
+            if(multi == true){
+                if(levelIs<=maxSingleStages){
+                    self.startGame()
+                }else{
+                    self.toMainMenu()
+                }
+            }else{
+                if(levelIs<=maxMultiStages){
+                    self.startGame()
+                }else{
+                    self.toMainMenu()
+                }
+            }
         }
     }
     func didBeginContact(contact: SKPhysicsContact) {

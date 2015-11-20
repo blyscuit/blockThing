@@ -44,9 +44,9 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
         super.init()
         
         if(NSUserDefaults.standardUserDefaults().integerForKey("multiLevel") > 0){
-            myLevel = NSUserDefaults.standardUserDefaults().integerForKey("multiLevel") - 200
+            myLevel = NSUserDefaults.standardUserDefaults().integerForKey("multiLevel") - 200 + 1
         }
-        let displayN = "\(UIDevice.currentDevice().name)"+":Level\(myLevel)"
+        let displayN = "\(UIDevice.currentDevice().name)"+" : Level \(myLevel)"
         peer = MCPeerID(displayName: displayN)
         
         session = MCSession(peer: peer)
@@ -103,16 +103,18 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
             
         default:
             print("Did not connect to session: \(session)")
-            if(connectedPeer == peerID){
-                print("Lost peer: \(session)")
-                
-                let messageDictionary: [String: String] = ["message": "_end_chat_"]
-                
-                let dataToSend = NSKeyedArchiver.archivedDataWithRootObject(messageDictionary)
-                
-                let dictionary: [String: AnyObject] = ["data": dataToSend, "fromPeer": peerID]
-                NSNotificationCenter.defaultCenter().postNotificationName("receivedMPCDataNotification", object: dictionary)
-                
+            if(connectedPeer != nil){
+                if(connectedPeer == peerID){
+                    print("Lost peer: \(session)")
+                    
+                    let messageDictionary: [String: String] = ["message": "_end_chat_"]
+                    
+                    let dataToSend = NSKeyedArchiver.archivedDataWithRootObject(messageDictionary)
+                    
+                    let dictionary: [String: AnyObject] = ["data": dataToSend, "fromPeer": peerID]
+                    NSNotificationCenter.defaultCenter().postNotificationName("receivedMPCDataNotification", object: dictionary)
+                    
+                }
             }
             
         }
@@ -138,7 +140,15 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
         
         self.invitationHandler = invitationHandler
         
-        delegate?.invitationWasReceived(peerID.displayName,level: myLevel)
+        var fullNameArr = peerID.displayName.componentsSeparatedByString(":")
+        var numText=fullNameArr[1].stringByReplacingOccurrencesOfString("Level", withString: "")
+        numText=numText.stringByReplacingOccurrencesOfString(" ", withString: "")
+        var askLevel = Int(numText)
+        if(askLevel==nil){
+            askLevel = 1
+        }
+        
+        delegate?.invitationWasReceived(peerID.displayName,level: askLevel!)
     }
     
     func session(session: MCSession, didReceiveData data: NSData, fromPeer peerID: MCPeerID) {

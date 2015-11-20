@@ -23,8 +23,8 @@ class GameViewController: UIViewController,GameplayControllerDelegate {
         if let scene = GameScene(fileNamed:"GameScene") {
             // Configure the view.
             let skView = self.view as! SKView
-            skView.showsFPS = true
-            skView.showsNodeCount = true
+//            skView.showsFPS = true
+//            skView.showsNodeCount = true
 //            skView.showsPhysics = true;
             /* Sprite Kit applies additional optimizations to improve rendering performance */
             skView.ignoresSiblingOrder = true
@@ -99,6 +99,8 @@ class GameViewController: UIViewController,GameplayControllerDelegate {
     func gameDidLostConnection(){
         self.dismissViewControllerAnimated(true) { () -> Void in
             
+            let skView = self.view as! SKView
+            skView.presentScene(nil)
 //            print("LOST CONNECTION TO MJTOM")
 //            let alert = UIAlertController(title: "", message: "Lost connection", preferredStyle: UIAlertControllerStyle.Alert)
 //            
@@ -116,6 +118,8 @@ class GameViewController: UIViewController,GameplayControllerDelegate {
     func gameDidQuit() {
         self.dismissViewControllerAnimated(true) { () -> Void in
             
+            let skView = self.view as! SKView
+            skView.presentScene(nil)
         }
     }
 }

@@ -2,7 +2,7 @@
 //  MainMenuViewController.swift
 //  BlockThing
 //
-//  Created by Bliss Watchaye on 2015-10-25.
+//  Created by Pakin Intanate on 2015-10-25.
 //  Copyright © 2015 confusians. All rights reserved.
 //
 
