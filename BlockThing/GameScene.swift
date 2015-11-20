@@ -124,7 +124,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         var bg:SKSpriteNode = SKSpriteNode(color: UIColor(white: 1.0, alpha: 0.35), size: self.size)
         bg.zPosition = -5
         bg.anchorPoint = CGPointMake(0.0, 0.0)
-        var bgUnder:SKSpriteNode = SKSpriteNode(color: UIColor(white: 197.0/255.0, alpha: 1.0), size: self.size)
+        var bgUnder:SKSpriteNode = SKSpriteNode(color: UIColor(white: 177.0/255.0, alpha: 1.0), size: self.size)
         bgUnder.zPosition = -7
         bgUnder.anchorPoint = CGPointMake(0.0, 0.0)
         addChild(bgUnder)
@@ -156,15 +156,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        for touch in touches {
-            let location = touch.locationInNode(self)
-            let touchedNode = nodeAtPoint(location)
-            if touch.tapCount > 2 {
-//                if paused{
-                    pause()
-//                }
-            }
-        }
+        
         
         
         
@@ -236,6 +228,32 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //            print("default")
 //        }
 //    }
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if(paused){
+            for touch in touches {
+                
+                let location = touch.locationInNode(self)
+                if (touch.tapCount > 1){
+                    //                if paused{
+                    pause()
+                    //                }
+                }
+            }
+        }else{
+        print(event?.allTouches()!.count)
+        for touch in touches {
+            
+            let location = touch.locationInNode(self)
+            if (touch.tapCount > 1 && event?.allTouches()!.count>=2){
+                //                if paused{
+                pause()
+                //                }
+            }
+            }
+        }
+    }
+    
     var moveDistance = CGFloat(5.8)
     
     let gearDur = 0.3
@@ -418,6 +436,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
     
     func pause() {
+        if(levelIs==0){return;}
         pauseText.text = "Paused!"
         pauseText.fontSize = 50
         pauseText.fontColor = UIColor.grayColor()
