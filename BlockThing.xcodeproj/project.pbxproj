@@ -110,7 +110,6 @@
 		9A398E851BE5C88F00799EEB /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A398E841BE5C88F00799EEB /* SwiftyJSON.swift */; };
 		9A8D504A1BF79DEC00B94AD0 /* Level_15.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A8D50491BF79DEC00B94AD0 /* Level_15.json */; };
 		9A9033FB1BCCE85B00D47C4B /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9033FA1BCCE85B00D47C4B /* Hero.swift */; };
-		9ABB6E621BF7BACB007BC0AA /* StageTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABB6E611BF7BACB007BC0AA /* StageTable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -256,7 +255,6 @@
 		9A398E841BE5C88F00799EEB /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		9A8D50491BF79DEC00B94AD0 /* Level_15.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_15.json; sourceTree = "<group>"; };
 		9A9033FA1BCCE85B00D47C4B /* Hero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
-		9ABB6E611BF7BACB007BC0AA /* StageTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageTable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,7 +328,6 @@
 				9A398E841BE5C88F00799EEB /* SwiftyJSON.swift */,
 				683AF6E21BCC14E600DBCCBC /* GameViewController.swift */,
 				683AF6E41BCC14E600DBCCBC /* Main.storyboard */,
-				9ABB6E611BF7BACB007BC0AA /* StageTable.swift */,
 				686C73AD1BF2F28C00DBDECF /* SaveDataModule.swift */,
 				686C737F1BF1F0EF00DBDECF /* StageSelectViewController.swift */,
 				689214581BDA4D0100D1CE02 /* MultiplayerPromptViewController.swift */,
@@ -662,7 +659,6 @@
 				68A065AF1BCCE84C0080A28C /* Monster.swift in Sources */,
 				689214571BDA4B1C00D1CE02 /* PlayerServiceManager.swift in Sources */,
 				68F53BA21BF6233D00573465 /* DesignableView.swift in Sources */,
-				9ABB6E621BF7BACB007BC0AA /* StageTable.swift in Sources */,
 				68F53BA81BF6233D00573465 /* Misc.swift in Sources */,
 				686C73AA1BF2DE1400DBDECF /* M13ProgressViewSegmentedRing.m in Sources */,
 				683AF6E11BCC14E600DBCCBC /* GameScene.swift in Sources */,

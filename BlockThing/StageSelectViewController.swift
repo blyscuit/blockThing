@@ -65,7 +65,7 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15
+        return 16
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -74,6 +74,14 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("Row \(indexPath.row+1)")
+        changeStageTo(indexPath.row+1)
+        let dic = saveManeger.loadLevel(indexPath.row+1)
+        time.text = "\(dic["time"]!)"
+        moveLabel.text = "\(Int(dic["move"]!))"
+    }
+
     func changeStageTo(stage:Int){
         stageButton.setTitle("Stage \(stage)", forState: UIControlState.Normal)
         stageButton.animation="pop"
