@@ -721,7 +721,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             self.tilesLayer.removeFromParent()
             self.removeAllActions()
             self.removeAllChildren()
-            if(multi == true){
+            if(multi == false){
                 if(levelIs<=maxSingleStages){
                     self.startGame()
                 }else{
