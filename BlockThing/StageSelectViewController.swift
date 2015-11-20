@@ -56,7 +56,7 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     @IBAction func stagePress(sender: AnyObject) {
-        changeStageTo(1)
+//        changeStageTo(1)
         self.performSegueWithIdentifier("game1", sender: self)
     }
     
@@ -77,12 +77,16 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("Row \(indexPath.row+1)")
         changeStageTo(indexPath.row+1)
-        let dic = saveManeger.loadLevel(indexPath.row+1)
-        time.text = "\(dic["time"]!)"
-        moveLabel.text = "\(Int(dic["move"]!))"
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
     func changeStageTo(stage:Int){
+        let dic = saveManeger.loadLevel(stage)
+        time.text = "\(dic["time"]!)"
+        moveLabel.text = "\(Int(dic["move"]!))"
+        
+        levelIs = stage
+        
         stageButton.setTitle("Stage \(stage)", forState: UIControlState.Normal)
         stageButton.animation="pop"
         stageButton.force=0.76
