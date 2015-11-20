@@ -97,7 +97,7 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
     func playerControllerDidOnePlay() {
         multi = false
                 if let currentLevel = NSUserDefaults.standardUserDefaults().objectForKey("singleLevel") as? Int{
-                    levelIs = 15
+                    levelIs = currentLevel
                 }else{
                     levelIs = 1
         }
@@ -117,6 +117,7 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
     }
 
     func stageDidChoose(i: Int) {
+        performSegueWithIdentifier("game1", sender: self)
         
     }
 }

@@ -21,6 +21,7 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet var StageTable: UITableView!
     @IBOutlet weak var pro: M13ProgressViewBar!
     var delegate:StageSelectControllerDelegate?
+    var index: Int?
     
 //    var stageArray = [String]()
     
@@ -56,8 +57,9 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     @IBAction func stagePress(sender: AnyObject) {
+        
         changeStageTo(1)
-        self.performSegueWithIdentifier("game1", sender: self)
+        //self.performSegueWithIdentifier("game1", sender: self)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -75,6 +77,7 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
         print("Row \(indexPath.row+1)")
         changeStageTo(indexPath.row+1)
         let dic = saveManeger.loadLevel(indexPath.row+1)
