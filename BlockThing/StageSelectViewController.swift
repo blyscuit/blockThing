@@ -49,6 +49,8 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
         let dic = saveManeger.loadLevel(1)
         time.text = NSString(format: "%.3fs", dic["time"]!) as String
         moveLabel.text = "\(Int(dic["move"]!))"
+        
+        changeStageTo(levelIs)
     }
     @IBAction func menuPress(sender: AnyObject) {
         self.dismissViewControllerAnimated(true) { () -> Void in

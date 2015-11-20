@@ -234,7 +234,22 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             for touch in touches {
                 
                 let location = touch.locationInNode(self)
-                if (touch.tapCount > 1){
+                if (touch.tapCount > 2 && event?.allTouches()!.count>=3 && multi==false){
+                    isOver = true
+                    self.myMap.remove()
+                    self.hero.remove()
+                    self.gearNode.removeAllActions()
+                    self.gearNode.removeAllChildren()
+                    self.gearNode.removeFromParent()
+                    self.tilesLayer.removeAllActions()
+                    self.tilesLayer.removeAllChildren()
+                    self.tilesLayer.removeFromParent()
+                    self.removeAllActions()
+                    self.removeAllChildren()
+                    self.removeFromParent()
+                    
+                    self.toMainMenu()
+                }else if (touch.tapCount > 1){
                     //                if paused{
                     pause()
                     //                }
@@ -706,7 +721,19 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             self.tilesLayer.removeFromParent()
             self.removeAllActions()
             self.removeAllChildren()
-            self.startGame()
+            if(multi == true){
+                if(levelIs<=maxSingleStages){
+                    self.startGame()
+                }else{
+                    self.toMainMenu()
+                }
+            }else{
+                if(levelIs<=maxMultiStages){
+                    self.startGame()
+                }else{
+                    self.toMainMenu()
+                }
+            }
         }
     }
     func didBeginContact(contact: SKPhysicsContact) {

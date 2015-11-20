@@ -99,6 +99,8 @@ class GameViewController: UIViewController,GameplayControllerDelegate {
     func gameDidLostConnection(){
         self.dismissViewControllerAnimated(true) { () -> Void in
             
+            let skView = self.view as! SKView
+            skView.presentScene(nil)
 //            print("LOST CONNECTION TO MJTOM")
 //            let alert = UIAlertController(title: "", message: "Lost connection", preferredStyle: UIAlertControllerStyle.Alert)
 //            
@@ -116,6 +118,8 @@ class GameViewController: UIViewController,GameplayControllerDelegate {
     func gameDidQuit() {
         self.dismissViewControllerAnimated(true) { () -> Void in
             
+            let skView = self.view as! SKView
+            skView.presentScene(nil)
         }
     }
 }
