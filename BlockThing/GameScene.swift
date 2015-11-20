@@ -236,7 +236,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //            print("default")
 //        }
 //    }
-    var moveDistance = CGFloat(6)
+    var moveDistance = CGFloat(5.5)
     
     let gearDur = 0.3
     let gearSpring = CGFloat(7.0)
