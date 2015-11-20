@@ -57,9 +57,8 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     @IBAction func stagePress(sender: AnyObject) {
-        
-        changeStageTo(1)
-        //self.performSegueWithIdentifier("game1", sender: self)
+//        changeStageTo(1)
+        self.performSegueWithIdentifier("game1", sender: self)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
