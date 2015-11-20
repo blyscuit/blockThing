@@ -2,7 +2,7 @@
 //  MainMenuViewController.swift
 //  BlockThing
 //
-//  Created by Bliss Watchaye on 2015-10-25.
+//  Created by Pakin Intanate on 2015-10-25.
 //  Copyright © 2015 confusians. All rights reserved.
 //
 
@@ -97,7 +97,7 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
     func playerControllerDidOnePlay() {
         multi = false
                 if let currentLevel = NSUserDefaults.standardUserDefaults().objectForKey("singleLevel") as? Int{
-                    levelIs = 15
+                    levelIs = currentLevel + 1
                 }else{
                     levelIs = 1
         }

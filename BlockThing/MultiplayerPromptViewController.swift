@@ -37,7 +37,7 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
         tableMulti.dataSource = self
         
         if let currentLevel = NSUserDefaults.standardUserDefaults().objectForKey("multiLevel") as? Int{
-            levelIs = currentLevel
+            levelIs = currentLevel + 1
         }else{
             levelIs = 201
         }
@@ -102,13 +102,15 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
     func invitationWasReceived(fromPeer: String,level:Int) {
         let alert = UIAlertController(title: "", message: "\(fromPeer) wants to play with you.", preferredStyle: UIAlertControllerStyle.Alert)
         
+        print("level isssss \(level)")
         let acceptAction: UIAlertAction = UIAlertAction(title: "Accept", style: UIAlertActionStyle.Default) { (alertAction) -> Void in
             player = 2
-            levelIs = level
+            levelIs = 200+level
             self.appDelegate.mpcManager.invitationHandler(true, self.appDelegate.mpcManager.session)
         }
         
         let declineAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (alertAction) -> Void in
+            self.tableMulti.reloadData()
             self.appDelegate.mpcManager.invitationHandler(false, self.appDelegate.mpcManager.session)
         }
         

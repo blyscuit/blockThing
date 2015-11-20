@@ -2,7 +2,7 @@
 //  Door.swift
 //  BlockThing
 //
-//  Created by Bliss Watchaye on 2015-10-14.
+//  Created by Pakin Intanate on 2015-10-14.
 //  Copyright © 2015 confusians. All rights reserved.
 //
 
@@ -31,11 +31,13 @@ class Door: Tile {
             cover.alpha = 0.0
             cover.zPosition = 1
             addChild(cover)
-            cover.runAction(SKAction.scaleTo(25, duration: 0.8, delay: 0.1, usingSpringWithDamping: 0.005, initialSpringVelocity: 0))
-            cover.runAction(SKAction.fadeAlphaTo(0.750, duration: 0.8)) { () -> Void in
+            var expand = SKAction.scaleTo(25, duration: 0.9)
+            expand.timingMode = SKActionTimingMode.EaseOut
+            cover.runAction(expand){ () -> Void in
                 cover.removeAllActions()
                 cover.removeFromParent()
             }
+            cover.runAction(SKAction.sequence([SKAction.fadeAlphaTo(0.750, duration: 0.3),SKAction.waitForDuration(0.45),SKAction.fadeAlphaTo(0.0, duration: 0.15)]))
         }
         if(close==true){
             self.texture = SKTexture(imageNamed: TileType.Door.spriteName)

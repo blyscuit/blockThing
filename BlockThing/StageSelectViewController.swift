@@ -2,7 +2,7 @@
 //  StageSelectViewController.swift
 //  BlockThing
 //
-//  Created by Bliss Watchaye on 2015-11-10.
+//  Created by Pakin Intanate on 2015-11-10.
 //  Copyright © 2015 confusians. All rights reserved.
 //
 
@@ -47,7 +47,7 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
 //            print(stageArray)
 //        }
         let dic = saveManeger.loadLevel(1)
-        time.text = "\(dic["time"]!)"
+        time.text = NSString(format: "%.3fs", dic["time"]!) as String
         moveLabel.text = "\(Int(dic["move"]!))"
     }
     @IBAction func menuPress(sender: AnyObject) {
@@ -65,7 +65,7 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 16
+        return maxSingleStages
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -82,7 +82,7 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
 
     func changeStageTo(stage:Int){
         let dic = saveManeger.loadLevel(stage)
-        time.text = "\(dic["time"]!)"
+        time.text = NSString(format: "%.3fs", dic["time"]!) as String
         moveLabel.text = "\(Int(dic["move"]!))"
         
         levelIs = stage
