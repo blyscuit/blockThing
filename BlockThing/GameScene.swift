@@ -138,7 +138,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             Randoms.randomCGFloat(0, self.size.height))
         cover.runAction(SKAction.scaleTo(
             Randoms.randomCGFloat(0.1, 0.5), duration: 0.0))
-            cover.runAction(SKAction.fadeAlphaTo(1.0, duration: 1.0, delay: Randoms.randomDouble(1.0, 5.0), usingSpringWithDamping: 0, initialSpringVelocity: 0))
+            cover.runAction(SKAction.fadeAlphaTo(1.0, duration: Randoms.randomDouble(3.0, 6.0), delay: Randoms.randomDouble(1.0, 5.0), usingSpringWithDamping: 0.0001, initialSpringVelocity: 0))
         cover.position = startPosition
         let endPosition = CGPointMake(
             Randoms.randomCGFloat(0, self.size.width),
