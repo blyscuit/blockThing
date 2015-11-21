@@ -269,7 +269,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
     }
     
-    var moveDistance = CGFloat(5.8)
+    var moveDistance = CGFloat(5.9)
     
     let gearDur = 0.3
     let gearSpring = CGFloat(7.0)
@@ -721,7 +721,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             self.tilesLayer.removeFromParent()
             self.removeAllActions()
             self.removeAllChildren()
-            if(multi == true){
+            if(multi == false){
                 if(levelIs<=maxSingleStages){
                     self.startGame()
                 }else{

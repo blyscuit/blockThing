@@ -44,6 +44,7 @@ class SaveDataModule:NSObject {
     }
     
     func loadLevel(stage:Int)->[String:Double]{
+        loadDataDictionary()
         if let stageDic = saveDictionary["Stage\(stage)"]{
             return stageDic as! [String : Double]
         }else{
