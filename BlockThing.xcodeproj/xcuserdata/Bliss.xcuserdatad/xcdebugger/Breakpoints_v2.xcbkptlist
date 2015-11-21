@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BlockThing/Door.swift"
-            timestampString = "469705093.263273"
+            timestampString = "469764371.013633"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
             landmarkName = "init(column:row:)"
             landmarkType = "5">
          </BreakpointContent>
