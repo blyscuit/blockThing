@@ -31,13 +31,14 @@ class Door: Tile {
             cover.alpha = 0.0
             cover.zPosition = 1
             addChild(cover)
-            var expand = SKAction.scaleTo(25, duration: 0.9)
+            let ma = max(NumColumns, NumRows)
+            var expand = SKAction.scaleTo(CGFloat(ma), duration: 0.9)
             expand.timingMode = SKActionTimingMode.EaseOut
             cover.runAction(expand){ () -> Void in
                 cover.removeAllActions()
                 cover.removeFromParent()
             }
-            cover.runAction(SKAction.sequence([SKAction.fadeAlphaTo(0.750, duration: 0.3),SKAction.waitForDuration(0.45),SKAction.fadeAlphaTo(0.0, duration: 0.15)]))
+            cover.runAction(SKAction.sequence([SKAction.fadeAlphaTo(0.450, duration: 0.3),SKAction.waitForDuration(0.45),SKAction.fadeAlphaTo(0.0, duration: 0.15)]))
         }
         if(close==true){
             self.texture = SKTexture(imageNamed: TileType.Door.spriteName)
