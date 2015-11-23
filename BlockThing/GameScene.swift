@@ -29,7 +29,7 @@ enum BodyType:UInt32 {
 }
 
 let maxSingleStages = 16;
-let maxMultiStages = 10;
+let maxMultiStages = 210;
 
 @objc protocol PlayerChooseControllerDelegate {
     func playerControllerDidOnePlay()
@@ -76,6 +76,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     var numberMoved = 0;
     
     var gearNode = SKNode()
+    
+    var friendIsFinish = false
     
 //    var isMoving = false
     
@@ -269,7 +271,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
     }
     
-    var moveDistance = CGFloat(5.9)
+    var moveDistance = CGFloat(6.1)
     
     let gearDur = 0.3
     let gearSpring = CGFloat(7.0)
@@ -287,7 +289,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     //                    self.centerMap();
                 }
                 self.sendPositionData()
-                self.checkTile(self.hero.xCoor,inY: self.hero.yCoor)
+                self.checkTile(self.hero.xCoor,inY: self.hero.yCoor,second: false)
             }
         }
     }
@@ -304,7 +306,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     //                    self.centerMap();
                 }
                 self.sendPositionData()
-                self.checkTile(self.hero.xCoor,inY: self.hero.yCoor)
+                self.checkTile(self.hero.xCoor,inY: self.hero.yCoor,second: false)
             }
         }
     }
@@ -321,7 +323,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     //                    self.centerMap();
                 }
                 self.sendPositionData()
-                self.checkTile(self.hero.xCoor,inY: self.hero.yCoor)
+                self.checkTile(self.hero.xCoor,inY: self.hero.yCoor,second: false)
             }
         }
     }
@@ -337,7 +339,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     
                 }
                 self.sendPositionData()
-                self.checkTile(self.hero.xCoor,inY: self.hero.yCoor)
+                self.checkTile(self.hero.xCoor,inY: self.hero.yCoor,second: false)
             }
         }
     }
@@ -412,7 +414,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
     }
     
-    func checkTile(inX:Int,inY:Int){
+    func checkTile(inX:Int,inY:Int,second:Bool){
         if(levelIs==0){
             cancelMenuGoto()
         }
@@ -424,7 +426,16 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 print("Fall in lava")
                 gameOver()
             }else if(tile.tileType == TileType.Exit){
-                clearLevel()
+                if second{
+                    if friendIsFinish{
+                        self.sendPositionData()
+                        clearLevel()
+                    }else{
+                        friendIsFinish = true
+                    }
+                }else{
+                    clearLevel()
+                }
             }else if(tile.tileType == TileType.Button){
                 (tile as? Switch)?.flip()
                 if((tile as? Switch)?.tag != 0){
@@ -856,7 +867,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             let messageI = message as! [Int]
             if messageI.count == 2 {
                 messageI[0]
-                checkTile(Int(messageI[0]),inY: Int(messageI[1]))
+                checkTile(Int(messageI[0]),inY: Int(messageI[1]),second:true)
                 if let tile = myMap.tileAtColumn(Int(messageI[0]), row: Int(messageI[1])){
                     if secondHero != nil{
                         secondHero.position  = tile.position
