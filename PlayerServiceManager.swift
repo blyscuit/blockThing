@@ -60,6 +60,12 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
         
     }
     
+    func refreshStatus(){
+        if(NSUserDefaults.standardUserDefaults().integerForKey("multiLevel") > 0){
+            myLevel = NSUserDefaults.standardUserDefaults().integerForKey("multiLevel") - 200 + 1
+        }
+    }
+    
     func browser(browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         foundPeers.append(peerID)
         

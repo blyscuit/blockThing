@@ -21,6 +21,7 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
     
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
+    @IBOutlet weak var levelLabel: UILabel!
     @IBAction func cancelMulti(sender: AnyObject) {
         delegate?.multiCancel()
     }
@@ -41,6 +42,16 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
         }else{
             levelIs = 201
         }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        appDelegate.mpcManager.refreshStatus()
+        if let currentLevel = NSUserDefaults.standardUserDefaults().objectForKey("multiLevel") as? Int{
+            levelIs = currentLevel + 1
+        }else{
+            levelIs = 201
+        }
+        levelLabel.text = "Level \(levelIs-200)"
     }
     
     @IBAction func startStopAdvertising(sender: AnyObject) {

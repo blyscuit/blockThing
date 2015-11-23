@@ -23,6 +23,7 @@
             <string>Timeless-Normal</string>
             <string>Timeless-Normal</string>
             <string>Timeless-Normal</string>
+            <string>Timeless-Normal</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -328,7 +329,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IYq-KG-ofW">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="531"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="Vlp-5P-Byp">
@@ -383,24 +384,38 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Level 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rIg-Jk-LNC">
+                                <rect key="frame" x="20" y="539" width="280" height="21"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="c9V-ba-7Nc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Timeless-Normal" family="Timeless" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="IYq-KG-ofW" firstAttribute="width" secondItem="Oxn-VS-3k4" secondAttribute="width" id="3FU-4J-MxI"/>
+                            <constraint firstItem="rIg-Jk-LNC" firstAttribute="width" secondItem="Oxn-VS-3k4" secondAttribute="height" multiplier="35:71" id="Atz-Sw-xHf"/>
+                            <constraint firstItem="ofA-rb-azc" firstAttribute="top" secondItem="rIg-Jk-LNC" secondAttribute="bottom" constant="8" id="Jo7-jK-Zu7"/>
+                            <constraint firstItem="IYq-KG-ofW" firstAttribute="top" secondItem="K8Z-xy-DVU" secondAttribute="bottom" id="NnG-EN-xjj"/>
                             <constraint firstItem="IYq-KG-ofW" firstAttribute="centerX" secondItem="Oxn-VS-3k4" secondAttribute="centerX" id="OY1-bA-SUr"/>
-                            <constraint firstItem="IYq-KG-ofW" firstAttribute="height" secondItem="Oxn-VS-3k4" secondAttribute="height" id="d1x-is-e31"/>
-                            <constraint firstItem="IYq-KG-ofW" firstAttribute="centerY" secondItem="Oxn-VS-3k4" secondAttribute="centerY" id="nPq-PG-qwY"/>
+                            <constraint firstItem="rIg-Jk-LNC" firstAttribute="top" secondItem="IYq-KG-ofW" secondAttribute="bottom" constant="8" id="iev-sC-wkq"/>
+                            <constraint firstItem="rIg-Jk-LNC" firstAttribute="centerX" secondItem="Oxn-VS-3k4" secondAttribute="centerX" id="maT-lb-oXZ"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="levelLabel" destination="rIg-Jk-LNC" id="m7h-R2-QqG"/>
                         <outlet property="tableMulti" destination="IYq-KG-ofW" id="7zW-8K-UDl"/>
                         <segue destination="BV1-FR-VrT" kind="modal" identifier="game2" modalTransitionStyle="crossDissolve" id="Xgd-F0-4gg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hEn-Xb-k0R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="561.60000000000002" y="-392.86666666666667"/>
+            <point key="canvasLocation" x="561" y="-393"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
@@ -427,7 +442,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="E0Y-KI-e4H"/>
+        <segue reference="Xgd-F0-4gg"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
 </document>

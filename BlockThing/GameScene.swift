@@ -77,7 +77,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     var gearNode = SKNode()
     
-    var friendIsFinish = false
+    var friendIsFinish = 0
     
 //    var isMoving = false
     
@@ -98,6 +98,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         createEffect()
         
         isOver = false
+        friendIsFinish = 0
         
         //let someText = Text(Color: UIColor.blackColor(), Size: 20, inX: 300, inY: 300,text: "GG")
         //self.addChild(someText)
@@ -427,21 +428,39 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 gameOver()
             }else if(tile.tileType == TileType.Exit){
                 if multi{
-                    if second{
-                        if friendIsFinish{
-//                            self.sendPositionData()
+                    friendIsFinish++;
+                    if friendIsFinish>=2{
+                        clearLevel()
+//                        if friendIsFinish{
+////                            self.sendPositionData()
+////                            clearLevel()
+//                        }else{
+//                            friendIsFinish = true
+//                        }
+//                    }else{
+//                        isOver = true
+//                        self.sendPositionData()
+//                        if friendIsFinish{
 //                            clearLevel()
-                        }else{
-                            friendIsFinish = true
-                        }
+//                        }else{
+//                            
+//                        }
+                    }
+                    
+                    var cover:SKSpriteNode = SKSpriteNode(color: UIColor.whiteColor(), size: self.size)
+                    cover.anchorPoint = CGPointMake(0.0, 0.0)
+                    cover.alpha = 0.0
+                    cover.zPosition = 5
+                    addChild(cover)
+                    cover.runAction(SKAction.fadeAlphaTo(0.70, duration: 0.4)){ () -> Void in
+                        cover.removeAllChildren()
+                        cover.removeFromParent()
+                    }
+                    if second{
+                        secondHero.runAction(SKAction.scaleTo(0.1, duration: 0.41, delay: 0.0, usingSpringWithDamping: 2.0, initialSpringVelocity: 0))
                     }else{
-                        isOver = true
-                        self.sendPositionData()
-                        if friendIsFinish{
-                            clearLevel()
-                        }else{
-                            
-                        }
+                        hero.dieAnimation()
+                        isOver=true
                     }
                 }else{
                     clearLevel()
@@ -666,9 +685,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     
     func gameOver(){
-        if(isOver == true){
+        if((multi == false && isOver == true)||(multi == true && isOver == true && friendIsFinish>=2)){
             return
         }
+        friendIsFinish = 3
         isOver = true
         
         sendOnlineData(Direction.Death)
@@ -726,9 +746,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         hero.dieAnimation()
 
-        if(isOver == true){
-            return
-        }
+//        if(isOver == true){
+//            return
+//        }
         isOver = true
         
         cover.runAction(SKAction.fadeAlphaTo(0.70, duration: 0.4)) { () -> Void in
