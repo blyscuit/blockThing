@@ -426,12 +426,22 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 print("Fall in lava")
                 gameOver()
             }else if(tile.tileType == TileType.Exit){
-                if second{
-                    if friendIsFinish{
-                        self.sendPositionData()
-                        clearLevel()
+                if multi{
+                    if second{
+                        if friendIsFinish{
+//                            self.sendPositionData()
+//                            clearLevel()
+                        }else{
+                            friendIsFinish = true
+                        }
                     }else{
-                        friendIsFinish = true
+                        isOver = true
+                        self.sendPositionData()
+                        if friendIsFinish{
+                            clearLevel()
+                        }else{
+                            
+                        }
                     }
                 }else{
                     clearLevel()
