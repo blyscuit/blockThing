@@ -172,7 +172,7 @@ class Lava: Tile {
         
         let time = 3.0
         runAction(SKAction.colorizeWithColor(.blackColor(), colorBlendFactor: 1, duration: 0.0))
-        let colorize = SKAction.colorizeWithColor(.redColor(), colorBlendFactor: 0.82, duration: time*1.36)
+        let colorize = SKAction.colorizeWithColor(UIColor(red:0.59, green:0.00, blue:0.00, alpha:1.0), colorBlendFactor: 1.22, duration: time*1.36)
         let colorizeB = SKAction.colorizeWithColor(.blackColor(), colorBlendFactor: 1, duration: time)
         runAction(SKAction.repeatActionForever(SKAction.sequence([colorizeB,colorize])))
     }

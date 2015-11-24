@@ -277,7 +277,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     let gearDur = 0.3
     let gearSpring = CGFloat(7.0)
-    let gearDivider = CGFloat(10)
+    let gearDivider = CGFloat(9)
     
     func moveUp(){
         if(myMap!.canMoveToTile(hero.xCoor, row: hero.yCoor+1)){
