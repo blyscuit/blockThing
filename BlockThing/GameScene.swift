@@ -199,28 +199,28 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //        let s: String = String(self.returnChar(theEvent)!)
 //        switch(s){
 //        case "w":
-//            if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor+1)){
+//            if(myMap!.canMoveToTile(hero.xCoor, row: hero.yCoor+1)){
 //                hero.goUp()
 //                tilesLayer.goUp()
 //                checkTile()
 //            }
 //            break
 //        case "s":
-//            if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor-1)){
+//            if(myMap!.canMoveToTile(hero.xCoor, row: hero.yCoor-1)){
 //                hero.goDown()
 //                tilesLayer.goDown()
 //                checkTile()
 //            }
 //            break
 //        case "d":
-//            if(myMap.canMoveToTile(hero.xCoor+1, row: hero.yCoor)){
+//            if(myMap!.canMoveToTile(hero.xCoor+1, row: hero.yCoor)){
 //                hero.goRight()
 //                tilesLayer.goRight()
 //                checkTile()
 //            }
 //            break
 //        case "a":
-//            if(myMap.canMoveToTile(hero.xCoor-1, row: hero.yCoor)){
+//            if(myMap!.canMoveToTile(hero.xCoor-1, row: hero.yCoor)){
 //                hero.goLeft()
 //                tilesLayer.goLeft()
 //                checkTile()
@@ -240,7 +240,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 let location = touch.locationInNode(self)
                 if (touch.tapCount > 2 && event?.allTouches()!.count>=3 && multi==false){
                     isOver = true
-                    self.myMap.remove()
+                    self.myMap!.remove()
                     self.hero.remove()
                     self.gearNode.removeAllActions()
                     self.gearNode.removeAllChildren()
@@ -280,7 +280,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     let gearDivider = CGFloat(10)
     
     func moveUp(){
-        if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor+1)){
+        if(myMap!.canMoveToTile(hero.xCoor, row: hero.yCoor+1)){
             centerMap(){
                 //                isMoving = true
                 self.gearNode.runAction(SKAction.moveBy(CGVectorMake(0,-TileHeight/self.gearDivider), duration: self.gearDur,delay:0,usingSpringWithDamping: self.gearSpring, initialSpringVelocity: 0))
@@ -296,7 +296,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
     }
     func moveDown(){
-        if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor-1)){
+        if(myMap!.canMoveToTile(hero.xCoor, row: hero.yCoor-1)){
             centerMap(){
                 //                isMoving = true
                 
@@ -313,7 +313,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
     }
     func moveLeft(){
-        if(myMap.canMoveToTile(hero.xCoor-1, row: hero.yCoor)){
+        if(myMap!.canMoveToTile(hero.xCoor-1, row: hero.yCoor)){
             centerMap(){
                 //                isMoving = true
                 
@@ -330,7 +330,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
     }
     func moveRight(){
-        if(myMap.canMoveToTile(hero.xCoor+1, row: hero.yCoor)){
+        if(myMap!.canMoveToTile(hero.xCoor+1, row: hero.yCoor)){
             self.centerMap(){
                 //                isMoving = true
                 self.gearNode.runAction(SKAction.moveBy(CGVectorMake(-TileHeight/self.gearDivider,0), duration: self.gearDur,delay:0,usingSpringWithDamping: self.gearSpring, initialSpringVelocity: 0))
@@ -352,28 +352,28 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         let distanceY = abs((touches.first?.locationInNode(self).y)! - (fingerPosition?.y)!)
         
         if(touches.first?.locationInNode(self).x > (fingerPosition?.x)!+moveDistance && distanceX > distanceY){
-            if(myMap.canMoveToTile(hero.xCoor+1, row: hero.yCoor)){
+            if(myMap!.canMoveToTile(hero.xCoor+1, row: hero.yCoor)){
                 moveRight()
 //                sendOnlineData(Direction.East)
 //                sendPositionData()
             }
             justMove = true;
         }else if(touches.first?.locationInNode(self).x < (fingerPosition?.x)!-moveDistance && distanceX > distanceY){
-            if(myMap.canMoveToTile(hero.xCoor-1, row: hero.yCoor)){
+            if(myMap!.canMoveToTile(hero.xCoor-1, row: hero.yCoor)){
                 moveLeft()
 //                sendOnlineData(Direction.West)
 //                sendPositionData()
             }
             justMove = true;
         }else if(touches.first?.locationInNode(self).y > (fingerPosition?.y)!+moveDistance && distanceX < distanceY){
-            if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor+1)){
+            if(myMap!.canMoveToTile(hero.xCoor, row: hero.yCoor+1)){
                 moveUp()
 //                sendOnlineData(Direction.North)
 //                sendPositionData()
             }
             justMove = true;
         }else if(touches.first?.locationInNode(self).y < (fingerPosition?.y)!-moveDistance && distanceX < distanceY){
-            if(myMap.canMoveToTile(hero.xCoor, row: hero.yCoor-1)){
+            if(myMap!.canMoveToTile(hero.xCoor, row: hero.yCoor-1)){
                 moveDown()
                 //                sendOnlineData(Direction.North)
                 //                sendPositionData()
@@ -424,9 +424,13 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             multi = true
         }
         
+        if(myMap == nil){
+            return
+        }
+        
         numberMoved++;
         
-        if let tile = myMap.tileAtColumn(inX, row: inY) {
+        if let tile = myMap!.tileAtColumn(inX, row: inY) {
             if(tile.tileType == TileType.Lava){
                 print("Fall in lava")
                 gameOver()
@@ -460,7 +464,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                         cover.removeAllChildren()
                         cover.removeFromParent()
                     }
-                    if second{
+                    if (second == true && secondHero != nil){
                         secondHero.runAction(SKAction.scaleTo(0.1, duration: 0.41, delay: 0.0, usingSpringWithDamping: 2.0, initialSpringVelocity: 0))
                     }else{
                         hero.dieAnimation()
@@ -475,7 +479,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 if((tile as? Switch)?.tag != 0){
                     for row in 0..<NumRows {
                         for column in 0..<NumColumns {
-                            if let tiles = myMap.tileAtColumn(column, row: row) as? Door {
+                            if let tiles = myMap!.tileAtColumn(column, row: row) as? Door {
                                 if(tiles.tileType == TileType.Door && tiles.tag == (tile as? Switch)?.tag){
                                     tiles.flip(((tile as? Switch)?.close)!)
                                 }
@@ -573,7 +577,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         var centerSecond:Tile!
         for row in 0..<NumRows {
             for column in 0..<NumColumns {
-                if let tile = myMap.tileAtColumn(column, row: row) {
+                if let tile = myMap!.tileAtColumn(column, row: row) {
                     if(tile.tileType == TileType.Birth){
                         if(player == 1){
                             centerTile = tile
@@ -602,7 +606,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     }else if(tile.tileType == TileType.Button){
                         for row in 0..<NumRows {
                             for column in 0..<NumColumns {
-                                if let tileIn = myMap.tileAtColumn(column, row: row) {
+                                if let tileIn = myMap!.tileAtColumn(column, row: row) {
                                     if(tileIn.tileType == TileType.Door && (tileIn as? Door)?.tag == (tile as? Switch)!.tag){
                                         (tileIn as? Door)?.life += 1
                                     }
@@ -625,7 +629,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         addText()
         
-        if(multi){
+        if(multi && centerSecond != nil){
             let square = SKTexture(imageNamed: "player2")
             secondHero = SKSpriteNode(texture: square)
             secondHero.anchorPoint = CGPointMake(0.5, 0.5)
@@ -642,7 +646,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
     
     func addText(){
-        for text in myMap.texts{
+        for text in myMap!.texts{
             text.position = pointForColumn(text.xCoor, row: NumRows - text.yCoor)
             text.zPosition = -1
             tilesLayer.addChild(text)
@@ -667,7 +671,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             darkness = SKSpriteNode(imageNamed: "dark")
             darkness.position = hero.position
             darkness.zPosition = 10
-            let darknessSize = myMap.darknessLevel;
+            let darknessSize = myMap!.darknessLevel;
             darknessExpantTo(Double(darknessSize))
             darkness.size = CGSizeMake(darkness.size.width *  CGFloat(11.5), darkness.size.height *  CGFloat(11.5))
             addChild(darkness)
@@ -681,7 +685,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         darkness.runAction(SKAction.fadeAlphaTo(CGFloat(Double(darknessSize+1.8)/11.0), duration: 0.3))
     }
     
-    var myMap : Map!
+    var myMap : Map?
     
     func pointForColumn(column: Int, row: Int) -> CGPoint {
         return CGPoint(
@@ -696,6 +700,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
         friendIsFinish = 3
         isOver = true
+        myMap=nil
         
         sendOnlineData(Direction.Death)
         
@@ -716,7 +721,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         addChild(rainParticle)
         
         self.tilesLayer.runAction(SKAction.shake(0.57, amplitudeX: 40, amplitudeY: 40)) { () -> Void in
-            self.myMap.remove()
+//            self.myMap!.remove()
             self.hero.remove()
             self.gearNode.removeAllActions()
             self.gearNode.removeAllChildren()
@@ -742,6 +747,13 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         var saveManager = SaveDataModule()
         saveManager.saveDataForStage(levelIs, time: delta, move: numberMoved)
         
+        if(isOver == true){
+            if(multi == true && friendIsFinish>=3){
+                return
+            }else if(multi == false){
+                return
+            }
+        }
         
         levelIs++;
         var cover:SKSpriteNode = SKSpriteNode(color: UIColor.whiteColor(), size: self.size)
@@ -752,13 +764,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         hero.dieAnimation()
 
-//        if(isOver == true){
-//            return
-//        }
         isOver = true
+        myMap=nil
         
         cover.runAction(SKAction.fadeAlphaTo(0.70, duration: 0.4)) { () -> Void in
-            self.myMap.remove()
+//            self.myMap!.remove()
             self.hero.remove()
             self.gearNode.removeAllActions()
             self.gearNode.removeAllChildren()
@@ -884,7 +894,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //                
 //                alert.addAction(doneAction)
                 
-//                self.myMap.remove()
+//                self.myMap!.remove()
 //                self.hero.remove()
 //                self.tilesLayer.removeAllActions()
 //                self.tilesLayer.removeAllChildren()
@@ -905,12 +915,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             if messageI.count == 2 {
                 messageI[0]
                 checkTile(Int(messageI[0]),inY: Int(messageI[1]),second:true)
-                if let tile = myMap.tileAtColumn(Int(messageI[0]), row: Int(messageI[1])){
-                    if secondHero != nil{
-                        secondHero.position  = tile.position
+                if(myMap != nil){
+                    if let tile = myMap!.tileAtColumn(Int(messageI[0]), row: Int(messageI[1])){
+                        if secondHero != nil{
+                            secondHero.position  = tile.position
+                        }
                     }
                 }
-//                secondHero.position = (myMap.tileAtColumn(Int(messageI[0]), row: Int(messageI[1]))?.position)!
+//                secondHero.position = (myMap!.tileAtColumn(Int(messageI[0]), row: Int(messageI[1]))?.position)!
             }
         }
     }

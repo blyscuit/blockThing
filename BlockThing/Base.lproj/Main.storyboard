@@ -417,6 +417,59 @@
             </objects>
             <point key="canvasLocation" x="561" y="-393"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="ih6-kB-uET">
+            <objects>
+                <viewController id="c9V-n0-OWF" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WAk-IH-0wn"/>
+                        <viewControllerLayoutGuide type="bottom" id="AUb-3n-ZdI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1hX-d1-oue">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0mL-Rk-o9E">
+                                <rect key="frame" x="0.0" y="56" width="320" height="320"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="0mL-Rk-o9E" secondAttribute="height" multiplier="1:1" id="DYd-WJ-5Mg"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="zbl-BP-4b4">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="e9O-Td-i2v">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <animations/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <animations/>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0mL-Rk-o9E" firstAttribute="top" secondItem="WAk-IH-0wn" secondAttribute="bottom" constant="36" id="PzL-er-HM8"/>
+                            <constraint firstItem="0mL-Rk-o9E" firstAttribute="width" secondItem="1hX-d1-oue" secondAttribute="height" multiplier="40:71" id="bBJ-x5-WCU"/>
+                            <constraint firstItem="0mL-Rk-o9E" firstAttribute="centerX" secondItem="1hX-d1-oue" secondAttribute="centerX" id="jLj-RJ-JfD"/>
+                            <constraint firstItem="0mL-Rk-o9E" firstAttribute="width" secondItem="1hX-d1-oue" secondAttribute="width" id="nhu-sb-opE"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pwv-um-LVC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1510" y="-418"/>
+        </scene>
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
@@ -438,7 +491,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="327" y="430"/>
+            <point key="canvasLocation" x="450" y="426"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

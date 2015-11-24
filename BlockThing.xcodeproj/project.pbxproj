@@ -48,6 +48,7 @@
 		68A4ADC31BDE90C50011A688 /* Smoke.sks in Resources */ = {isa = PBXBuildFile; fileRef = 68A4ADC21BDE90C50011A688 /* Smoke.sks */; };
 		68B232321BD38EF800DEB4F2 /* SpriteKit-Spring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B232311BD38EF800DEB4F2 /* SpriteKit-Spring.swift */; };
 		68B791251BF63F610052A75A /* Level_16.json in Resources */ = {isa = PBXBuildFile; fileRef = 68B791241BF63F610052A75A /* Level_16.json */; };
+		68C4CD4B1C043F900084A981 /* tri.png in Resources */ = {isa = PBXBuildFile; fileRef = 68C4CD4A1C043F900084A981 /* tri.png */; };
 		68D2C02F1BE8A6B900ACFE5A /* Timeless-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68D2C02D1BE8A6B900ACFE5A /* Timeless-Bold.ttf */; };
 		68D2C0301BE8A6B900ACFE5A /* Timeless.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68D2C02E1BE8A6B900ACFE5A /* Timeless.ttf */; };
 		68DB37871BCD045E00A7FB0A /* MoveMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DB37861BCD045E00A7FB0A /* MoveMap.swift */; };
@@ -193,6 +194,7 @@
 		68A4ADC21BDE90C50011A688 /* Smoke.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Smoke.sks; sourceTree = "<group>"; };
 		68B232311BD38EF800DEB4F2 /* SpriteKit-Spring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SpriteKit-Spring.swift"; sourceTree = "<group>"; };
 		68B791241BF63F610052A75A /* Level_16.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_16.json; sourceTree = "<group>"; };
+		68C4CD4A1C043F900084A981 /* tri.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tri.png; sourceTree = "<group>"; };
 		68D2C02D1BE8A6B900ACFE5A /* Timeless-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Timeless-Bold.ttf"; sourceTree = "<group>"; };
 		68D2C02E1BE8A6B900ACFE5A /* Timeless.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Timeless.ttf; sourceTree = "<group>"; };
 		68DB37861BCD045E00A7FB0A /* MoveMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveMap.swift; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 				686C2C1B1BD54EE000993F63 /* DeathParticle.sks */,
 				68D2C02D1BE8A6B900ACFE5A /* Timeless-Bold.ttf */,
 				68D2C02E1BE8A6B900ACFE5A /* Timeless.ttf */,
+				68C4CD4A1C043F900084A981 /* tri.png */,
 				686C2C1E1BD550E100993F63 /* spark.png */,
 			);
 			path = BlockThing;
@@ -547,7 +550,7 @@
 				TargetAttributes = {
 					683AF6D81BCC14E600DBCCBC = {
 						CreatedOnToolsVersion = 7.0.1;
-						DevelopmentTeam = X9WP373SKJ;
+						DevelopmentTeam = 93QF44Z6JU;
 					};
 					683AF6F01BCC14E700DBCCBC = {
 						CreatedOnToolsVersion = 7.0.1;
@@ -612,6 +615,7 @@
 				68F53C0D1BF63BF800573465 /* Level_14.json in Resources */,
 				683AF6E61BCC14E600DBCCBC /* Main.storyboard in Resources */,
 				68F53C121BF63BF800573465 /* Level_204.json in Resources */,
+				68C4CD4B1C043F900084A981 /* tri.png in Resources */,
 				68F53C0C1BF63BF800573465 /* Level_13.json in Resources */,
 				68F53C131BF63BF800573465 /* Level_205.json in Resources */,
 				68F53C1F1BF63BF800573465 /* Level_9.json in Resources */,

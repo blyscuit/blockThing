@@ -44,7 +44,7 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
         super.init()
         
         if(NSUserDefaults.standardUserDefaults().integerForKey("multiLevel") > 0){
-            myLevel = 4
+            myLevel = NSUserDefaults.standardUserDefaults().integerForKey("multiLevel") - 200 + 1
         }
         let displayN = "\(UIDevice.currentDevice().name)"+" : Level \(myLevel)"
         peer = MCPeerID(displayName: displayN)
@@ -64,6 +64,22 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
         if(NSUserDefaults.standardUserDefaults().integerForKey("multiLevel") > 0){
             myLevel = NSUserDefaults.standardUserDefaults().integerForKey("multiLevel") - 200 + 1
         }
+        if(advertiser != nil){
+            advertiser.stopAdvertisingPeer()
+            browser.stopBrowsingForPeers()
+        }
+        
+        let displayN = "\(UIDevice.currentDevice().name)"+" : Level \(myLevel)"
+        peer = MCPeerID(displayName: displayN)
+        
+        session = MCSession(peer: peer)
+        session.delegate = self
+        
+        advertiser = MCNearbyServiceAdvertiser(peer: peer, discoveryInfo: ["level":"\(myLevel)"], serviceType: "mika")
+        advertiser.delegate = self
+        
+        browser = MCNearbyServiceBrowser(peer: peer, serviceType: "mika")
+        browser.delegate = self
     }
     
     func browser(browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {

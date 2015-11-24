@@ -29,10 +29,6 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        appDelegate.mpcManager.delegate = self
-        appDelegate.mpcManager.browser.startBrowsingForPeers()
-        
-        appDelegate.mpcManager.advertiser.startAdvertisingPeer()
         
         tableMulti.delegate = self
         tableMulti.dataSource = self
@@ -46,8 +42,14 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
     
     override func viewWillAppear(animated: Bool) {
         appDelegate.mpcManager.refreshStatus()
+        
+        appDelegate.mpcManager.delegate = self
+        appDelegate.mpcManager.browser.startBrowsingForPeers()
+        
+        appDelegate.mpcManager.advertiser.startAdvertisingPeer()
+        
         if let currentLevel = NSUserDefaults.standardUserDefaults().objectForKey("multiLevel") as? Int{
-            levelIs = 204
+            levelIs = currentLevel + 1
         }else{
             levelIs = 201
         }

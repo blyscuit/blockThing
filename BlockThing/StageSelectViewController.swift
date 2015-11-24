@@ -53,6 +53,15 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
         
         changeStageTo(levelIs)
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        if let currentLevel = NSUserDefaults.standardUserDefaults().objectForKey("singleLevel") as? Int{
+            levelIs = currentLevel + 1
+        }else{
+            levelIs = 1
+        }
+    }
+    
     @IBAction func menuPress(sender: AnyObject) {
         self.dismissViewControllerAnimated(true) { () -> Void in
             
