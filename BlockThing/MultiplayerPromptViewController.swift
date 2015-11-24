@@ -47,7 +47,7 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
     override func viewWillAppear(animated: Bool) {
         appDelegate.mpcManager.refreshStatus()
         if let currentLevel = NSUserDefaults.standardUserDefaults().objectForKey("multiLevel") as? Int{
-            levelIs = currentLevel + 1
+            levelIs = 204
         }else{
             levelIs = 201
         }

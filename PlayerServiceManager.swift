@@ -44,7 +44,7 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
         super.init()
         
         if(NSUserDefaults.standardUserDefaults().integerForKey("multiLevel") > 0){
-            myLevel = NSUserDefaults.standardUserDefaults().integerForKey("multiLevel") - 200 + 1
+            myLevel = 4
         }
         let displayN = "\(UIDevice.currentDevice().name)"+" : Level \(myLevel)"
         peer = MCPeerID(displayName: displayN)
