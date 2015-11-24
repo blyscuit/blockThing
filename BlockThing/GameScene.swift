@@ -113,6 +113,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         /* Setup your scene here */
         let levelIn = "Level_\(levelIs)"
+        myMap = nil
         myMap = Map(filename: levelIn)
         addTiles()
         self.addChild(tilesLayer);
@@ -345,7 +346,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
     }
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if(justMove||isOver){return;}
+        if(justMove||isOver||friendIsFinish>=2){return;}
         
         let distanceX = abs((touches.first?.locationInNode(self).x)! - (fingerPosition?.x)!)
         let distanceY = abs((touches.first?.locationInNode(self).y)! - (fingerPosition?.y)!)
@@ -419,6 +420,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         if(levelIs==0){
             cancelMenuGoto()
         }
+        if second{
+            multi = true
+        }
         
         numberMoved++;
         
@@ -429,7 +433,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             }else if(tile.tileType == TileType.Exit){
                 if multi{
                     friendIsFinish++;
-                    if friendIsFinish>=2{
+                    if friendIsFinish==2{
                         clearLevel()
 //                        if friendIsFinish{
 ////                            self.sendPositionData()
@@ -465,6 +469,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 }else{
                     clearLevel()
                 }
+//                clearLevel()
             }else if(tile.tileType == TileType.Button){
                 (tile as? Switch)?.flip()
                 if((tile as? Switch)?.tag != 0){
@@ -575,7 +580,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                         }else if(player == 2){
                             centerSecond = tile
                         }
-                    }else if(tile.tileType == TileType.Second && multi == true){
+                    }else if(tile.tileType == TileType.Second){// && multi == true){
+                        multi = true
                         if(player == 2){
                             centerTile = tile
                         }else if(player == 1){
@@ -772,6 +778,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 if(levelIs<=maxMultiStages){
                     self.startGame()
                 }else{
+                    
                     self.toMainMenu()
                 }
             }
@@ -906,15 +913,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //                secondHero.position = (myMap.tileAtColumn(Int(messageI[0]), row: Int(messageI[1]))?.position)!
             }
         }
-    }
-    
-    @IBAction func endChat(sender: AnyObject) {
-        let messageDictionary: [String: String] = ["message": "_end_chat_"]
-//        if appDelegate.mpcManager.sendData(dictionaryWithData: messageDictionary, toPeer: appDelegate.mpcManager.session.connectedPeers[0] as MCPeerID){
-//            self.dismissViewControllerAnimated(true, completion: { () -> Void in
-//                self.appDelegate.mpcManager.session.disconnect()
-//            })
-//        }
     }
     
     func toMainMenu(){
