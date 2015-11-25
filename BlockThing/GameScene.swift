@@ -95,6 +95,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
     
     func startGame(){
+        physicsWorld.speed = 0.9999
         createEffect()
         
         isOver = false
