@@ -20,12 +20,12 @@ class Text: SKLabelNode {
        // super.init (Color: Color, Size: Size, inX: inX, inY: inY, text: text)
         super.init()
         self.fontName = "Timeless-Normal"
-        self.fontColor = UIColor.grayColor()
+        self.fontColor = UIColor.gray
        // sizeFloat = Size
         self.fontSize = CGFloat(Size)
-        self.position = CGPointMake(0, 0)
-        horizontalAlignmentMode = .Center
-        verticalAlignmentMode = .Center
+        self.position = CGPoint(x: 0, y: 0)
+        horizontalAlignmentMode = .center
+        verticalAlignmentMode = .center
         self.text = text
         xCoor=xd
         yCoor=yd

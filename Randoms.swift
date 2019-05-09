@@ -18,43 +18,43 @@ public extension Bool {
 
 public extension Int {
     /// SwiftRandom extension
-    public static func random(range: Range<Int>) -> Int {
-        return range.startIndex + Int(arc4random_uniform(UInt32(range.endIndex - range.startIndex)))
+    public static func random(_ range: Range<Int>) -> Int {
+        return range.lowerBound + Int(arc4random_uniform(UInt32(range.upperBound - range.lowerBound)))
     }
 
     /// SwiftRandom extension
-    public static func random(lower: Int = 0, _ upper: Int = 100) -> Int {
+    public static func random(_ lower: Int = 0, _ upper: Int = 100) -> Int {
         return lower + Int(arc4random_uniform(UInt32(upper - lower + 1)))
     }
 }
 
 public extension Double {
     /// SwiftRandom extension
-    public static func random(lower: Double = 0, _ upper: Double = 100) -> Double {
+    public static func random(_ lower: Double = 0, _ upper: Double = 100) -> Double {
         return (Double(arc4random()) / 0xFFFFFFFF) * (upper - lower) + lower
     }
 }
 
 public extension Float {
     /// SwiftRandom extension
-    public static func random(lower: Float = 0, _ upper: Float = 100) -> Float {
+    public static func random(_ lower: Float = 0, _ upper: Float = 100) -> Float {
         return (Float(arc4random()) / 0xFFFFFFFF) * (upper - lower) + lower
     }
 }
 
 public extension CGFloat {
     /// SwiftRandom extension
-    public static func random(lower: CGFloat = 0, _ upper: CGFloat = 1) -> CGFloat {
+    public static func random(_ lower: CGFloat = 0, _ upper: CGFloat = 1) -> CGFloat {
         return CGFloat(Float(arc4random()) / Float(UINT32_MAX)) * (upper - lower) + lower
     }
 }
 
-public extension NSDate {
+public extension Date {
     /// SwiftRandom extension
-    public static func randomWithinDaysBeforeToday(days: Int) -> NSDate {
-        let today = NSDate()
+    public static func randomWithinDaysBeforeToday(_ days: Int) -> Date {
+        let today = Date()
 
-        guard let gregorian = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian) else {
+        guard let gregorian = Calendar(identifier: Calendar.Identifier.gregorian) else {
             print("no calendar \"NSCalendarIdentifierGregorian\" found")
             return today
         }
@@ -64,13 +64,13 @@ public extension NSDate {
         let r3 = arc4random_uniform(UInt32(23))
         let r4 = arc4random_uniform(UInt32(23))
 
-        let offsetComponents = NSDateComponents()
+        var offsetComponents = DateComponents()
         offsetComponents.day = Int(r1) * -1
         offsetComponents.hour = Int(r2)
         offsetComponents.minute = Int(r3)
         offsetComponents.second = Int(r4)
 
-        guard let rndDate1 = gregorian.dateByAddingComponents(offsetComponents, toDate: today, options: []) else {
+        guard let rndDate1 = (gregorian as NSCalendar).date(byAdding: offsetComponents, to: today, options: []) else {
             print("randoming failed")
             return today
         }
@@ -78,16 +78,16 @@ public extension NSDate {
     }
 
     /// SwiftRandom extension
-    public static func random() -> NSDate {
-        let randomTime = NSTimeInterval(arc4random_uniform(UInt32.max))
-        return NSDate(timeIntervalSince1970: randomTime)
+    public static func random() -> Date {
+        let randomTime = TimeInterval(arc4random_uniform(UInt32.max))
+        return Date(timeIntervalSince1970: randomTime)
     }
 
 }
 
 public extension UIColor {
     /// SwiftRandom extension
-    public static func random(randomAlpha: Bool = false) -> UIColor {
+    public static func random(_ randomAlpha: Bool = false) -> UIColor {
         let randomRed = CGFloat.random()
         let randomGreen = CGFloat.random()
         let randomBlue = CGFloat.random()
@@ -112,11 +112,11 @@ public extension ArraySlice {
     }
 }
 
-public extension NSURL {
+public extension URL {
     /// SwiftRandom extension
-    public static func random() -> NSURL {
+    public static func random() -> URL {
         let urlList = ["http://www.google.com", "http://leagueoflegends.com/", "https://github.com/", "http://stackoverflow.com/", "https://medium.com/", "http://9gag.com/gag/6715049", "http://imgur.com/gallery/s9zoqs9", "https://www.youtube.com/watch?v=uelHwf8o7_U"]
-        return NSURL(string: urlList.randomItem())!
+        return URL(string: urlList.randomItem())!
     }
 }
 
@@ -131,44 +131,44 @@ public struct Randoms {
         return Bool.random()
     }
 
-    public static func randomInt(range: Range<Int>) -> Int {
-        return Int.random(range.startIndex, range.endIndex)
+    public static func randomInt(_ range: Range<Int>) -> Int {
+        return Int.random(range.lowerBound, range.upperBound)
     }
 
-    public static func randomInt(lower: Int = 0, _ upper: Int = 100) -> Int {
+    public static func randomInt(_ lower: Int = 0, _ upper: Int = 100) -> Int {
         return Int.random(lower, upper)
     }
 
-    public static func randomPercentageisOver(percentage: Int) -> Bool {
+    public static func randomPercentageisOver(_ percentage: Int) -> Bool {
         return Int.random() > percentage
     }
 
-    public static func randomDouble(lower: Double = 0, _ upper: Double = 100) -> Double {
+    public static func randomDouble(_ lower: Double = 0, _ upper: Double = 100) -> Double {
         return Double.random(lower, upper)
     }
 
-    public static func randomFloat(lower: Float = 0, _ upper: Float = 100) -> Float {
+    public static func randomFloat(_ lower: Float = 0, _ upper: Float = 100) -> Float {
         return Float.random(lower, upper)
     }
 
-    public static func randomCGFloat(lower: CGFloat = 0, _ upper: CGFloat = 1) -> CGFloat {
+    public static func randomCGFloat(_ lower: CGFloat = 0, _ upper: CGFloat = 1) -> CGFloat {
         return CGFloat.random(lower, upper)
     }
 
-    public static func randomDateWithinDaysBeforeToday(days: Int) -> NSDate {
-        return NSDate.randomWithinDaysBeforeToday(days)
+    public static func randomDateWithinDaysBeforeToday(_ days: Int) -> Date {
+        return Date.randomWithinDaysBeforeToday(days)
     }
 
-    public static func randomDate() -> NSDate {
-        return NSDate.random()
+    public static func randomDate() -> Date {
+        return Date.random()
     }
 
-    public static func randomColor(randomAlpha: Bool = false) -> UIColor {
+    public static func randomColor(_ randomAlpha: Bool = false) -> UIColor {
         return UIColor.random(randomAlpha)
     }
 
-    public static func randomNSURL() -> NSURL {
-        return NSURL.random()
+    public static func randomNSURL() -> URL {
+        return URL.random()
     }
 
     //==========================================================================================================
@@ -200,7 +200,7 @@ public struct Randoms {
         return tagList.randomItem()
     }
 
-    private static func randomEnglishHonorific() -> String {
+    fileprivate static func randomEnglishHonorific() -> String {
         let englishHonorificsList = ["Mr.", "Ms.", "Dr.", "Mrs.", "Mz.", "Mx.", "Prof."]
         return englishHonorificsList.randomItem()
     }
@@ -228,27 +228,27 @@ public struct Randoms {
         static let allValues = [Standard, MM, Identicon, MonsterID, Wavatar, Retro]
     }
 
-    public static func createGravatar(style: Randoms.GravatarStyle = .Standard, size: Int = 80, completion: ((image: UIImage?, error: NSError?) -> Void)?) {
+    public static func createGravatar(_ style: Randoms.GravatarStyle = .Standard, size: Int = 80, completion: ((_ image: UIImage?, _ error: NSError?) -> Void)?) {
         var url = "https://secure.gravatar.com/avatar/thisimagewillnotbefound?s=\(size)"
         if style != .Standard {
-            url += "&d=\(style.rawValue.lowercaseString)"
+            url += "&d=\(style.rawValue.lowercased())"
         }
 
-        let request = NSURLRequest(URL: NSURL(string: url)!, cachePolicy: .ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 5.0)
-        let session = NSURLSession.sharedSession()
+        let request = URLRequest(url: URL(string: url)!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 5.0)
+        let session = URLSession.shared
 
-        session.dataTaskWithRequest(request, completionHandler: {(data, response, error) in
-            dispatch_async(dispatch_get_main_queue()) {
+        session.dataTask(with: request, completionHandler: {(data, response, error) in
+            DispatchQueue.main.async {
                 if error == nil {
-                    completion?(image: UIImage(data: data!), error: nil)
+                    completion?(UIImage(data: data!), nil)
                 } else {
-                    completion?(image: nil, error: error)
+                    completion?(nil, error as! NSError)
                 }
             }
         }).resume()
     }
 
-    public static func randomGravatar(size: Int = 80, completion: ((image: UIImage?, error: NSError?) -> Void)?) {
+    public static func randomGravatar(_ size: Int = 80, completion: ((_ image: UIImage?, _ error: NSError?) -> Void)?) {
         let options = Randoms.GravatarStyle.allValues
         Randoms.createGravatar(options.randomItem(), size: size, completion: completion)
     }

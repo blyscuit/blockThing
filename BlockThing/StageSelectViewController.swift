@@ -9,7 +9,7 @@
 import UIKit
 
 @objc protocol StageSelectControllerDelegate {
-    func stageDidChoose(i:Int)
+    func stageDidChoose(_ i:Int)
 }
 class StageSelectViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -35,10 +35,10 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
         buttomBR.numberOfSegments = 11
         buttomBR.cornerRadius = pro.frame.size.width/CGFloat(buttomBR.numberOfSegments)
         buttomBR.segmentShape = M13ProgressViewSegmentedBarSegmentShapeCircle
-        buttomBR.primaryColors = [UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor(),UIColor.darkGrayColor()]
+        buttomBR.primaryColors = [UIColor.darkGray,UIColor.darkGray,UIColor.darkGray,UIColor.darkGray,UIColor.darkGray,UIColor.darkGray,UIColor.darkGray,UIColor.darkGray,UIColor.darkGray,UIColor.darkGray,UIColor.darkGray]
         //        pro.segmentSeparation = 1
-        pro.setPrimaryColor(UIColor.darkGrayColor())
-        pro.setSecondaryColor(UIColor.lightGrayColor())
+        pro.setPrimaryColor(UIColor.darkGray)
+        pro.setSecondaryColor(UIColor.lightGray)
         pro.showPercentage = false
         pro.progressBarThickness = 1
 //        progressView.addSubview(pro)
@@ -54,53 +54,53 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
         changeStageTo(levelIs)
     }
     
-    override func viewWillAppear(animated: Bool) {
-        if let currentLevel = NSUserDefaults.standardUserDefaults().objectForKey("singleLevel") as? Int{
+    override func viewWillAppear(_ animated: Bool) {
+        if let currentLevel = UserDefaults.standard.object(forKey: "singleLevel") as? Int{
             levelIs = currentLevel + 1
         }else{
             levelIs = 1
         }
     }
     
-    @IBAction func menuPress(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true) { () -> Void in
+    @IBAction func menuPress(_ sender: AnyObject) {
+        self.dismiss(animated: true) { () -> Void in
             
         }
     }
-    @IBAction func stagePress(sender: AnyObject) {
+    @IBAction func stagePress(_ sender: AnyObject) {
 //        changeStageTo(1)
-        self.performSegueWithIdentifier("game1", sender: self)
+        self.performSegue(withIdentifier: "game1", sender: self)
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return maxSingleStages
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("stagesth", forIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "stagesth", for: indexPath)
         cell.textLabel!.text = "Stage \(indexPath.row+1)"
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         print("Row \(indexPath.row+1)")
         changeStageTo(indexPath.row+1)
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
-    func changeStageTo(stage:Int){
+    func changeStageTo(_ stage:Int){
         let dic = saveManeger.loadLevel(stage)
         time.text = NSString(format: "%.3fs", dic["time"]!) as String
         moveLabel.text = "\(Int(dic["move"]!))"
         
         levelIs = stage
         
-        stageButton.setTitle("Stage \(stage)", forState: UIControlState.Normal)
+        stageButton.setTitle("Stage \(stage)", for: UIControlState())
         stageButton.animation="pop"
         stageButton.force=0.76
         stageButton.animate()

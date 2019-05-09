@@ -13,9 +13,9 @@ protocol MPCManagerDelegate {
     
     func lostPeer()
     
-    func invitationWasReceived(fromPeer: String,level:Int)
+    func invitationWasReceived(_ fromPeer: String,level:Int)
     
-    func connectedWithPeer(peerID: MCPeerID)
+    func connectedWithPeer(_ peerID: MCPeerID)
     
 //    func disconnectedWithPeer(peerID: MCPeerID)
     
@@ -43,10 +43,10 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
     override init() {
         super.init()
         
-        if(NSUserDefaults.standardUserDefaults().integerForKey("multiLevel") > 0){
-            myLevel = NSUserDefaults.standardUserDefaults().integerForKey("multiLevel") - 200 + 1
+        if(UserDefaults.standard.integer(forKey: "multiLevel") > 0){
+            myLevel = UserDefaults.standard.integer(forKey: "multiLevel") - 200 + 1
         }
-        let displayN = "\(UIDevice.currentDevice().name)"+" : Level \(myLevel)"
+        let displayN = "\(UIDevice.current.name)"+" : Level \(myLevel)"
         peer = MCPeerID(displayName: displayN)
         
         session = MCSession(peer: peer)
@@ -61,15 +61,15 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
     }
     
     func refreshStatus(){
-        if(NSUserDefaults.standardUserDefaults().integerForKey("multiLevel") > 0){
-            myLevel = NSUserDefaults.standardUserDefaults().integerForKey("multiLevel") - 200 + 1
+        if(UserDefaults.standard.integer(forKey: "multiLevel") > 0){
+            myLevel = UserDefaults.standard.integer(forKey: "multiLevel") - 200 + 1
         }
         if(advertiser != nil){
             advertiser.stopAdvertisingPeer()
             browser.stopBrowsingForPeers()
         }
         
-        let displayN = "\(UIDevice.currentDevice().name)"+" : Level \(myLevel)"
+        let displayN = "\(UIDevice.current.name)"+" : Level \(myLevel)"
         peer = MCPeerID(displayName: displayN)
         
         session = MCSession(peer: peer)
@@ -82,16 +82,16 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
         browser.delegate = self
     }
     
-    func browser(browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
+    func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         foundPeers.append(peerID)
         
         delegate?.foundPeer()
     }
     
-    func browser(browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
-        for (index, aPeer) in foundPeers.enumerate(){
+    func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
+        for (index, aPeer) in foundPeers.enumerated(){
             if aPeer == peerID {
-                foundPeers.removeAtIndex(index)
+                foundPeers.remove(at: index)
                 break
             }
         }
@@ -105,22 +105,22 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
         delegate?.lostPeer()
     }
     
-    func browser(browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: NSError) {
+    func browser(_ browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: Error) {
         print(error.localizedDescription)
     }
     
-    func advertiser(advertiser: MCNearbyServiceAdvertiser, didNotStartAdvertisingPeer error: NSError) {
+    func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didNotStartAdvertisingPeer error: Error) {
         print(error.localizedDescription)
     }
     
-    func session(session: MCSession, peer peerID: MCPeerID, didChangeState state: MCSessionState) {
+    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         switch state{
-        case MCSessionState.Connected:
+        case MCSessionState.connected:
             print("Connected to session: \(session)")
             connectedPeer = peerID
             delegate?.connectedWithPeer(peerID)
             
-        case MCSessionState.Connecting:
+        case MCSessionState.connecting:
             print("Connecting to session: \(session)")
             
         default:
@@ -131,10 +131,10 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
                     
                     let messageDictionary: [String: String] = ["message": "_end_chat_"]
                     
-                    let dataToSend = NSKeyedArchiver.archivedDataWithRootObject(messageDictionary)
+                    let dataToSend = NSKeyedArchiver.archivedData(withRootObject: messageDictionary)
                     
-                    let dictionary: [String: AnyObject] = ["data": dataToSend, "fromPeer": peerID]
-                    NSNotificationCenter.defaultCenter().postNotificationName("receivedMPCDataNotification", object: dictionary)
+                    let dictionary: [String: AnyObject] = ["data": dataToSend as AnyObject, "fromPeer": peerID]
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "receivedMPCDataNotification"), object: dictionary)
                     
                 }
             }
@@ -143,13 +143,13 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
     }
     
     func sendData(dictionaryWithData dictionary: Dictionary<String, AnyObject>, toPeer targetPeer: MCPeerID) -> Bool {
-        let dataToSend = NSKeyedArchiver.archivedDataWithRootObject(dictionary)
+        let dataToSend = NSKeyedArchiver.archivedData(withRootObject: dictionary)
         let peersArray = NSArray(object: targetPeer)
         var error: NSError?
         
         do {
         try
-        session.sendData(dataToSend, toPeers: peersArray as! [MCPeerID], withMode: MCSessionSendDataMode.Reliable)
+        session.send(dataToSend, toPeers: peersArray as! [MCPeerID], with: MCSessionSendDataMode.reliable)
         }catch{
             return false
         }
@@ -158,13 +158,13 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
     
     
     
-    func advertiser(advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: NSData?, invitationHandler: (Bool, MCSession) -> Void) {
+    func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
         
         self.invitationHandler = invitationHandler
         
-        var fullNameArr = peerID.displayName.componentsSeparatedByString(":")
-        var numText=fullNameArr[1].stringByReplacingOccurrencesOfString("Level", withString: "")
-        numText=numText.stringByReplacingOccurrencesOfString(" ", withString: "")
+        var fullNameArr = peerID.displayName.components(separatedBy: ":")
+        var numText=fullNameArr[1].replacingOccurrences(of: "Level", with: "")
+        numText=numText.replacingOccurrences(of: " ", with: "")
         var askLevel = Int(numText)
         if(askLevel==nil){
             askLevel = 1
@@ -173,17 +173,17 @@ class PlayerServiceManager : NSObject, MCSessionDelegate, MCNearbyServiceBrowser
         delegate?.invitationWasReceived(peerID.displayName,level: askLevel!)
     }
     
-    func session(session: MCSession, didReceiveData data: NSData, fromPeer peerID: MCPeerID) {
-        let dictionary: [String: AnyObject] = ["data": data, "fromPeer": peerID]
-        NSNotificationCenter.defaultCenter().postNotificationName("receivedMPCDataNotification", object: dictionary)
+    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+        let dictionary: [String: AnyObject] = ["data": data as AnyObject, "fromPeer": peerID]
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "receivedMPCDataNotification"), object: dictionary)
     }
     
     
-    func session(session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, withProgress progress: NSProgress) { }
+    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) { }
     
-    func session(session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, atURL localURL: NSURL, withError error: NSError?) { }
+    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL, withError error: Error?) { }
     
-    func session(session: MCSession, didReceiveStream stream: NSInputStream, withName streamName: String, fromPeer peerID: MCPeerID) { }
+    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) { }
     
 
 }

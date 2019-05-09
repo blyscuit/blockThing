@@ -17,7 +17,7 @@ class Monster:SKSpriteNode {
         
         let imageTexture = SKTexture(imageNamed: imageNamed)
         
-        super.init(texture: imageTexture, color: UIColor.clearColor(), size: imageTexture.size())
+        super.init(texture: imageTexture, color: UIColor.clear, size: imageTexture.size())
         
 //        var body:SKPhysicsBody = SKPhysicsBody(circleOfRadius: (imageTexture.size().width/2) )
 //        body.dynamic = false
@@ -33,7 +33,7 @@ class Monster:SKSpriteNode {
         xCoor=inX
         yCoor=inY
         
-        position = CGPointMake(CGFloat(xCoor)*TileWidth, CGFloat(yCoor)*TileHeight)
+        position = CGPoint(x: CGFloat(xCoor)*TileWidth, y: CGFloat(yCoor)*TileHeight)
         //startMovingCircle()
         
         

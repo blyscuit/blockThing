@@ -12,32 +12,32 @@ class MoveMap: SKSpriteNode {
     let dur = 0.4
     let spring = CGFloat(10.0)
     
-    func goLeft(completion:() -> Void){
+    func goLeft(_ completion:@escaping () -> Void){
         
-        let action = SKAction.moveBy(CGVectorMake(TileWidth,0), duration: dur,delay:0,usingSpringWithDamping: spring, initialSpringVelocity: 0);
-        runAction(action){ () -> Void in
+        let action = SKAction.moveBy(CGVector(dx: TileWidth,dy: 0), duration: dur,delay:0,usingSpringWithDamping: spring, initialSpringVelocity: 0);
+        run(action, completion: { () -> Void in
             completion()
-        }
+        })
     }
-    func goRight(completion:() -> Void){
+    func goRight(_ completion:@escaping () -> Void){
         
-        let action = SKAction.moveBy(CGVectorMake(-TileWidth,0), duration: dur,delay:0,usingSpringWithDamping: spring, initialSpringVelocity: 0);
-        runAction(action){ () -> Void in
+        let action = SKAction.moveBy(CGVector(dx: -TileWidth,dy: 0), duration: dur,delay:0,usingSpringWithDamping: spring, initialSpringVelocity: 0);
+        run(action, completion: { () -> Void in
             completion()
-        }
+        })
     }
-    func goUp(completion:() -> Void) {
+    func goUp(_ completion:@escaping () -> Void) {
         
-        let action = SKAction.moveBy(CGVectorMake(0,-TileHeight), duration: dur,delay:0,usingSpringWithDamping: spring, initialSpringVelocity: 0);
-        runAction(action){ () -> Void in
+        let action = SKAction.moveBy(CGVector(dx: 0,dy: -TileHeight), duration: dur,delay:0,usingSpringWithDamping: spring, initialSpringVelocity: 0);
+        run(action, completion: { () -> Void in
             completion()
-        }
+        })
     }
-    func goDown(completion:() -> Void){
-        let action = SKAction.moveBy(CGVectorMake(0,TileHeight), duration: dur,delay:0,usingSpringWithDamping: spring, initialSpringVelocity: 0);
-        runAction(action){ () -> Void in
+    func goDown(_ completion:@escaping () -> Void){
+        let action = SKAction.moveBy(CGVector(dx: 0,dy: TileHeight), duration: dur,delay:0,usingSpringWithDamping: spring, initialSpringVelocity: 0);
+        run(action, completion: { () -> Void in
             completion()
-        }
+        })
         
     }
 }

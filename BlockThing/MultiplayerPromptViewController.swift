@@ -19,10 +19,10 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
     @IBOutlet weak var tableMulti: UITableView!
     let playerService = PlayerServiceManager()
     
-    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     @IBOutlet weak var levelLabel: UILabel!
-    @IBAction func cancelMulti(sender: AnyObject) {
+    @IBAction func cancelMulti(_ sender: AnyObject) {
         delegate?.multiCancel()
     }
     
@@ -33,14 +33,14 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
         tableMulti.delegate = self
         tableMulti.dataSource = self
         
-        if let currentLevel = NSUserDefaults.standardUserDefaults().objectForKey("multiLevel") as? Int{
+        if let currentLevel = UserDefaults.standard.object(forKey: "multiLevel") as? Int{
             levelIs = currentLevel + 1
         }else{
             levelIs = 201
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         appDelegate.mpcManager.refreshStatus()
         
         appDelegate.mpcManager.delegate = self
@@ -48,7 +48,7 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
         
         appDelegate.mpcManager.advertiser.startAdvertisingPeer()
         
-        if let currentLevel = NSUserDefaults.standardUserDefaults().objectForKey("multiLevel") as? Int{
+        if let currentLevel = UserDefaults.standard.object(forKey: "multiLevel") as? Int{
             levelIs = currentLevel + 1
         }else{
             levelIs = 201
@@ -56,24 +56,24 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
         levelLabel.text = "Level \(levelIs-200)"
     }
     
-    @IBAction func startStopAdvertising(sender: AnyObject) {
-        let actionSheet = UIAlertController(title: "", message: "Change Visibility", preferredStyle: UIAlertControllerStyle.ActionSheet)
+    @IBAction func startStopAdvertising(_ sender: AnyObject) {
+        let actionSheet = UIAlertController(title: "", message: "Change Visibility", preferredStyle: UIAlertControllerStyle.actionSheet)
         
-        var actionTitle: String = ""
+        let actionTitle: String = ""
         
-        let visibilityAction: UIAlertAction = UIAlertAction(title: actionTitle, style: UIAlertActionStyle.Default) { (alertAction) -> Void in
+        let visibilityAction: UIAlertAction = UIAlertAction(title: actionTitle, style: UIAlertActionStyle.default) { (alertAction) -> Void in
                 self.appDelegate.mpcManager.advertiser.stopAdvertisingPeer()
             
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (alertAction) -> Void in
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (alertAction) -> Void in
             
         }
         
         actionSheet.addAction(visibilityAction)
         actionSheet.addAction(cancelAction)
         
-        self.presentViewController(actionSheet, animated: true, completion: nil)
+        self.present(actionSheet, animated: true, completion: nil)
     }
     
     func foundPeer() {
@@ -85,14 +85,14 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
         tableMulti.reloadData()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return appDelegate.mpcManager.foundPeers.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("idCellPeer")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "idCellPeer")
         let fullName = appDelegate.mpcManager.foundPeers[indexPath.row].displayName
-        let fullNameArr = fullName.componentsSeparatedByString(":")
+        let fullNameArr = fullName.components(separatedBy: ":")
         
         cell!.textLabel?.text = fullNameArr[0]
         cell!.detailTextLabel?.text = fullNameArr[1]
@@ -100,29 +100,29 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
         return cell!
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60.0
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedPeer = appDelegate.mpcManager.foundPeers[indexPath.row] as MCPeerID
         
-        appDelegate.mpcManager.browser.invitePeer(selectedPeer, toSession: appDelegate.mpcManager.session, withContext: nil, timeout: 20)
+        appDelegate.mpcManager.browser.invitePeer(selectedPeer, to: appDelegate.mpcManager.session, withContext: nil, timeout: 20)
         
         player = 1
     }
     
-    func invitationWasReceived(fromPeer: String,level:Int) {
-        let alert = UIAlertController(title: "", message: "\(fromPeer) wants to play with you.", preferredStyle: UIAlertControllerStyle.Alert)
+    func invitationWasReceived(_ fromPeer: String,level:Int) {
+        let alert = UIAlertController(title: "", message: "\(fromPeer) wants to play with you.", preferredStyle: UIAlertControllerStyle.alert)
         
         print("level isssss \(level)")
-        let acceptAction: UIAlertAction = UIAlertAction(title: "Accept", style: UIAlertActionStyle.Default) { (alertAction) -> Void in
+        let acceptAction: UIAlertAction = UIAlertAction(title: "Accept", style: UIAlertActionStyle.default) { (alertAction) -> Void in
             player = 2
             levelIs = 200+level
             self.appDelegate.mpcManager.invitationHandler(true, self.appDelegate.mpcManager.session)
         }
         
-        let declineAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (alertAction) -> Void in
+        let declineAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (alertAction) -> Void in
             self.tableMulti.reloadData()
             self.appDelegate.mpcManager.invitationHandler(false, self.appDelegate.mpcManager.session)
         }
@@ -130,19 +130,19 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
         alert.addAction(acceptAction)
         alert.addAction(declineAction)
         
-        NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
-            self.presentViewController(alert, animated: true, completion: nil)
+        OperationQueue.main.addOperation { () -> Void in
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
-    func connectedWithPeer(peerID: MCPeerID) {
-        NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
+    func connectedWithPeer(_ peerID: MCPeerID) {
+        OperationQueue.main.addOperation { () -> Void in
             multi = true
-            self.performSegueWithIdentifier("game2", sender: self)
+            self.performSegue(withIdentifier: "game2", sender: self)
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "game2"){
         }
     }
@@ -158,7 +158,7 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
 //        ac.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
 //        presentViewController(ac, animated: true, completion: nil)
 //    }
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
 //    @IBAction func multiPress(sender: AnyObject) {

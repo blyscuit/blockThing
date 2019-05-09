@@ -14,18 +14,18 @@ var NumRows = 40
 
 class Map {
     
-    private var tiles = Array2D<Tile>(columns:NumColumns, rows: NumRows)
+    fileprivate var tiles = Array2D<Tile>(columns:NumColumns, rows: NumRows)
     var texts = [Text]()
     var darknessLevel = 1;
 
     
-    func tileAtColumn(column: Int, row: Int) -> Tile? {
+    func tileAtColumn(_ column: Int, row: Int) -> Tile? {
 //        assert(column >= 0 && column <= NumColumns)
 //        assert(row >= 0 && row <= NumRows)
         return tiles[column, row]
     }
     
-    func canMoveToTile(column: Int, row: Int) -> Bool {
+    func canMoveToTile(_ column: Int, row: Int) -> Bool {
         print(tileAtColumn(column, row: row)?.description)
         if(tileAtColumn(column, row: row)?.walk == false){
             return false
@@ -60,30 +60,30 @@ class Map {
             if let tilesArray: AnyObject = dictionary["tiles"] {
                 
                 NumRows = tilesArray.count
-                NumColumns = tilesArray[0].count
+                NumColumns = (tilesArray[0] as AnyObject).count
                 
                 tiles = Array2D<Tile>(columns:NumColumns, rows: NumRows)
                 
                 // Loop through the rows...
-                for (row, rowArray) in (tilesArray as! [[Float]]).enumerate() {
+                for (row, rowArray) in (tilesArray as! [[Float]]).enumerated() {
                     
                     // Note: In Sprite Kit (0,0) is at the bottom of the screen,
                     // so we need to read this file upside down.
                     let tileRow = NumRows - row - 1
                     
                     // Loop through the columns in the current row...
-                    for (column, rawValueIn) in rowArray.enumerate() {
+                    for (column, rawValueIn) in rowArray.enumerated() {
                         
-                        let afterValue = Int((rawValueIn * 10000)%10000)
+                        let afterValue = Int((rawValueIn * 10000).truncatingRemainder(dividingBy: 10000))
                         let value = Int(rawValueIn)
                         // If the value is 1, create a tile object.
-                        if value == TileType.Door.rawValue {
+                        if value == TileType.door.rawValue {
                             tiles[column, tileRow] = Door(column: column, row: tileRow, inTag:afterValue)
-                        }else if value == TileType.Wall.rawValue {
+                        }else if value == TileType.wall.rawValue {
                             tiles[column, tileRow] = Wall(column: column, row: tileRow)
-                        }else if value == TileType.Button.rawValue{
+                        }else if value == TileType.button.rawValue{
                             tiles[column,tileRow] = Switch(column: column, row: tileRow, inTag: afterValue)
-                        }else if value == TileType.Lava.rawValue{
+                        }else if value == TileType.lava.rawValue{
                             tiles[column,tileRow] = Lava(column: column, row: tileRow)
                         }else{
                             tiles[column, tileRow] = Tile(column: column, row: tileRow, tileType: value, inTag:afterValue)

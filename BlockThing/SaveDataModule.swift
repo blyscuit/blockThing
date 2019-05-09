@@ -7,6 +7,19 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 class SaveDataModule:NSObject {
     var saveDictionary = [String: AnyObject]()
@@ -16,7 +29,7 @@ class SaveDataModule:NSObject {
         self.loadDataDictionary()
     }
     
-    func saveDataForStage(stage:Int,time:NSTimeInterval,move:Int){
+    func saveDataForStage(_ stage:Int,time:TimeInterval,move:Int){
         if let stageDic = saveDictionary["Stage\(stage)"]{
             var stageDictionary = stageDic as! Dictionary<String,Double>
             if(Double(move)<stageDictionary["move"]){
@@ -25,25 +38,25 @@ class SaveDataModule:NSObject {
             if(time<stageDictionary["time"]){
                 stageDictionary["time"]=time
             }
-            saveDictionary["Stage\(stage)"] = stageDictionary
+            saveDictionary["Stage\(stage)"] = stageDictionary as AnyObject
         }
         else{
             var newSave = Dictionary<String,Double>()
             newSave["move"]=Double(move)
             newSave["time"]=time
-            saveDictionary["Stage\(stage)"] = newSave
+            saveDictionary["Stage\(stage)"] = newSave as AnyObject
         }
-        NSUserDefaults.standardUserDefaults().setObject(saveDictionary, forKey: "StageSave")
+        UserDefaults.standard.set(saveDictionary, forKey: "StageSave")
     }
     
     func loadDataDictionary(){
-        if let saveDic:Dictionary = (NSUserDefaults.standardUserDefaults().dictionaryForKey("StageSave")){
+        if let saveDic:Dictionary = (UserDefaults.standard.dictionary(forKey: "StageSave")){
 //        if(saveDic.count>0){
-            saveDictionary = saveDic
+            saveDictionary = saveDic as [String : AnyObject]
         }
     }
     
-    func loadLevel(stage:Int)->[String:Double]{
+    func loadLevel(_ stage:Int)->[String:Double]{
         loadDataDictionary()
         if let stageDic = saveDictionary["Stage\(stage)"]{
             return stageDic as! [String : Double]

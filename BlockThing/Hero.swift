@@ -18,10 +18,10 @@ class Hero: SKSpriteNode {
     
     init(xd: Int, yd: Int) {
         let square = SKTexture(imageNamed: "Hero")
-        super.init(texture: square, color: UIColor.blackColor(), size:square.size())
+        super.init(texture: square, color: UIColor.black, size:square.size())
         
-        var body:SKPhysicsBody = SKPhysicsBody(rectangleOfSize:square.size() )
-        body.dynamic = false
+        let body:SKPhysicsBody = SKPhysicsBody(rectangleOf:square.size() )
+        body.isDynamic = false
         body.affectedByGravity = false
         body.allowsRotation = false
         body.categoryBitMask = BodyType.hero.rawValue
@@ -33,10 +33,10 @@ class Hero: SKSpriteNode {
         xCoor=xd
         yCoor=yd
         
-        var path = NSBundle.mainBundle().pathForResource("DeathParticle", ofType: "sks")
-        var flickParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
+        let path = Bundle.main.path(forResource: "DeathParticle", ofType: "sks")
+        let flickParticle = NSKeyedUnarchiver.unarchiveObject(withFile: path!) as! SKEmitterNode
         
-        flickParticle.position = CGPointMake(0,0)
+        flickParticle.position = CGPoint(x: 0,y: 0)
         flickParticle.name = "death"
         flickParticle.targetNode = self
         addChild(flickParticle)
@@ -48,24 +48,24 @@ class Hero: SKSpriteNode {
     }
     
     func goLeft(){
-        xCoor--;
+        xCoor -= 1;
     }
     func goRight(){
         
-        xCoor++;
+        xCoor += 1;
     }
     func goUp(){
         
-        yCoor++;
+        yCoor += 1;
     }
     func goDown(){
         
-        yCoor--;
+        yCoor -= 1;
         
     }
     
     func dieAnimation(){
-        runAction(SKAction.scaleTo(0.1, duration: 0.41, delay: 0.0, usingSpringWithDamping: 2.0, initialSpringVelocity: 0))
+        run(SKAction.scaleTo(0.1, duration: 0.41, delay: 0.0, usingSpringWithDamping: 2.0, initialSpringVelocity: 0))
     }
     
     func remove(){

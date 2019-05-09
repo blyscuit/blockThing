@@ -18,7 +18,7 @@ class GameViewController: UIViewController,GameplayControllerDelegate {
 
         var level: Map!
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleMPCReceivedDataWithNotification:", name: "receivedMPCDataNotification", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.handleMPCReceivedDataWithNotification(_:)), name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: nil)
         
         if let scene = GameScene(fileNamed:"GameScene") {
             // Configure the view.
@@ -30,7 +30,7 @@ class GameViewController: UIViewController,GameplayControllerDelegate {
             skView.ignoresSiblingOrder = true
             
             /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
+            scene.scaleMode = .aspectFill
             scene.delegateGame = self
             
             skView.presentScene(scene)
@@ -39,15 +39,15 @@ class GameViewController: UIViewController,GameplayControllerDelegate {
         
     }
 
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return true
     }
 
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            return .AllButUpsideDown
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return .allButUpsideDown
         } else {
-            return .All
+            return .all
         }
     }
 
@@ -56,20 +56,20 @@ class GameViewController: UIViewController,GameplayControllerDelegate {
         // Release any cached data, images, etc that aren't in use.
     }
 
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
-    func handleMPCReceivedDataWithNotification(notification: NSNotification) {
+    func handleMPCReceivedDataWithNotification(_ notification: Notification) {
         // Get the dictionary containing the data and the source peer from the notification.
         let receivedDataDictionary = notification.object as! Dictionary<String, AnyObject>
         
         // "Extract" the data and the source peer from the received dictionary.
-        let data = receivedDataDictionary["data"] as? NSData
+        let data = receivedDataDictionary["data"] as? Data
         let fromPeer = receivedDataDictionary["fromPeer"] as! MCPeerID
         
         // Convert the data (NSData) into a Dictionary object.
-        let dataDictionary = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! Dictionary<String, AnyObject>
+        let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data!) as! Dictionary<String, AnyObject>
         
         // Check if there's an entry with the "message" key.
         if let message = dataDictionary["message"] {
@@ -78,16 +78,16 @@ class GameViewController: UIViewController,GameplayControllerDelegate {
             if messageS == "_end_chat_"{
                 // In this case an "_end_chat_" message was received.
                 // Show an alert view to the user.
-                let alert = UIAlertController(title: "", message: "\(fromPeer.displayName) ended this chat.", preferredStyle: UIAlertControllerStyle.Alert)
+                let alert = UIAlertController(title: "", message: "\(fromPeer.displayName) ended this chat.", preferredStyle: UIAlertControllerStyle.alert)
                 
-                let doneAction: UIAlertAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) { (alertAction) -> Void in
-                    (UIApplication.sharedApplication().delegate as! AppDelegate).mpcManager.session.disconnect()
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                let doneAction: UIAlertAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default) { (alertAction) -> Void in
+                    (UIApplication.shared.delegate as! AppDelegate).mpcManager.session.disconnect()
+                    self.dismiss(animated: true, completion: nil)
                 }
                 
                 alert.addAction(doneAction)
                 
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                OperationQueue.main.addOperation({ () -> Void in
                     //                    self.presentViewController(alert, animated: true, completion: nil)
                 })
             }
@@ -97,7 +97,7 @@ class GameViewController: UIViewController,GameplayControllerDelegate {
         }
     }
     func gameDidLostConnection(){
-        self.dismissViewControllerAnimated(true) { () -> Void in
+        self.dismiss(animated: true) { () -> Void in
             
             let skView = self.view as! SKView
             skView.presentScene(nil)
@@ -116,7 +116,7 @@ class GameViewController: UIViewController,GameplayControllerDelegate {
         }
     }
     func gameDidQuit() {
-        self.dismissViewControllerAnimated(true) { () -> Void in
+        self.dismiss(animated: true) { () -> Void in
             
             let skView = self.view as! SKView
             skView.presentScene(nil)

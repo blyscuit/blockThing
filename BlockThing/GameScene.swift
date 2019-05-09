@@ -8,6 +8,41 @@
 
 import SpriteKit
 import MultipeerConnectivity
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 //import UIKit
 
 enum Direction:String{
@@ -54,7 +89,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     var messagesArray: [Dictionary<String, String>] = []
     
-    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     var hero: Hero!
     var justMove = false
@@ -70,8 +105,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     var pauseText = SKLabelNode(fontNamed: "Timeless-Normal")
     
     // time values
-    var delta:NSTimeInterval = NSTimeInterval(0)
-    var last_update_time:NSTimeInterval = NSTimeInterval(0)
+    var delta:TimeInterval = TimeInterval(0)
+    var last_update_time:TimeInterval = TimeInterval(0)
     
     var numberMoved = 0;
     
@@ -82,13 +117,13 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //    var isMoving = false
     
     
-    override func didMoveToView(view: SKView) {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleMPCReceivedDataWithNotification:", name: "receivedMPCDataNotification", object: nil)
+    override func didMove(to view: SKView) {
+        NotificationCenter.default.addObserver(self, selector: #selector(GameScene.handleMPCReceivedDataWithNotification(_:)), name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: nil)
 
         //let someText = Text(text: "THIS IS TOO HARD!")
         //self.addChild(someText)
         physicsWorld.contactDelegate = self
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear
         
         
         startGame()
@@ -104,13 +139,13 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         //let someText = Text(Color: UIColor.blackColor(), Size: 20, inX: 300, inY: 300,text: "GG")
         //self.addChild(someText)
         
-        var cover:SKSpriteNode = SKSpriteNode(color: UIColor.blackColor(), size: self.size)
+        let cover:SKSpriteNode = SKSpriteNode(color: UIColor.black, size: self.size)
         cover.zPosition = 5
         addChild(cover)
-        cover.anchorPoint = CGPointMake(0.0, 0.0)
-        cover.runAction(SKAction.fadeAlphaTo(0.0, duration: 0.32)) { () -> Void in
+        cover.anchorPoint = CGPoint(x: 0.0, y: 0.0)
+        cover.run(SKAction.fadeAlpha(to: 0.0, duration: 0.32), completion: { () -> Void in
             cover.removeFromParent()
-        }
+        }) 
         
         /* Setup your scene here */
         let levelIn = "Level_\(levelIs)"
@@ -122,51 +157,51 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     func createEffect(){
         if(levelIs==0){
-            backgroundColor = UIColor.whiteColor()
+            backgroundColor = UIColor.white
             return;
         }
         addChild(gearNode)
         var bg:SKSpriteNode = SKSpriteNode(color: UIColor(white: 1.0, alpha: 0.35), size: self.size)
         bg.zPosition = -5
-        bg.anchorPoint = CGPointMake(0.0, 0.0)
+        bg.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         var bgUnder:SKSpriteNode = SKSpriteNode(color: UIColor(white: 177.0/255.0, alpha: 1.0), size: self.size)
         bgUnder.zPosition = -7
-        bgUnder.anchorPoint = CGPointMake(0.0, 0.0)
+        bgUnder.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         addChild(bgUnder)
         addChild(bg)
-        for(var i=0;i<Randoms.randomInt(1, 5);i++){
-        var cover:SKSpriteNode = SKSpriteNode(texture: SKTexture(imageNamed: "gear"), color: UIColor.clearColor(), size: CGSizeMake(self.size.width, self.size.width))
+        for(var i=0;i<Randoms.randomInt(1, 5);i += 1){
+        var cover:SKSpriteNode = SKSpriteNode(texture: SKTexture(imageNamed: "gear"), color: UIColor.clear, size: CGSize(width: self.size.width, height: self.size.width))
         cover.zPosition = -6
             cover.alpha=0
-        let startPosition = CGPointMake(
-            Randoms.randomCGFloat(0, self.size.width),
-            Randoms.randomCGFloat(0, self.size.height))
-        cover.runAction(SKAction.scaleTo(
-            Randoms.randomCGFloat(0.1, 0.5), duration: 0.0))
-            cover.runAction(SKAction.sequence([SKAction.waitForDuration(Randoms.randomDouble(1.0, 5.0)), SKAction.fadeAlphaTo(1.0, duration: Randoms.randomDouble(3.0, 6.0))]))
+        let startPosition = CGPoint(
+            x: Randoms.randomCGFloat(0, self.size.width),
+            y: Randoms.randomCGFloat(0, self.size.height))
+        cover.run(SKAction.scale(
+            to: Randoms.randomCGFloat(0.1, 0.5), duration: 0.0))
+            cover.run(SKAction.sequence([SKAction.wait(forDuration: Randoms.randomDouble(1.0, 5.0)), SKAction.fadeAlpha(to: 1.0, duration: Randoms.randomDouble(3.0, 6.0))]))
         cover.position = startPosition
-        let endPosition = CGPointMake(
-            Randoms.randomCGFloat(0, self.size.width),
-            Randoms.randomCGFloat(0, self.size.height))
+        let endPosition = CGPoint(
+            x: Randoms.randomCGFloat(0, self.size.width),
+            y: Randoms.randomCGFloat(0, self.size.height))
         let duration = Randoms.randomDouble(30.0, 50.0)
-            cover.runAction(SKAction.colorizeWithColor(UIColor.blackColor(), colorBlendFactor: Randoms.randomCGFloat(0.75, 1.0), duration: 0.0))
-            let moveIn = SKAction.moveTo(endPosition, duration: duration)
-            moveIn.timingMode = SKActionTimingMode.EaseInEaseOut
-            let moveOut = SKAction.moveTo(startPosition, duration: duration)
-            moveOut.timingMode = SKActionTimingMode.EaseInEaseOut
-        cover.runAction(SKAction.repeatActionForever(SKAction.sequence([moveIn,moveOut])))
+            cover.run(SKAction.colorize(with: UIColor.black, colorBlendFactor: Randoms.randomCGFloat(0.75, 1.0), duration: 0.0))
+            let moveIn = SKAction.move(to: endPosition, duration: duration)
+            moveIn.timingMode = SKActionTimingMode.easeInEaseOut
+            let moveOut = SKAction.move(to: startPosition, duration: duration)
+            moveOut.timingMode = SKActionTimingMode.easeInEaseOut
+        cover.run(SKAction.repeatForever(SKAction.sequence([moveIn,moveOut])))
         gearNode.addChild(cover)
         }
     }
     
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         
         
         
        /* Called when a touch begins */
-        fingerPosition = touches.first?.locationInNode(self)
+        fingerPosition = touches.first?.location(in: self)
 //        if (isMoving==true){
 //            return
 //        }
@@ -234,12 +269,12 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //        }
 //    }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if(paused){
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if(isPaused){
             for touch in touches {
                 
-                let location = touch.locationInNode(self)
-                if (touch.tapCount > 2 && event?.allTouches()!.count>=3 && multi==false){
+                let location = touch.location(in: self)
+                if (touch.tapCount > 2 && event?.allTouches!.count>=3 && multi==false){
                     isOver = true
                     self.myMap!.remove()
                     self.hero.remove()
@@ -261,11 +296,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 }
             }
         }else{
-        print(event?.allTouches()!.count)
+        print(event?.allTouches!.count)
         for touch in touches {
             
-            let location = touch.locationInNode(self)
-            if (touch.tapCount > 1 && event?.allTouches()!.count>=2){
+            let location = touch.location(in: self)
+            if (touch.tapCount > 1 && event?.allTouches!.count>=2){
                 //                if paused{
                 pause()
                 //                }
@@ -284,7 +319,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         if(myMap!.canMoveToTile(hero.xCoor, row: hero.yCoor+1)){
             centerMap(){
                 //                isMoving = true
-                self.gearNode.runAction(SKAction.moveBy(CGVectorMake(0,-TileHeight/self.gearDivider), duration: self.gearDur,delay:0,usingSpringWithDamping: self.gearSpring, initialSpringVelocity: 0))
+                self.gearNode.run(SKAction.moveBy(CGVector(dx: 0,dy: -TileHeight/self.gearDivider), duration: self.gearDur,delay:0,usingSpringWithDamping: self.gearSpring, initialSpringVelocity: 0))
                 
                 self.hero.goUp()
                 self.tilesLayer.goUp(){
@@ -301,7 +336,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             centerMap(){
                 //                isMoving = true
                 
-                self.gearNode.runAction(SKAction.moveBy(CGVectorMake(0,TileHeight/self.gearDivider), duration: self.gearDur,delay:0,usingSpringWithDamping: self.gearSpring, initialSpringVelocity: 0))
+                self.gearNode.run(SKAction.moveBy(CGVector(dx: 0,dy: TileHeight/self.gearDivider), duration: self.gearDur,delay:0,usingSpringWithDamping: self.gearSpring, initialSpringVelocity: 0))
                 
                 self.hero.goDown()
                 self.tilesLayer.goDown(){
@@ -318,7 +353,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             centerMap(){
                 //                isMoving = true
                 
-                self.gearNode.runAction(SKAction.moveBy(CGVectorMake(TileHeight/self.gearDivider,0), duration: self.gearDur,delay:0,usingSpringWithDamping: self.gearSpring, initialSpringVelocity: 0))
+                self.gearNode.run(SKAction.moveBy(CGVector(dx: TileHeight/self.gearDivider,dy: 0), duration: self.gearDur,delay:0,usingSpringWithDamping: self.gearSpring, initialSpringVelocity: 0))
                 
                 self.hero.goLeft()
                 self.tilesLayer.goLeft(){
@@ -334,7 +369,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         if(myMap!.canMoveToTile(hero.xCoor+1, row: hero.yCoor)){
             self.centerMap(){
                 //                isMoving = true
-                self.gearNode.runAction(SKAction.moveBy(CGVectorMake(-TileHeight/self.gearDivider,0), duration: self.gearDur,delay:0,usingSpringWithDamping: self.gearSpring, initialSpringVelocity: 0))
+                self.gearNode.run(SKAction.moveBy(CGVector(dx: -TileHeight/self.gearDivider,dy: 0), duration: self.gearDur,delay:0,usingSpringWithDamping: self.gearSpring, initialSpringVelocity: 0))
                 
                 self.hero.goRight()
                 self.tilesLayer.goRight(){
@@ -346,34 +381,34 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             }
         }
     }
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if(justMove||isOver||friendIsFinish>=2){return;}
         
-        let distanceX = abs((touches.first?.locationInNode(self).x)! - (fingerPosition?.x)!)
-        let distanceY = abs((touches.first?.locationInNode(self).y)! - (fingerPosition?.y)!)
+        let distanceX = abs((touches.first?.location(in: self).x)! - (fingerPosition?.x)!)
+        let distanceY = abs((touches.first?.location(in: self).y)! - (fingerPosition?.y)!)
         
-        if(touches.first?.locationInNode(self).x > (fingerPosition?.x)!+moveDistance && distanceX > distanceY){
+        if(touches.first?.location(in: self).x > (fingerPosition?.x)!+moveDistance && distanceX > distanceY){
             if(myMap!.canMoveToTile(hero.xCoor+1, row: hero.yCoor)){
                 moveRight()
 //                sendOnlineData(Direction.East)
 //                sendPositionData()
             }
             justMove = true;
-        }else if(touches.first?.locationInNode(self).x < (fingerPosition?.x)!-moveDistance && distanceX > distanceY){
+        }else if(touches.first?.location(in: self).x < (fingerPosition?.x)!-moveDistance && distanceX > distanceY){
             if(myMap!.canMoveToTile(hero.xCoor-1, row: hero.yCoor)){
                 moveLeft()
 //                sendOnlineData(Direction.West)
 //                sendPositionData()
             }
             justMove = true;
-        }else if(touches.first?.locationInNode(self).y > (fingerPosition?.y)!+moveDistance && distanceX < distanceY){
+        }else if(touches.first?.location(in: self).y > (fingerPosition?.y)!+moveDistance && distanceX < distanceY){
             if(myMap!.canMoveToTile(hero.xCoor, row: hero.yCoor+1)){
                 moveUp()
 //                sendOnlineData(Direction.North)
 //                sendPositionData()
             }
             justMove = true;
-        }else if(touches.first?.locationInNode(self).y < (fingerPosition?.y)!-moveDistance && distanceX < distanceY){
+        }else if(touches.first?.location(in: self).y < (fingerPosition?.y)!-moveDistance && distanceX < distanceY){
             if(myMap!.canMoveToTile(hero.xCoor, row: hero.yCoor-1)){
                 moveDown()
                 //                sendOnlineData(Direction.North)
@@ -390,7 +425,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         print(messageDictionary)
         
         if(appDelegate.mpcManager.session.connectedPeers.count>0){
-            if appDelegate.mpcManager.sendData(dictionaryWithData: messageDictionary, toPeer: appDelegate.mpcManager.session.connectedPeers[0] as MCPeerID){
+            if appDelegate.mpcManager.sendData(dictionaryWithData: messageDictionary as Dictionary<String, AnyObject>, toPeer: appDelegate.mpcManager.session.connectedPeers[0] as MCPeerID){
                 
 //                var dictionary: [String: AnyObject] = ["sender": "self", "message": [hero.x,hero.y]]
 //                messagesArray.append(dictionary)
@@ -401,11 +436,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             }
         }
     }
-    func sendOnlineData(direct:Direction){
+    func sendOnlineData(_ direct:Direction){
         let messageDictionary: [String: String] = ["message": direct.rawValue]
         
         if(appDelegate.mpcManager.session.connectedPeers.count>0){
-        if appDelegate.mpcManager.sendData(dictionaryWithData: messageDictionary, toPeer: appDelegate.mpcManager.session.connectedPeers[0] as MCPeerID){
+        if appDelegate.mpcManager.sendData(dictionaryWithData: messageDictionary as Dictionary<String, AnyObject>, toPeer: appDelegate.mpcManager.session.connectedPeers[0] as MCPeerID){
             
             var dictionary: [String: String] = ["sender": "self", "message": direct.rawValue]
 //            messagesArray.append(dictionary)
@@ -417,7 +452,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
     }
     
-    func checkTile(inX:Int,inY:Int,second:Bool){
+    func checkTile(_ inX:Int,inY:Int,second:Bool){
         if(levelIs==0){
             cancelMenuGoto()
         }
@@ -429,15 +464,15 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             return
         }
         
-        numberMoved++;
+        numberMoved += 1;
         
         if let tile = myMap!.tileAtColumn(inX, row: inY) {
-            if(tile.tileType == TileType.Lava){
+            if(tile.tileType == TileType.lava){
                 print("Fall in lava")
                 gameOver()
-            }else if(tile.tileType == TileType.Exit){
+            }else if(tile.tileType == TileType.exit){
                 if multi{
-                    friendIsFinish++;
+                    friendIsFinish += 1;
                     if friendIsFinish==2{
                         clearLevel()
 //                        if friendIsFinish{
@@ -456,17 +491,17 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //                        }
                     }
                     
-                    var cover:SKSpriteNode = SKSpriteNode(color: UIColor.whiteColor(), size: self.size)
-                    cover.anchorPoint = CGPointMake(0.0, 0.0)
+                    var cover:SKSpriteNode = SKSpriteNode(color: UIColor.white, size: self.size)
+                    cover.anchorPoint = CGPoint(x: 0.0, y: 0.0)
                     cover.alpha = 0.0
                     cover.zPosition = 5
                     addChild(cover)
-                    cover.runAction(SKAction.fadeAlphaTo(0.70, duration: 0.4)){ () -> Void in
+                    cover.run(SKAction.fadeAlpha(to: 0.70, duration: 0.4), completion: { () -> Void in
                         cover.removeAllChildren()
                         cover.removeFromParent()
-                    }
+                    })
                     if (second == true && secondHero != nil){
-                        secondHero.runAction(SKAction.scaleTo(0.1, duration: 0.41, delay: 0.0, usingSpringWithDamping: 2.0, initialSpringVelocity: 0))
+                        secondHero.run(SKAction.scaleTo(0.1, duration: 0.41, delay: 0.0, usingSpringWithDamping: 2.0, initialSpringVelocity: 0))
                     }else{
                         hero.dieAnimation()
                         isOver=true
@@ -475,26 +510,26 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     clearLevel()
                 }
 //                clearLevel()
-            }else if(tile.tileType == TileType.Button){
+            }else if(tile.tileType == TileType.button){
                 (tile as? Switch)?.flip()
                 if((tile as? Switch)?.tag != 0){
                     for row in 0..<NumRows {
                         for column in 0..<NumColumns {
                             if let tiles = myMap!.tileAtColumn(column, row: row) as? Door {
-                                if(tiles.tileType == TileType.Door && tiles.tag == (tile as? Switch)?.tag){
+                                if(tiles.tileType == TileType.door && tiles.tag == (tile as? Switch)?.tag){
                                     tiles.flip(((tile as? Switch)?.close)!)
                                 }
                             }
                         }
                     }
                 }
-            }else if(tile.tileType == TileType.DarknessTile){
+            }else if(tile.tileType == TileType.darknessTile){
                 if((tile).tag != 0){
                     darknessExpantTo(Double(tile.tag)/100)
                 }
-            }else if(tile.tileType == TileType.TwoPlay){
+            }else if(tile.tileType == TileType.twoPlay){
                 gotoTwoPlay()
-            }else if(tile.tileType == TileType.OnePlay){
+            }else if(tile.tileType == TileType.onePlay){
                 gotoOnePlay()
             }
         }
@@ -504,61 +539,61 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         if(levelIs==0){return;}
         pauseText.text = "Paused!"
         pauseText.fontSize = 50
-        pauseText.fontColor = UIColor.grayColor()
-        pauseText.position = CGPointMake(self.frame.width/2, self.frame.height/2)
-        if paused == false {
+        pauseText.fontColor = UIColor.gray
+        pauseText.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
+        if isPaused == false {
             self.addChild(pauseText)
-        } else if paused == true {
+        } else if isPaused == true {
             pauseText.removeFromParent()
         }
-        isOver = !paused
-        paused = !paused
+        isOver = !isPaused
+        isPaused = !isPaused
     }
 
     func gotoTwoPlay(){
-        var cover:SKSpriteNode = SKSpriteNode(color: UIColor.whiteColor(), size: self.size)
-        cover.anchorPoint = CGPointMake(0.0, 0.0)
+        let cover:SKSpriteNode = SKSpriteNode(color: UIColor.white, size: self.size)
+        cover.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         cover.alpha = 0.0
         cover.zPosition = 5
         cover.name = "coverNode"
         addChild(cover)
         
         
-        cover.runAction(SKAction.fadeAlphaTo(0.70, duration: 0.94)) { () -> Void in
+        cover.run(SKAction.fadeAlpha(to: 0.70, duration: 0.94), completion: { () -> Void in
             self.hero.dieAnimation()
-            self.runAction(SKAction.waitForDuration(0.1), completion: { () -> Void in
+            self.run(SKAction.wait(forDuration: 0.1), completion: { () -> Void in
                 self.delegatePlayer?.playerControllerDidTwoPlay()
             })
-        }
+        }) 
     }
     
     func gotoOnePlay(){
-        var cover:SKSpriteNode = SKSpriteNode(color: UIColor.whiteColor(), size: self.size)
-        cover.anchorPoint = CGPointMake(0.0, 0.0)
+        let cover:SKSpriteNode = SKSpriteNode(color: UIColor.white, size: self.size)
+        cover.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         cover.alpha = 0.0
         cover.zPosition = 5
         cover.name = "coverNode"
         addChild(cover)
         
         
-        cover.runAction(SKAction.fadeAlphaTo(0.70, duration: 0.94)) { () -> Void in
+        cover.run(SKAction.fadeAlpha(to: 0.70, duration: 0.94), completion: { () -> Void in
             self.hero.dieAnimation()
-            self.runAction(SKAction.waitForDuration(0.1), completion: { () -> Void in
+            self.run(SKAction.wait(forDuration: 0.1), completion: { () -> Void in
                 self.delegatePlayer?.playerControllerDidOnePlay()
             })
-        }
+        }) 
     }
     
     func cancelMenuGoto(){
-        if let cover = childNodeWithName("coverNode"){
+        if let cover = childNode(withName: "coverNode"){
             cover.removeAllActions();
-            cover.runAction(SKAction.fadeAlphaTo(0.00, duration: 0.3)) { () -> Void in
+            cover.run(SKAction.fadeAlpha(to: 0.00, duration: 0.3), completion: { () -> Void in
                 cover.removeFromParent()
-            }
+            }) 
         }
     }
     
-    override func update(currentTime: CFTimeInterval) {
+    override func update(_ currentTime: TimeInterval) {
         /* Called before each frame is rendered */
         
         if self.last_update_time == 0.0 {
@@ -579,36 +614,36 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         for row in 0..<NumRows {
             for column in 0..<NumColumns {
                 if let tile = myMap!.tileAtColumn(column, row: row) {
-                    if(tile.tileType == TileType.Birth){
+                    if(tile.tileType == TileType.birth){
                         if(player == 1){
                             centerTile = tile
                         }else if(player == 2){
                             centerSecond = tile
                         }
-                    }else if(tile.tileType == TileType.Second){// && multi == true){
+                    }else if(tile.tileType == TileType.second){// && multi == true){
                         multi = true
                         if(player == 2){
                             centerTile = tile
                         }else if(player == 1){
                             centerSecond = tile
                         }
-                    }else if(tile.tileType == TileType.Monster){
+                    }else if(tile.tileType == TileType.monster){
                         let triangleMonster = TriangleMonster(imageNamed: "triangle", inX: tile.column, inY: tile.row)
                         triangleMonster.zPosition = 2;
                         triangleMonster.position = pointForColumn(triangleMonster.xCoor, row: triangleMonster.yCoor)
                         triangleMonster.rainParticle?.targetNode = (tilesLayer)
                         tilesLayer.addChild(triangleMonster)
-                    }else if(tile.tileType == TileType.CircleMon){
+                    }else if(tile.tileType == TileType.circleMon){
                         let circleMonster = CircleMonster(imageNamed: "mon", inX: tile.column, inY: tile.row, horizontal: tile.tag, inv: true)
                         circleMonster.zPosition = 2;
                         circleMonster.position = pointForColumn(circleMonster.xCoor, row: circleMonster.yCoor)
                         circleMonster.rainParticle?.targetNode = (tilesLayer)
                         tilesLayer.addChild(circleMonster)
-                    }else if(tile.tileType == TileType.Button){
+                    }else if(tile.tileType == TileType.button){
                         for row in 0..<NumRows {
                             for column in 0..<NumColumns {
                                 if let tileIn = myMap!.tileAtColumn(column, row: row) {
-                                    if(tileIn.tileType == TileType.Door && (tileIn as? Door)?.tag == (tile as? Switch)!.tag){
+                                    if(tileIn.tileType == TileType.door && (tileIn as? Door)?.tag == (tile as? Switch)!.tag){
                                         (tileIn as? Door)?.life += 1
                                     }
                                 }
@@ -633,7 +668,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         if(multi && centerSecond != nil){
             let square = SKTexture(imageNamed: "player2")
             secondHero = SKSpriteNode(texture: square)
-            secondHero.anchorPoint = CGPointMake(0.5, 0.5)
+            secondHero.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             secondHero.position = centerSecond.position // pointForColumn(column, row: row)
             secondHero.zPosition = -1
             tilesLayer.addChild(secondHero)
@@ -642,7 +677,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         spawnPlayer(centerTile.column, inY: centerTile.row)
 //        tilesLayer.size = CGSizeMake(TileWidth*CGFloat(NumColumns), TileHeight*CGFloat(NumRows))
 //        tilesLayer.anchorPoint = CGPointMake(CGFloat(centerTile.column/NumColumns), CGFloat(centerTile.row/NumRows))
-        let realPosition = CGPointMake(self.size.width/2 - (pointForColumn(centerTile.column, row: centerTile.row)).x, self.size.height/2 - (pointForColumn(centerTile.column, row: centerTile.row)).y)
+        let realPosition = CGPoint(x: self.size.width/2 - (pointForColumn(centerTile.column, row: centerTile.row)).x, y: self.size.height/2 - (pointForColumn(centerTile.column, row: centerTile.row)).y)
         tilesLayer.position = realPosition
     }
     
@@ -654,17 +689,17 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
     }
     
-    func centerMap(complete:()-> Void){
-        let realPosition = CGPointMake(self.size.width/2 - (pointForColumn(hero.xCoor, row: hero.yCoor)).x, self.size.height/2 - (pointForColumn(hero.xCoor, row: hero.yCoor)).y)
-        tilesLayer.runAction(SKAction.moveTo(realPosition, duration: 0.0000)){
+    func centerMap(_ complete:@escaping ()-> Void){
+        let realPosition = CGPoint(x: self.size.width/2 - (pointForColumn(hero.xCoor, row: hero.yCoor)).x, y: self.size.height/2 - (pointForColumn(hero.xCoor, row: hero.yCoor)).y)
+        tilesLayer.run(SKAction.move(to: realPosition, duration: 0.0000), completion: {
             complete()
-        }
+        })
     }
     
-    func spawnPlayer(inX : Int, inY: Int){
+    func spawnPlayer(_ inX : Int, inY: Int){
         hero = Hero(xd: inX, yd: inY)
-        hero.anchorPoint = CGPointMake(0.5, 0.5)
-        hero.position = CGPointMake(self.size.width/2, self.size.height/2)
+        hero.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        hero.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
         self.addChild(hero)
         
         
@@ -674,21 +709,21 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             darkness.zPosition = 10
             let darknessSize = myMap!.darknessLevel;
             darknessExpantTo(Double(darknessSize))
-            darkness.size = CGSizeMake(darkness.size.width *  CGFloat(11.5), darkness.size.height *  CGFloat(11.5))
+            darkness.size = CGSize(width: darkness.size.width *  CGFloat(11.5), height: darkness.size.height *  CGFloat(11.5))
             addChild(darkness)
         }
         
     }
     
-    func darknessExpantTo(darknessSize:Double){
-        darkness.runAction(SKAction.scaleTo(CGFloat(Double(12.0-darknessSize)/11.0), duration: 2.1, delay: 0.0, usingSpringWithDamping: 0.01, initialSpringVelocity: 0.0), completion: { () -> Void in
+    func darknessExpantTo(_ darknessSize:Double){
+        darkness.run(SKAction.scaleTo(CGFloat(Double(12.0-darknessSize)/11.0), duration: 2.1, delay: 0.0, usingSpringWithDamping: 0.01, initialSpringVelocity: 0.0), completion: { () -> Void in
         })
-        darkness.runAction(SKAction.fadeAlphaTo(CGFloat(Double(darknessSize+1.8)/11.0), duration: 0.3))
+        darkness.run(SKAction.fadeAlpha(to: CGFloat(Double(darknessSize+1.8)/11.0), duration: 0.3))
     }
     
     var myMap : Map?
     
-    func pointForColumn(column: Int, row: Int) -> CGPoint {
+    func pointForColumn(_ column: Int, row: Int) -> CGPoint {
         return CGPoint(
             x: CGFloat(column)*TileWidth + TileWidth/2,
             y: CGFloat(row)*TileHeight + TileHeight/2)
@@ -705,23 +740,23 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         sendOnlineData(Direction.Death)
         
-        var cover:SKSpriteNode = SKSpriteNode(color: UIColor.blackColor(), size: self.size)
-        cover.anchorPoint = CGPointMake(0.0, 0.0)
+        var cover:SKSpriteNode = SKSpriteNode(color: UIColor.black, size: self.size)
+        cover.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         cover.alpha = 0.0
         cover.zPosition = 5
         addChild(cover)
         
         hero.dieAnimation()
         
-        var path = NSBundle.mainBundle().pathForResource("Flicker", ofType: "sks")
-        var rainParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
+        var path = Bundle.main.path(forResource: "Flicker", ofType: "sks")
+        var rainParticle = NSKeyedUnarchiver.unarchiveObject(withFile: path!) as! SKEmitterNode
         
-        rainParticle.position = CGPointMake(hero.position.x,hero.position.y)
+        rainParticle.position = CGPoint(x: hero.position.x,y: hero.position.y)
         rainParticle.name = "flick"
         rainParticle.targetNode = self
         addChild(rainParticle)
         
-        self.tilesLayer.runAction(SKAction.shake(0.57, amplitudeX: 40, amplitudeY: 40)) { () -> Void in
+        self.tilesLayer.run(SKAction.shake(0.57, amplitudeX: 40, amplitudeY: 40), completion: { () -> Void in
 //            self.myMap!.remove()
             self.hero.remove()
             self.gearNode.removeAllActions()
@@ -733,16 +768,16 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             self.removeAllActions()
             self.removeAllChildren()
             self.startGame()
-        }
+        }) 
 //        cover.runAction(SKAction.fadeAlphaTo(0.95, duration: 0.4))
     }
     
     func clearLevel(){
         if(multi == false){
-            NSUserDefaults.standardUserDefaults().setInteger(levelIs, forKey: "singleLevel")
+            UserDefaults.standard.set(levelIs, forKey: "singleLevel")
         }else{
             if(player == 1){
-                NSUserDefaults.standardUserDefaults().setInteger(levelIs, forKey: "multiLevel")
+                UserDefaults.standard.set(levelIs, forKey: "multiLevel")
             }
         }
         var saveManager = SaveDataModule()
@@ -756,9 +791,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             }
         }
         
-        levelIs++;
-        var cover:SKSpriteNode = SKSpriteNode(color: UIColor.whiteColor(), size: self.size)
-        cover.anchorPoint = CGPointMake(0.0, 0.0)
+        levelIs += 1;
+        var cover:SKSpriteNode = SKSpriteNode(color: UIColor.white, size: self.size)
+        cover.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         cover.alpha = 0.0
         cover.zPosition = 5
         addChild(cover)
@@ -768,7 +803,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         isOver = true
         myMap=nil
         
-        cover.runAction(SKAction.fadeAlphaTo(0.70, duration: 0.4)) { () -> Void in
+        cover.run(SKAction.fadeAlpha(to: 0.70, duration: 0.4), completion: { () -> Void in
 //            self.myMap!.remove()
             self.hero.remove()
             self.gearNode.removeAllActions()
@@ -793,9 +828,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     self.toMainMenu()
                 }
             }
-        }
+        }) 
     }
-    func didBeginContact(contact: SKPhysicsContact) {
+    func didBegin(_ contact: SKPhysicsContact) {
         
         //this gets called automatically when two objects begin contact with each other
         
@@ -844,16 +879,16 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //        return true
 //    }
     
-    func handleMPCReceivedDataWithNotification(notification: NSNotification) {
+    func handleMPCReceivedDataWithNotification(_ notification: Notification) {
         // Get the dictionary containing the data and the source peer from the notification.
         let receivedDataDictionary = notification.object as! Dictionary<String, AnyObject>
         
         // "Extract" the data and the source peer from the received dictionary.
-        let data = receivedDataDictionary["data"] as? NSData
+        let data = receivedDataDictionary["data"] as? Data
         let fromPeer = receivedDataDictionary["fromPeer"] as! MCPeerID
         
         // Convert the data (NSData) into a Dictionary object.
-        let dataDictionary = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! Dictionary<String, AnyObject>
+        let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data!) as! Dictionary<String, AnyObject>
         
         // Check if there's an entry with the "message" key.
         if let message = dataDictionary["message"]{
@@ -878,7 +913,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 }
                 
                 // Reload the tableview data and scroll to the bottom using the main thread.
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                OperationQueue.main.addOperation({ () -> Void in
 //                    self.updateTableview()
                 })
             }
@@ -905,7 +940,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 
                 isOver = true
                 self.appDelegate.mpcManager.session.disconnect()
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                OperationQueue.main.addOperation({ () -> Void in
                     //                    self.presentViewController(alert, animated: true, completion: nil)
                     self.delegateGame?.gameDidLostConnection()
                 })

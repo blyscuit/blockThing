@@ -10,8 +10,8 @@ import UIKit
 import SpriteKit
 
 class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDelegate,PlayerChooseControllerDelegate,StageSelectControllerDelegate {
-    @IBAction func startMulti(sender: AnyObject) {
-        performSegueWithIdentifier("m_multi", sender: self)
+    @IBAction func startMulti(_ sender: AnyObject) {
+        performSegue(withIdentifier: "m_multi", sender: self)
     }
 
     
@@ -39,7 +39,7 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
 
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         if let scene = GameScene(fileNamed:"GameScene") {
             // Configure the view.
             
@@ -47,7 +47,7 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
             MainMenuMap.ignoresSiblingOrder = true
             
             /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
+            scene.scaleMode = .aspectFill
             
             levelIs = 0
             multi = false
@@ -80,23 +80,23 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
 //        multi = false
 //        self.performSegueWithIdentifier("game1", sender: self)
 //    }
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "m_multi"){
-            let mVC = segue.destinationViewController as? MultiplayerPromptViewController
+            let mVC = segue.destination as? MultiplayerPromptViewController
             mVC?.delegate = self
         }
     }
     func multiCancel() {
-        self.dismissViewControllerAnimated(true) { () -> Void in
+        self.dismiss(animated: true) { () -> Void in
         }
     }
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
     func playerControllerDidOnePlay() {
         multi = false
-                if let currentLevel = NSUserDefaults.standardUserDefaults().objectForKey("singleLevel") as? Int{
+                if let currentLevel = UserDefaults.standard.object(forKey: "singleLevel") as? Int{
                     levelIs = currentLevel + 1
                 }else{
                     levelIs = 1
@@ -105,7 +105,7 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
         MainMenuMap.scene?.removeAllActions()
         MainMenuMap.scene?.removeAllChildren()
         MainMenuMap.scene?.removeFromParent()
-            self.performSegueWithIdentifier("stageSelect_m", sender: self)
+            self.performSegue(withIdentifier: "stageSelect_m", sender: self)
 //        self.performSegueWithIdentifier("game1", sender: self)
         
     }
@@ -113,11 +113,11 @@ class MainMenuViewController: UIViewController,MultiplayerPromptViewControllerDe
         MainMenuMap.scene?.removeAllActions()
         MainMenuMap.scene?.removeAllChildren()
         MainMenuMap.scene?.removeFromParent()
-        performSegueWithIdentifier("m_multi", sender: self)
+        performSegue(withIdentifier: "m_multi", sender: self)
     }
 
-    func stageDidChoose(i: Int) {
-        performSegueWithIdentifier("game1", sender: self)
+    func stageDidChoose(_ i: Int) {
+        performSegue(withIdentifier: "game1", sender: self)
         
     }
 }
