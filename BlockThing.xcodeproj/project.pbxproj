@@ -110,7 +110,6 @@
 		DD05FBE72283F59D002E908B /* SpringAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD05FBCA2283F59D002E908B /* SpringAnimation.swift */; };
 		DD05FBE82283F59D002E908B /* UnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD05FBCB2283F59D002E908B /* UnwindSegue.swift */; };
 		DD05FBE92283F59D002E908B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD05FBCC2283F59D002E908B /* LoadingView.swift */; };
-		DD05FBEA2283F59D002E908B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DD05FBCD2283F59D002E908B /* Info.plist */; };
 		DD05FBEB2283F59D002E908B /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD05FBCE2283F59D002E908B /* AsyncImageView.swift */; };
 /* End PBXBuildFile section */
 
@@ -551,16 +550,16 @@
 					683AF6D81BCC14E600DBCCBC = {
 						CreatedOnToolsVersion = 7.0.1;
 						DevelopmentTeam = 93QF44Z6JU;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 1010;
 					};
 					683AF6F01BCC14E700DBCCBC = {
 						CreatedOnToolsVersion = 7.0.1;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 1010;
 						TestTargetID = 683AF6D81BCC14E600DBCCBC;
 					};
 					683AF6FB1BCC14E700DBCCBC = {
 						CreatedOnToolsVersion = 7.0.1;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 1010;
 						TestTargetID = 683AF6D81BCC14E600DBCCBC;
 					};
 				};
@@ -603,7 +602,6 @@
 				68F53C091BF63BF800573465 /* Level_10.json in Resources */,
 				683AF6DF1BCC14E600DBCCBC /* GameScene.sks in Resources */,
 				68D2C02F1BE8A6B900ACFE5A /* Timeless-Bold.ttf in Resources */,
-				DD05FBEA2283F59D002E908B /* Info.plist in Resources */,
 				683AF6EB1BCC14E700DBCCBC /* LaunchScreen.storyboard in Resources */,
 				68D2C0301BE8A6B900ACFE5A /* Timeless.ttf in Resources */,
 				68F53C0B1BF63BF800573465 /* Level_12.json in Resources */,
@@ -867,7 +865,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "BlockThing/BlockThing-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -885,7 +884,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "BlockThing/BlockThing-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -899,7 +899,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.-confusians.BlockThingTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Esqace.app/Esqace";
 			};
 			name = Debug;
@@ -912,7 +913,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.-confusians.BlockThingTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Esqace.app/Esqace";
 			};
 			name = Release;
@@ -925,7 +927,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.-confusians.BlockThingUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				TEST_TARGET_NAME = BlockThing;
 				USES_XCTRUNNER = YES;
 			};
@@ -938,7 +941,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.-confusians.BlockThingUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				TEST_TARGET_NAME = BlockThing;
 				USES_XCTRUNNER = YES;
 			};

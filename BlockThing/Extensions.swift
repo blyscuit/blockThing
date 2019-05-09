@@ -26,7 +26,7 @@ extension Dictionary {
 
         let dictionary: AnyObject?
         do {
-          dictionary = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions())
+            dictionary = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as AnyObject
         } catch let error1 as NSError {
           error = error1
           dictionary = nil

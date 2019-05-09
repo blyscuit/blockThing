@@ -60,7 +60,7 @@ class GameViewController: UIViewController,GameplayControllerDelegate {
         return true
     }
     
-    func handleMPCReceivedDataWithNotification(_ notification: Notification) {
+    @objc func handleMPCReceivedDataWithNotification(_ notification: Notification) {
         // Get the dictionary containing the data and the source peer from the notification.
         let receivedDataDictionary = notification.object as! Dictionary<String, AnyObject>
         
@@ -78,9 +78,9 @@ class GameViewController: UIViewController,GameplayControllerDelegate {
             if messageS == "_end_chat_"{
                 // In this case an "_end_chat_" message was received.
                 // Show an alert view to the user.
-                let alert = UIAlertController(title: "", message: "\(fromPeer.displayName) ended this chat.", preferredStyle: UIAlertControllerStyle.alert)
+                let alert = UIAlertController(title: "", message: "\(fromPeer.displayName) ended this chat.", preferredStyle: UIAlertController.Style.alert)
                 
-                let doneAction: UIAlertAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default) { (alertAction) -> Void in
+                let doneAction: UIAlertAction = UIAlertAction(title: "Okay", style: UIAlertAction.Style.default) { (alertAction) -> Void in
                     (UIApplication.shared.delegate as! AppDelegate).mpcManager.session.disconnect()
                     self.dismiss(animated: true, completion: nil)
                 }

@@ -105,7 +105,7 @@ class Map {
                     for (index,subJson):(String, JSON) in textArray {
                         let coor=subJson["coor"].arrayObject as! [Int]
                         var size = 16
-                        if(subJson["size"].isExists()){
+                        if(subJson["size"].exists()){
                             size = subJson["size"].intValue
                         }
                         var nText = Text(text: subJson["text"].stringValue, xd: coor[0], yd: coor[1], Size: size)

@@ -169,7 +169,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         bgUnder.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         addChild(bgUnder)
         addChild(bg)
-        for(var i=0;i<Randoms.randomInt(1, 5);i += 1){
+        for i in 0..<Randoms.randomInt(1, 5){
         var cover:SKSpriteNode = SKSpriteNode(texture: SKTexture(imageNamed: "gear"), color: UIColor.clear, size: CGSize(width: self.size.width, height: self.size.width))
         cover.zPosition = -6
             cover.alpha=0
@@ -879,7 +879,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
 //        return true
 //    }
     
-    func handleMPCReceivedDataWithNotification(_ notification: Notification) {
+    @objc func handleMPCReceivedDataWithNotification(_ notification: Notification) {
         // Get the dictionary containing the data and the source peer from the notification.
         let receivedDataDictionary = notification.object as! Dictionary<String, AnyObject>
         

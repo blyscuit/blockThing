@@ -57,16 +57,16 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
     }
     
     @IBAction func startStopAdvertising(_ sender: AnyObject) {
-        let actionSheet = UIAlertController(title: "", message: "Change Visibility", preferredStyle: UIAlertControllerStyle.actionSheet)
+        let actionSheet = UIAlertController(title: "", message: "Change Visibility", preferredStyle: UIAlertController.Style.actionSheet)
         
         let actionTitle: String = ""
         
-        let visibilityAction: UIAlertAction = UIAlertAction(title: actionTitle, style: UIAlertActionStyle.default) { (alertAction) -> Void in
+        let visibilityAction: UIAlertAction = UIAlertAction(title: actionTitle, style: UIAlertAction.Style.default) { (alertAction) -> Void in
                 self.appDelegate.mpcManager.advertiser.stopAdvertisingPeer()
             
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (alertAction) -> Void in
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) { (alertAction) -> Void in
             
         }
         
@@ -113,16 +113,16 @@ class MultiplayerPromptViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func invitationWasReceived(_ fromPeer: String,level:Int) {
-        let alert = UIAlertController(title: "", message: "\(fromPeer) wants to play with you.", preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "", message: "\(fromPeer) wants to play with you.", preferredStyle: UIAlertController.Style.alert)
         
         print("level isssss \(level)")
-        let acceptAction: UIAlertAction = UIAlertAction(title: "Accept", style: UIAlertActionStyle.default) { (alertAction) -> Void in
+        let acceptAction: UIAlertAction = UIAlertAction(title: "Accept", style: UIAlertAction.Style.default) { (alertAction) -> Void in
             player = 2
             levelIs = 200+level
             self.appDelegate.mpcManager.invitationHandler(true, self.appDelegate.mpcManager.session)
         }
         
-        let declineAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (alertAction) -> Void in
+        let declineAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) { (alertAction) -> Void in
             self.tableMulti.reloadData()
             self.appDelegate.mpcManager.invitationHandler(false, self.appDelegate.mpcManager.session)
         }

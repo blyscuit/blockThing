@@ -54,10 +54,7 @@ public extension Date {
     public static func randomWithinDaysBeforeToday(_ days: Int) -> Date {
         let today = Date()
 
-        guard let gregorian = Calendar(identifier: Calendar.Identifier.gregorian) else {
-            print("no calendar \"NSCalendarIdentifierGregorian\" found")
-            return today
-        }
+        let gregorian = Calendar(identifier: Calendar.Identifier.gregorian)
 
         let r1 = arc4random_uniform(UInt32(days))
         let r2 = arc4random_uniform(UInt32(23))

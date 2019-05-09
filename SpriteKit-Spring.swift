@@ -274,7 +274,7 @@ extension SKAction {
                     A = A ?? initialDistance
                     B = B ?? (dampingRatio * naturalFrequency - velocity) * initialDistance! / dampedFrequency
 
-                    currentValue = finalValue - exp(-dampingRatio * naturalFrequency * elapsedTime) * (A * cos(dampedFrequency * elapsedTime) + B * sin(dampedFrequency * elapsedTime))
+                    currentValue = finalValue! - exp(-dampingRatio * naturalFrequency * elapsedTime) * (A * cos(dampedFrequency * elapsedTime) + B * sin(dampedFrequency * elapsedTime))
                 }
                 else if dampingRatio == 1 {
 
@@ -285,8 +285,9 @@ extension SKAction {
                 }
                 else {
 
-                    A = A ?? (t1 * t2 / (t1 - t2)) * initialDistance * (1/t2 - velocity)
-                    B = B ?? (t1 * t2 / (t2 - t1)) * initialDistance * (1/t1 - velocity)
+                    let tt = (t1 * t2 / (t1 - t2))
+                    A = A ?? tt * initialDistance! * (1/t2 - velocity)
+                    B = B ?? tt * initialDistance! * (1/t1 - velocity)
 
                     currentValue = finalValue! - A * exp(-elapsedTime/t1) - B * exp(-elapsedTime/t2)
                 }

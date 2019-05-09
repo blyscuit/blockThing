@@ -100,7 +100,7 @@ class StageSelectViewController: UIViewController, UITableViewDelegate, UITableV
         
         levelIs = stage
         
-        stageButton.setTitle("Stage \(stage)", for: UIControlState())
+        stageButton.setTitle("Stage \(stage)", for: UIControl.State())
         stageButton.animation="pop"
         stageButton.force=0.76
         stageButton.animate()
